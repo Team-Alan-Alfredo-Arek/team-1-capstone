@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import React from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 const GuestHome = () => {
   return (
@@ -10,7 +10,9 @@ const GuestHome = () => {
             <div className="card-body text-center">
               <h1>Welcome to Our App!</h1>
               <p>
-                <Button className="mr-2" href="/login">Login</Button>
+                <Button className="mr-2" href="/login">
+                  Login
+                </Button>
                 <Button href="/signup">Sign Up</Button>
               </p>
             </div>
@@ -22,5 +24,3 @@ const GuestHome = () => {
 };
 
 export default GuestHome;
-
-
