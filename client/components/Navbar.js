@@ -1,31 +1,31 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from 'react';
+import { connect } from 'react-redux';
+import { logout } from '../store';
+import { Navbar, Nav } from 'react-bootstrap';
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>FS-App-Template</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+const MyNavbar = ({ handleClick, isLoggedIn }) => (
+  <Navbar className="navbar" variant="light" expand="lg">  {/* Change class to className */}
+    <Navbar.Brand href="#home">Capstone</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="ml-auto">
+        {isLoggedIn ? (
+          <>
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/userprofile/:id">Profile</Nav.Link>
+            <Nav.Link href="#" onClick={handleClick}>Logout</Nav.Link>
+          </>
+        ) : (
+          <>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/signup">Sign Up</Nav.Link>
+          </>
+        )}
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+);
 
 /**
  * CONTAINER
@@ -33,15 +33,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id
-  }
-}
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
     handleClick() {
-      dispatch(logout())
+      dispatch(logout());
     }
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(MyNavbar);
