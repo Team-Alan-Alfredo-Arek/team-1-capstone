@@ -1,37 +1,44 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {authenticate} from '../store'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'; 
+import { authenticate } from '../store';
 
-/**
- * COMPONENT
- */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card mt-5">
+            <div className="card-header text-center">{displayName}</div>
+            <div className="card-body">
+              <form onSubmit={handleSubmit} name={name}>
+                <div className="form-group">
+                  <label htmlFor="username">
+                    <small>Username</small>
+                  </label>
+                  <input name="username" type="text" className="form-control" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">
+                    <small>Password</small>
+                  </label>
+                  <input name="password" type="password" className="form-control" />
+                </div>
+                <div className="text-center">
+                  <button type="submit" className="btn btn-primary mr-2">{displayName}</button>
+                  {name === 'login' && <Link to="/signup" className="btn btn-secondary">Sign Up</Link>}
+                </div>
+                {error && error.response && <div className="text-danger mt-3"> {error.response.data} </div>}
+              </form>
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
+      </div>
     </div>
-  )
-}
-
+  );
+};
 /**
  * CONTAINER
  *   Note that we have two different sets of 'mapStateToProps' functions -

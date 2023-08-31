@@ -1,21 +1,38 @@
 body {
-  font-family: sans-serif;
+  font-family: Helvetica Bold;
+  background-color: #f5dfbc;
 }
 
-a {
+.navbar {
+  background-color: #e59500;
+}
+
+.card {
+  background: #e59500;
+  color: #000000cc;
+  margin-bottom: 2rem; 
+}
+
+.btn {
+  background-color: #ffc71d;
+  color: black;  /* Text color */
+  border: 5px solid #45ff3f;  /* Border color and width */
   text-decoration: none;
+  transition: all 0.4s ease;
 }
 
-label {
-  display: block;
+
+.btn:hover, .btn:focus {
+  background: var(--gradient) !important;
+  -webkit-background-clip: none !important;
+  -webkit-text-fill-color: #fffb00 !important;
+  border: 5px solid #ff00ea !important;
+  box-shadow: #222 1px 0 10px;
+  text-decoration: underline;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
+.box {
+  background-color: #e59500;
+  inline-size: 100px;
+  overflow-wrap: break-word;
 }
