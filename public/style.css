@@ -15,8 +15,8 @@ body {
 
 .btn {
   background-color: #ffc71d;
-  color: black;  /* Text color */
-  border: 5px solid #45ff3f;  /* Border color and width */
+  color: black;  /*text color*/
+  border: 5px solid #f5dfbc;  
   text-decoration: none;
   transition: all 0.4s ease;
 }
@@ -26,7 +26,7 @@ body {
   background: var(--gradient) !important;
   -webkit-background-clip: none !important;
   -webkit-text-fill-color: #fffb00 !important;
-  border: 5px solid #ff00ea !important;
+  border: 5px solid #00ff4c !important;
   box-shadow: #222 1px 0 10px;
   text-decoration: underline;
 }
@@ -35,4 +35,11 @@ body {
   background-color: #e59500;
   inline-size: 100px;
   overflow-wrap: break-word;
+}
+
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
 }

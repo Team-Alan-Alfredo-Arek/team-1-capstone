@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { logout } from '../store';
 import { Navbar, Nav } from 'react-bootstrap';
 
-
 const MyNavbar = ({ handleClick, isLoggedIn }) => (
-  <Navbar class="navbar" variant="light" expand="lg">
+  <Navbar className="navbar" variant="light" expand="lg">  {/* Change class to className */}
     <Navbar.Brand href="#home">Capstone</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
@@ -18,9 +17,9 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
           </>
         ) : (
           <>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
-            <Nav.Link href="/home">Home</Nav.Link>
           </>
         )}
       </Nav>

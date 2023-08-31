@@ -13,7 +13,7 @@
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Team 1: Alan Koh, Alfredo Montero, Arek Halpern",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
