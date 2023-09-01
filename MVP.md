@@ -9,3 +9,20 @@
 [] As a user I can update event settings (dates, location, tasks)
 [] As a user I can update progress on task
 [] As a user I can add notes to task
+
+Users:
+[*] Users can create account
+[*] Users can login
+[] Users can update their bio
+[?] Users can manage the communities they belong to and the artifacts they’ve submitted
+[] Users can belong to two types: general, admin
+
+[] Users can request to join a community (admin can approve)
+
+Secondary Objectives:
+
+[] As a User I can view potential recipes called from the LLM API
+[?] As a User I can edit recipes
+
+
+
