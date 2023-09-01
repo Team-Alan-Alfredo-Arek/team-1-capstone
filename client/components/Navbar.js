@@ -12,6 +12,7 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
         {isLoggedIn ? (
           <>
             <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/events">Events</Nav.Link>
             <Nav.Link href="/userprofile/:id">Profile</Nav.Link>
             <Nav.Link href="#" onClick={handleClick}>Logout</Nav.Link>
           </>
