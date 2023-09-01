@@ -23,6 +23,7 @@ async function seed() {
       date: '2023-11-26, 12:00:00',
       description: 'Thanksgiving dinner with family',
       taskId: 1,
+      userId: 1,
     })
   ])
 

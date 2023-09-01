@@ -1,10 +1,11 @@
-const router = require('express').Router()
-module.exports = router
+const router = require('express').Router();
 
-router.use('/users', require('./users'))
+// Import your sub-routers here
+const userRoutes = require('./users');
+const eventRoutes = require('./events');
 
-router.use((req, res, next) => {
-  const error = new Error('Not Found')
-  error.status = 404
-  next(error)
-})
+// Use them in your main router
+router.use('/users', userRoutes);
+router.use('/events', eventRoutes);
+
+module.exports = router;
