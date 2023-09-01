@@ -18,9 +18,7 @@ class Routes extends Component {
       <div>
         {isLoggedIn ? (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={Home} />
-            {/* Redirects to /home if the url does not match any of the above routes */}
             <Redirect to="/home" />
           </Switch>
         ) : (
