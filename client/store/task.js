@@ -22,6 +22,7 @@ const getTasks = (tasks) => ({
   type: GET_TASKS,
   tasks,
 });
+
 export const addTask = (newTask) => {
   return async (dispatch) => {
     const res = await fetch("/api/task", {
