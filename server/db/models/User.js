@@ -14,8 +14,17 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false
   },
-  
+  isAdmin:{
+    type: Sequelize.BOOLEAN,
+    default: false,
+  },
+  imageUrl:{
+    type: Sequelize.STRING,
+    allowNull:true,
+    default: "https://w7.pngwing.com/pngs/29/934/png-transparent-silhouette-avatar-computer-icons-silhouette-animals-head-silhouette.png"
+  }
 })
 
 module.exports = User
