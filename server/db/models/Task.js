@@ -3,7 +3,7 @@ const { STRING, DATE } = Sequelize;
 const db = require("../db");
 
 
-const Task = db.define("event", {
+const Task = db.define("task", {
   name: {
     type: STRING,
     allowNull: false,
