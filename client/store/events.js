@@ -60,17 +60,29 @@ export const deleteEventThunk = (id) => async dispatch => {
     }
 }
 
+const initialState = {
+    events: [],
+    event: {}
+}
+
 //reducers
 
-export default function(state = {}, action) {
-  switch (action.type) {
-    case CREATE_EVENT: return action.event
-    case GET_EVENTS: return action.events
-    case GET_EVENT: return action.event
-    case UPDATE_EVENT: return action.event
-    case DELETE_EVENT: return {}
-    default:
-      return state
+export default function(state = initialState, action) {
+    switch (action.type) {
+      case CREATE_EVENT: 
+          return { ...state, events: [...state.events, action.event] };
+      case GET_EVENTS: 
+          return { ...state, events: action.events };
+      case GET_EVENT: 
+          return { ...state, event: action.event };
+      case UPDATE_EVENT: 
+          return { ...state, events: state.events.map(event => event.id === action.event.id ? action.event : event) };
+      case DELETE_EVENT: 
+          return { ...state, event: {} }; 
+      default:
+          return state;
+    }
   }
-}
+
+
 
