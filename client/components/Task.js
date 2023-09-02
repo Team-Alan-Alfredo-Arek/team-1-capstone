@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTasks, addTask } from "../store/task";
+import { fetchTasks, addTask, removeTask } from "../store/task";
 import { Form, Button, Container, ListGroup } from "react-bootstrap";
+import DeleteTask from "./DeleteTask";
 
 export default function TaskComponent() {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ export default function TaskComponent() {
     setTaskDescription("");
     setStartDate("");
     setDueDate("");
+  };
+
+  const handleDeleteTask = (taskId) => {
+    dispatch(removeTask({ id: taskId }));
   };
 
   const formatDate = (isoString) => {
@@ -89,6 +94,12 @@ export default function TaskComponent() {
           <ListGroup.Item key={task.id}>
             {task.name} ({task.description}) (Start Date:{" "}
             {formatDate(task.startDate)}, Due Date: {formatDate(task.dueDate)})
+            <Button
+              variant="danger"
+              onClick={() => handleDeleteTask(task.id)}
+              style={{ marginLeft: "10px" }}>
+              Delete
+            </Button>
           </ListGroup.Item>
         ))}
       </ListGroup>

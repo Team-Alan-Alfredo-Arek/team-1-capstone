@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const CREATE_TASK = "CREATE_TASK";
 const UPDATE_TASK = "UPDATE_TASK";
 const DELETE_TASK = "DELETE_TASK";
@@ -15,7 +17,7 @@ const updateTask = (task) => ({
 
 const deleteTask = (task) => ({
   type: DELETE_TASK,
-  task,
+  payload: task,
 });
 
 const getTasks = (tasks) => ({
@@ -51,16 +53,12 @@ export const editTask = (task) => {
   };
 };
 
-export const removeTask = (task) => {
-  return async (dispatch) => {
-    const res = await fetch(`/api/task/${task.id}`, {
-      method: "DELETE",
-    });
-    const deletedTask = await res.json();
-    dispatch(deleteTask(deletedTask));
-  };
+export const removeTask = (tasks) => (dispatch) => {
+  axios
+    .delete(`/api/task/${tasks?.id}`)
+    .then(() => dispatch(deleteTask(tasks?.id)))
+    .catch((err) => console.log(err));
 };
-
 export const fetchTasks = () => {
   return async (dispatch) => {
     const res = await fetch("/api/task");
@@ -80,7 +78,7 @@ export default function taskReducer(state = initialState, action) {
         task.id === action.task.id ? action.task : task
       );
     case DELETE_TASK:
-      return state.filter((task) => task.id !== action.task.id);
+      return state.filter((task) => task.id !== action.payload);
     case GET_TASKS:
       return action.tasks;
     default:
