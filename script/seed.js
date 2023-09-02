@@ -1,8 +1,8 @@
 'use strict'
 
-const {db, models: {User, Event, Task} } = require('../server/db')
+const {db, models: {User, Task, Event} } = require('../server/db')
 
-/**
+/** 
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
@@ -12,6 +12,9 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
+    User.create({ username: 'alan', password: '123', isAdmin: true, imageUrl: "https://shorturl.at/jSUVZ" }),
+    User.create({ username: 'alfredo', password: '123', isAdmin: true, imageUrl: "https://shorturl.at/kvJKR" }),
+    User.create({ username: 'arek', password: '123', isAdmin: true, imageUrl: "https://shorturl.at/kvJKR" }),
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
   ])
@@ -19,11 +22,12 @@ async function seed() {
   const events = await Promise.all([
     Event.create({ 
       name: 'Thanksgiving Dinner', 
-      location: '123 W 59th Street, NY 10001', 
       date: '2023-11-26, 12:00:00',
+      location: '123 W 59th Street, NY 10001', 
       description: 'Thanksgiving dinner with family',
-      taskId: 1,
-      userId: 1,
+
+      userId: 1
+
     })
   ])
 
@@ -34,6 +38,23 @@ async function seed() {
       dueDate: '2023-11-25, 12:00:00',
       description: 'Buy a 15 pound turkey',
       eventId: 1,
+      userId: 1
+    }),
+    Task.create({
+      name: 'Bring Cranberry Sauce',
+      startDate: '2023-11-24, 12:00:00',
+      dueDate: '2023-11-25, 12:00:00',
+      description: 'Bring Jellied and whole berry cranberry, 2 lbs',
+      eventId: 1,
+      userId: 1
+    }),
+    Task.create({
+      name: 'Bring Pumpkin Pie',
+      startDate: '2023-11-24, 12:00:00',
+      dueDate: '2023-11-25, 12:00:00',
+      description: 'Make 2 delicious pumpkin pies',
+      eventId: 1,
+      userId: 1
     }),
   ])
 
