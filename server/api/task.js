@@ -33,8 +33,15 @@ router.put("/:id", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    const task = await Task.findByPk(req.params.id);
+    const data = req.params.id;
+    const task = await Task.findByPk(data);
+
+    if (!task) return res.sendStatus(404);
+
+    console.log("task", task);
+
     await task.destroy();
+    res.sendStatus(204);
     res.sendStatus(204);
   } catch (error) {
     next(error);
