@@ -5,14 +5,16 @@ const UPDATE_TASK = "UPDATE_TASK";
 const DELETE_TASK = "DELETE_TASK";
 const GET_TASKS = "GET_TASKS";
 
+const TOKEN = "token";
+
 const createTask = (task) => ({
   type: CREATE_TASK,
-  task,
+  payload: task,
 });
 
 const updateTask = (task) => ({
   type: UPDATE_TASK,
-  task,
+  payload: task,
 });
 
 const deleteTask = (task) => ({
@@ -24,18 +26,20 @@ const getTasks = (tasks) => ({
   type: GET_TASKS,
   tasks,
 });
-
 export const addTask = (newTask) => {
   return async (dispatch) => {
-    const res = await fetch("/api/task", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTask),
-    });
-    const task = await res.json();
-    dispatch(createTask(task));
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      const response = await axios.post("/api/task", newTask, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(createTask(response.data));
+    } catch (error) {
+      console.log("Failed to add new task:", error);
+    }
   };
 };
 
@@ -72,10 +76,10 @@ const initialState = [];
 export default function taskReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_TASK:
-      return [...state, action.task];
+      return [...state, action.payload];
     case UPDATE_TASK:
       return state.map((task) =>
-        task.id === action.task.id ? action.task : task
+        task.id === action.payload.id ? { ...task, ...action.payload } : task
       );
     case DELETE_TASK:
       return state.filter((task) => task.id !== action.payload);
