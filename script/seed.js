@@ -25,7 +25,9 @@ async function seed() {
       date: '2023-11-26, 12:00:00',
       location: '123 W 59th Street, NY 10001', 
       description: 'Thanksgiving dinner with family',
+
       userId: 1
+
     })
   ])
 

@@ -1,10 +1,12 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
-import Home from './components/Home';
-import GuestHome from './components/guestHome'; // Make sure this path is correct
-import { me } from './store';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login, Signup } from "./components/AuthForm";
+import Home from "./components/Home";
+import GuestHome from "./components/guestHome";
+import Events from "./components/Events";
+import { me } from "./store";
+import Task from "./components/Task";
 
 class Routes extends Component {
   componentDidMount() {
@@ -19,6 +21,8 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+            <Route path="/events" component={Events} />
+            <Route path="/tasks" component={Task} />
             <Redirect to="/home" />
           </Switch>
         ) : (
