@@ -1,39 +1,63 @@
 body {
-  font-family: Helvetica Bold;
+  font-family: 'Helvetica Bold', sans-serif;
   background-color: #f5dfbc;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
-  background-color: #e59500;
+  background-color: #ffc71d;
+  padding: 1rem;
 }
 
 .card {
-  background: #e59500;
+  background: #ffffff;
   color: #000000cc;
-  margin-bottom: 2rem; 
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card-header {
+  background-color: #ffc71d;
+  color: white;
+  font-weight: bold;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .btn {
   background-color: #ffc71d;
-  color: black;  /*text color*/
-  border: 5px solid #f5dfbc;  
-  text-decoration: none;
+  color: black;  /* text color */
+  border: 5px solid #f5dfbc;
   transition: all 0.4s ease;
 }
 
-
 .btn:hover, .btn:focus {
-  background: var(--gradient) !important;
-  /* -webkit-background-clip: none !important; */
-  -webkit-text-fill-color: #fffb00 !important;
+  background-color: #00ff4c !important;
   border: 5px solid #00ff4c !important;
   box-shadow: #222 1px 0 10px;
   text-decoration: underline;
 }
 
-.box {
-  background-color: #e59500;
-  inline-size: 100px;
-  overflow-wrap: break-word;
+.btn-danger {
+  background-color: #ff1c1c;
+  border-color: #ff1c1c;
+}
+
+
+.welcomeMessage {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.btn-secondary.custom-button-color {
+  background-color: #ffc71d;
+  color: black;
+}
+.custom-button-color {
+  background-color: #ffc71d;; /* Or whatever color you want */
+  border-color: #ffc71d;     /* Or whatever border color you want */
+  color: black;            /* Text color */
 }
 

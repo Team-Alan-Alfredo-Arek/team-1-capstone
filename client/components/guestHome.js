@@ -3,17 +3,29 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 const GuestHome = () => {
   return (
-    <Container>
-      <Row className="justify-content-center mt-5">
+    <Container className="mt-5">
+      {" "}
+      {/* Added mt-5 */}
+      <Row className="justify-content-center">
         <Col md={6}>
           <div className="card">
+            {" "}
+            {/* Added card */}
             <div className="card-body text-center">
+              {" "}
+              {/* Added card-body */}
               <h1>Welcome to Our App!</h1>
               <p>
-                <Button className="mr-2" href="/login">
+                <Button className="btn" href="/login">
+                  {" "}
+                  {/* Added btn */}
                   Login
                 </Button>
-                <Button href="/signup">Sign Up</Button>
+                <Button className="btn" href="/signup">
+                  {" "}
+                  {/* Added btn */}
+                  Sign Up
+                </Button>
               </p>
             </div>
           </div>

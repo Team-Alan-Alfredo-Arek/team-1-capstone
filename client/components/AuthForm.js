@@ -1,78 +1,114 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'; 
-import { authenticate } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { authenticate } from "../store";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  Button,
+  Alert,
+} from "react-bootstrap";
+import { motion } from "framer-motion";
+import ContentComponent from "./ContentComponent";
 
-const AuthForm = props => {
+const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card mt-5">
-            <div className="card-header text-center">{displayName}</div>
-            <div className="card-body">
-              <form onSubmit={handleSubmit} name={name}>
-                <div className="form-group">
-                  <label htmlFor="username">
-                    <small>Username</small>
-                  </label>
-                  <input name="username" type="text" className="form-control" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">
-                    <small>Password</small>
-                  </label>
-                  <input name="password" type="password" className="form-control" />
-                </div>
-                <div className="text-center">
-                  <button type="submit" className="btn btn-primary mr-2">{displayName}</button>
-                  {name === 'login' && <Link to="/signup" className="btn btn-secondary">Sign Up</Link>}
-                </div>
-                {error && error.response && <div className="text-danger mt-3"> {error.response.data} </div>}
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Container className="mt-5">
+      <Row>
+        <Col md={6}>
+          <motion.div
+            className="box"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+              opacity: {
+                delay: 0.2,
+              },
+              scale: {
+                type: "spring",
+                damping: 8,
+                stiffness: 70,
+                restDelta: 0.01,
+              },
+            }}>
+            <Card>
+              <Card.Header className="text-center">{displayName}</Card.Header>
+              <Card.Body>
+                <Form onSubmit={handleSubmit} name={name}>
+                  <Form.Group>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control name="username" type="text" />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control name="password" type="password" />
+                  </Form.Group>
+                  <div className="text-center">
+                    <Button type="submit" className="custom-button-color mr-2">
+                      {displayName}
+                    </Button>
+                    {name === "login" && (
+                      <Link to="/signup" className="btn custom-button-color">
+                        Sign Up
+                      </Link>
+                    )}
+                  </div>
+                  {error && error.response && (
+                    <Alert variant="danger" className="mt-3">
+                      {error.response.data}
+                    </Alert>
+                  )}
+                </Form>
+              </Card.Body>
+            </Card>
+          </motion.div>
+        </Col>
+        <Col md={6}>
+          <ContentComponent />
+        </Col>
+      </Row>
+    </Container>
   );
 };
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-const mapLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.auth.error
-  }
-}
 
-const mapSignup = state => {
+const mapLogin = (state) => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.auth.error
-  }
-}
+    name: "login",
+    displayName: "Login",
+    error: state.auth.error,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapSignup = (state) => {
+  return {
+    name: "signup",
+    displayName: "Sign Up",
+    error: state.auth.error,
+  };
+};
+
+const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const username = evt.target.username.value
-      const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
-    }
-  }
-}
+      evt.preventDefault();
+      const formName = evt.target.name;
+      const username = evt.target.username.value;
+      const password = evt.target.password.value;
+      if (!username || !password) {
+        alert("Both username and password are required.");
+        return;
+      }
+      dispatch(authenticate(username, password, formName));
+    },
+  };
+};
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = connect(mapLogin, mapDispatch)(AuthForm);
+export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
