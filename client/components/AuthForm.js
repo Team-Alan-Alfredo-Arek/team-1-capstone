@@ -12,39 +12,29 @@ import {
   Alert,
 } from "react-bootstrap";
 import { motion } from "framer-motion";
+import ContentComponent from "./ContentComponent";
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
-  // Animation settings for framer-motion
-  const containerVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
     <Container className="mt-5">
-      <Row className="justify-content-center">
+      <Row>
         <Col md={6}>
           <motion.div
             className="box"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              duration: 0.6, // longer duration for a smoother effect
-              ease: "easeOut", // smoother easing function
+              duration: 0.6,
+              ease: "easeOut",
               opacity: {
-                delay: 0.2, // slight delay to make it smoother
+                delay: 0.2,
               },
               scale: {
                 type: "spring",
-                damping: 8, // increased damping for a softer landing
-                stiffness: 70, // decreased stiffness for a softer motion
+                damping: 8,
+                stiffness: 70,
                 restDelta: 0.01,
               },
             }}>
@@ -64,7 +54,6 @@ const AuthForm = (props) => {
                     <Button type="submit" className="custom-button-color mr-2">
                       {displayName}
                     </Button>
-
                     {name === "login" && (
                       <Link to="/signup" className="btn custom-button-color">
                         Sign Up
@@ -81,20 +70,14 @@ const AuthForm = (props) => {
             </Card>
           </motion.div>
         </Col>
+        <Col md={6}>
+          <ContentComponent />
+        </Col>
       </Row>
     </Container>
   );
 };
 
-// ... rest of your code
-
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 const mapLogin = (state) => {
   return {
     name: "login",
@@ -118,12 +101,10 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-
       if (!username || !password) {
         alert("Both username and password are required.");
         return;
       }
-
       dispatch(authenticate(username, password, formName));
     },
   };

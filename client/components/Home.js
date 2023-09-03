@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-export const Home = (props) => {
+const Home = (props) => {
   const { username, logout } = props;
 
   const handleLogout = () => {
