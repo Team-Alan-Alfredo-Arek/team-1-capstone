@@ -42,18 +42,19 @@ export const addTask = (newTask) => {
     }
   };
 };
-
 export const editTask = (task) => {
   return async (dispatch) => {
-    const res = await fetch(`/api/task/${task.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(task),
-    });
-    const updatedTask = await res.json();
-    dispatch(updateTask(updatedTask));
+    try {
+      const res = await axios.put(`/api/task/${task.id}`, task, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const updatedTask = res.data;
+      dispatch(updateTask(updatedTask));
+    } catch (error) {
+      console.error("There was an error updating the task", error);
+    }
   };
 };
 
