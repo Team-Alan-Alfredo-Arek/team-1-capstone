@@ -1,11 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { logout } from '../store';
-import { Navbar, Nav } from 'react-bootstrap';
+import React from "react";
+import { connect } from "react-redux";
+import { logout } from "../store";
+import { Navbar, Nav } from "react-bootstrap";
 
 const MyNavbar = ({ handleClick, isLoggedIn }) => (
-  <Navbar className="navbar" variant="light" expand="lg">  {/* Change class to className */}
-    <Navbar.Brand href="#home">Capstone</Navbar.Brand>
+  <Navbar className="navbar" variant="light" expand="lg">
+    {" "}
+    {/* Change class to className */}
+    <Navbar.Brand href="#home">No name yet app</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
@@ -13,7 +15,9 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
           <>
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/userprofile/:id">Profile</Nav.Link>
-            <Nav.Link href="#" onClick={handleClick}>Logout</Nav.Link>
+            <Nav.Link href="#" onClick={handleClick}>
+              Logout
+            </Nav.Link>
           </>
         ) : (
           <>
@@ -30,17 +34,17 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
   };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout());
-    }
+    },
   };
 };
 

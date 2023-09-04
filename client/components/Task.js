@@ -14,12 +14,14 @@ export default function TaskComponent() {
   const [dueDate, setDueDate] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+  const [status, setStatus] = useState("");
 
   // States for Edit Modal
   const [editTaskName, setEditTaskName] = useState("");
   const [editTaskDescription, setEditTaskDescription] = useState("");
   const [editStartDate, setEditStartDate] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
+  const [editStatus, setEditStatus] = useState("");
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -32,6 +34,7 @@ export default function TaskComponent() {
         description: taskDescription,
         startDate,
         dueDate,
+        status,
         userId: auth.id,
       })
     );
@@ -39,6 +42,7 @@ export default function TaskComponent() {
     setTaskDescription("");
     setStartDate("");
     setDueDate("");
+    setStatus("");
   };
 
   const handleDeleteTask = (taskId) => {
@@ -60,6 +64,7 @@ export default function TaskComponent() {
         id: editTaskId,
         name: editTaskName,
         description: editTaskDescription,
+        status: editStatus,
         startDate: editStartDate,
         dueDate: editDueDate,
       })
@@ -97,6 +102,19 @@ export default function TaskComponent() {
         </Form.Group>
 
         <Form.Group>
+          <Form.Label>Status</Form.Label>
+          <Form.Select
+            aria-label="Status Select"
+            value={status}
+            style={{ backgroundColor: "#f4f4f4", borderColor: "#ccc" }}
+            onChange={(e) => setStatus(e.target.value)}>
+            <option value="To be assigned">To be assigned</option>
+            <option value="In progress">In progress</option>
+            <option value="Done">Done</option>
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group>
           <Form.Label>Start Date</Form.Label>
           <Form.Control
             type="date"
@@ -124,7 +142,7 @@ export default function TaskComponent() {
           ?.filter((task) => task.user?.id === auth?.id)
           .map((task) => (
             <ListGroup.Item key={task.id}>
-              {task.name} ({task.description}) (Start Date:{" "}
+              {task.name} ({task.description}) ({task.status}) (Start Date:{" "}
               {formatDate(task.startDate)}, Due Date: {formatDate(task.dueDate)}
               )
               <Button
@@ -162,6 +180,17 @@ export default function TaskComponent() {
               value={editTaskDescription}
               onChange={(e) => setEditTaskDescription(e.target.value)}
             />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Edit Status</Form.Label>
+            <Form.Select
+              aria-label="Edit Status Select"
+              value={editStatus}
+              onChange={(e) => setEditStatus(e.target.value)}>
+              <option value="To be assigned">To be assigned</option>
+              <option value="In progress">In progress</option>
+              <option value="Done">Done</option>
+            </Form.Select>
           </Form.Group>
           <Form.Group>
             <Form.Label>Edit Start Date</Form.Label>
