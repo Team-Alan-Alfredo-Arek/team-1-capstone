@@ -19,6 +19,12 @@ const Task = db.define("task", {
     type: STRING,
     allowNull: true,
   },
+  status: {
+    type: STRING,
+    values: ["To be assigned", "In progress", "Done"],
+    defaultValue: "To be assigned",
+    allowNull: false,
+  },
 });
 
 module.exports = Task;

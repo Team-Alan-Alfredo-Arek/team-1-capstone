@@ -12,6 +12,7 @@ router.post("/", async (req, res, next) => {
       description: req.body.description,
       startDate: req.body.startDate,
       dueDate: req.body.dueDate,
+      status: req.body.status,
       userId: user.id,
     });
 
@@ -53,10 +54,7 @@ router.delete("/:id", async (req, res, next) => {
 
     if (!task) return res.sendStatus(404);
 
-    console.log("task", task);
-
     await task.destroy();
-    res.sendStatus(204);
     res.sendStatus(204);
   } catch (error) {
     next(error);
