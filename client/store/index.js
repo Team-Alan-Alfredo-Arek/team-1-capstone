@@ -1,11 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
-import { getEventsThunk } from "./events";
+import  eventsReducer from "./events";
 import auth from "./auth";
 import taskReducer from "./task";
 
-const reducer = combineReducers({ auth, getEventsThunk, tasks: taskReducer });
+const reducer = combineReducers({ auth, events: eventsReducer, tasks: taskReducer });
 const middleware = applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true })

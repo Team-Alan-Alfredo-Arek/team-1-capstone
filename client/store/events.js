@@ -60,19 +60,19 @@ export const deleteEventThunk = (id) => async dispatch => {
     }
 }
 
-const initialState = {
-    events: [],
-    event: {}
-}
+// const initialState = {
+//     events: [],
+//     event: {}
+const initialState = []
 
 //reducers
 
-export default function(state = initialState, action) {
+export default function eventsReducer (state = initialState, action) {
     switch (action.type) {
       case CREATE_EVENT: 
           return { ...state, events: [...state.events, action.event] };
       case GET_EVENTS: 
-          return { ...state, events: action.events };
+          return action.events ;
       case GET_EVENT: 
           return { ...state, event: action.event };
       case UPDATE_EVENT: 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks, addTask, removeTask, editTask } from "../store/task";
-import { Form, Button, Container, ListGroup, Modal } from "react-bootstrap";
+import { Form, Button, Container, ListGroup, Modal, } from "react-bootstrap";
 
 export default function TaskComponent() {
   const dispatch = useDispatch();
