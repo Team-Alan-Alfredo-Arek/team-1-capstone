@@ -20,15 +20,9 @@ const Home = (props) => {
             <div className="d-flex flex-column align-items-center">
               <div className="d-flex w-100">
                 <Link
-                  to="/userProfile/:id"
+                  to="/createevent"
                   className="btn btn-success m-2 flex-grow-1">
-                  Profile
-                </Link>
-                <Link to="/events" className="btn btn-success m-2 flex-grow-1">
-                  Events
-                </Link>
-                <Link to="/tasks" className="btn btn-success m-2 flex-grow-1">
-                  Tasks
+                  Create Event
                 </Link>
                 <Button
                   className="btn custom-button-color btn-danger m-2 flex-grow-1"

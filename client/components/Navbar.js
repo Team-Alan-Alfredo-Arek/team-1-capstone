@@ -12,7 +12,7 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
       <Nav className="ml-auto">
         {isLoggedIn ? (
           <>
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/createevent">Create Event</Nav.Link>
             <Nav.Link href="/events">Events</Nav.Link>
             <Nav.Link href="/userprofile/:id">Profile</Nav.Link>
             <Nav.Link href="#" onClick={handleClick}>Logout</Nav.Link>

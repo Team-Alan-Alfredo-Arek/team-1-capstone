@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import GuestHome from "./components/guestHome";
+import CreateEvent from "./components/CreateEvent";
 import Events from "./components/Events";
 import { me } from "./store";
 import Task from "./components/Task";
@@ -22,6 +23,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/events" component={Events} />
+            <Route path="/createevent" component={CreateEvent} />
             <Route path="/tasks" component={Task} />
             <Redirect to="/home" />
           </Switch>
