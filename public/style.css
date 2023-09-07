@@ -1,6 +1,6 @@
 body {
   font-family: 'Helvetica Bold', sans-serif;
-  background-color: #f5dfbc;
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
 }
@@ -8,6 +8,12 @@ body {
 .navbar {
   background-color: #ffc71d;
   padding: 1rem;
+}
+
+.gradient-custom {
+  background: #fa709a;
+  background: -webkit-linear-gradient(to right, rgba(250,112,154,0.7), rgba(254,225,64,0.7));
+  background: linear-gradient(to right, rgba(250,112,154,0.7), rgba(254,225,64,0.7))
 }
 
 .card {
@@ -19,7 +25,7 @@ body {
 }
 
 .card-header {
-  background-color: #ffc71d;
+  background-color: #ffd000;
   color: white;
   font-weight: bold;
   border-top-left-radius: 12px;
@@ -27,9 +33,9 @@ body {
 }
 
 .btn {
-  background-color: #ffc71d;
+  background-color: #ffffff;
   color: black;  /* text color */
-  border: 5px solid #f5dfbc;
+  border: 5px solid #ffd000;
   transition: all 0.4s ease;
 }
 
@@ -52,12 +58,12 @@ body {
 }
 
 .btn-secondary.custom-button-color {
-  background-color: #ffc71d;
+  background-color: #f6ff00;
   color: black;
 }
 .custom-button-color {
-  background-color: #ffc71d;; /* Or whatever color you want */
-  border-color: #ffc71d;     /* Or whatever border color you want */
+  background-color: #ffffff;; /* Or whatever color you want */
+  border-color: #ffd000;     /* Or whatever border color you want */
   color: black;            /* Text color */
 }
 

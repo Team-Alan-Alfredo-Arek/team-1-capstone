@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getEventsThunk } from '../store/events';
 
-const Events = (props) => {
-    const { events, getEvents } = props;
+const Events = () => {
+        const events = useSelector((state) => state.events);
+        const dispatch = useDispatch();
+
+        // console.log(events)
     
     useEffect(() => {
-        getEvents();
-    }, []);
-    
+        dispatch(getEventsThunk());
+    }, [dispatch]);
+
     return (
         <div>
         <h1>Events</h1>
@@ -22,16 +25,6 @@ const Events = (props) => {
     );
     }
 
-const mapStateToProps = (state) => {
-    return {
-        events: state.events,
-    };
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getEvents: () => dispatch(getEventsThunk()),
-    };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Events);
+export default Events;
