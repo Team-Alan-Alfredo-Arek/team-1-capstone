@@ -8,6 +8,7 @@ import CreateEvent from "./components/CreateEvent";
 import Events from "./components/Events";
 import { me } from "./store";
 import Task from "./components/Task";
+import Users from "./components/Users";
 
 class Routes extends Component {
   componentDidMount() {
@@ -25,6 +26,7 @@ class Routes extends Component {
             <Route path="/events" component={Events} />
             <Route path="/createevent" component={CreateEvent} />
             <Route path="/tasks" component={Task} />
+            <Route path="/users" component={Users} />
             <Redirect to="/home" />
           </Switch>
         ) : (
