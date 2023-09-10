@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEventsThunk, createEventThunk } from "../store/events";
 import { Form, Button, Container, ListGroup, Modal } from "react-bootstrap";
-impoer 
 
 export default function CreateEvent() {
   const dispatch = useDispatch();
