@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getEventsThunk } from '../store/events';
+import { Link } from 'react-router-dom';
 
 const Events = () => {
         const events = useSelector((state) => state.events);
