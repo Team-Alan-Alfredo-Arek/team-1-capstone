@@ -33,14 +33,24 @@ router.get("/", async (req, res, next) => {
 });
 
 // Read a single event by ID
+// Read a single event by ID
 router.get("/:id", async (req, res, next) => {
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = await User.findByToken(token);
+
     const event = await Event.findByPk(req.params.id);
-    if (event) {
-      res.json(event);
-    } else {
-      res.status(404).send("Event not found");
+
+    if (!event) {
+      return res.status(404).send("Event not found");
     }
+
+    // Check if the event belongs to the logged-in user
+    if (event.userId !== user.id) {
+      return res.status(403).send("Unauthorized access");
+    }
+
+    res.json(event);
   } catch (error) {
     next(error);
   }

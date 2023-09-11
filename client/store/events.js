@@ -94,8 +94,14 @@ export const getEventsThunk = () => {
 };
 export const getSingleEventThunk = (id) => {
   return async (dispatch) => {
-    const res = await axios.get(`/api/events/${id}`);
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.get(`/api/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const event = res.data;
+
     dispatch(getSingleEvent(event));
   };
 };
