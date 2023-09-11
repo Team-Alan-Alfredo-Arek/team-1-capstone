@@ -32,7 +32,7 @@ export default function SingleEventDetails() {
       <p>Location: {event.location}</p>
       <p>{event.description}</p>
 
-      <h3>Tasks for this event:</h3>
+      <h3>Tasks for this event: hey</h3>
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>{task.name}</li>
