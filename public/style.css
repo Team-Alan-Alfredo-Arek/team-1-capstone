@@ -12,8 +12,8 @@ body {
 
 .gradient-custom {
   background: #fa709a;
-  background: -webkit-linear-gradient(to right, rgba(250,112,154,0.7), rgba(254,225,64,0.7));
-  background: linear-gradient(to right, rgba(250,112,154,0.7), rgba(254,225,64,0.7))
+  background: -webkit-linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
+  background: linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7))
 }
 
 .card {
@@ -34,12 +34,14 @@ body {
 
 .btn {
   background-color: #ffffff;
-  color: black;  /* text color */
+  color: black;
+  /* text color */
   border: 5px solid #ffd000;
   transition: all 0.4s ease;
 }
 
-.btn:hover, .btn:focus {
+.btn:hover,
+.btn:focus {
   background-color: #00ff4c !important;
   border: 5px solid #00ff4c !important;
   box-shadow: #222 1px 0 10px;
@@ -61,9 +63,31 @@ body {
   background-color: #f6ff00;
   color: black;
 }
+
 .custom-button-color {
-  background-color: #ffffff;; /* Or whatever color you want */
-  border-color: #ffd000;     /* Or whatever border color you want */
-  color: black;            /* Text color */
+  background-color: #ffffff;
+  ;
+  /* Or whatever color you want */
+  border-color: #ffd000;
+  /* Or whatever border color you want */
+  color: black;
+  /* Text color */
 }
 
+h1.gradient-custom {
+  /* existing gradient styles */
+  background: #fa709a;
+  background: -webkit-linear-gradient(to left, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
+  background: linear-gradient(to left, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
+
+  /* new styles for clipping */
+  color: transparent;
+  /* makes the text color transparent so the background shows through */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* necessary for some browsers */
+  font-weight: bold;
+  /* to make the effect more pronounced */
+  text-align: center;
+}

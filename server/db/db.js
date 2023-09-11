@@ -16,8 +16,7 @@ if (process.env.DATABASE_URL) {
     },
   };
 }
-const db = new Sequelize(
-  process.env.DATABASE_URL || process.env.DEV_URL || `postgres://localhost:5432/${databaseName}`, config)
+const db = new Sequelize(`postgres://localhost:5433/${databaseName}`, config);
+//process.env.DATABASE_URL || process.env.DEV_URL || process.env.DEV_URL_ALAN ||
 
-  
 module.exports = db;
