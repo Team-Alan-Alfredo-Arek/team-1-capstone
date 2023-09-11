@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks, addTask, removeTask, editTask } from "../store/task";
-import { Form, Button, Container, ListGroup, Modal, } from "react-bootstrap";
+import { Form, Button, Container, ListGroup, Modal } from "react-bootstrap";
 
 export default function TaskComponent() {
   const dispatch = useDispatch();
@@ -108,7 +108,7 @@ export default function TaskComponent() {
             value={status}
             style={{ backgroundColor: "#f4f4f4", borderColor: "#ccc" }}
             onChange={(e) => setStatus(e.target.value)}>
-            <option value="To be assigned">To be assigned</option>
+            <option value="To be assigned">Pendinggit </option>
             <option value="In progress">In progress</option>
             <option value="Done">Done</option>
           </Form.Select>

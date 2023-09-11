@@ -9,6 +9,7 @@ import Events from "./components/Events";
 import { me } from "./store";
 import Task from "./components/Task";
 import Users from "./components/Users";
+import SingleEventDetails from "./components/SingleEventDetails";
 
 class Routes extends Component {
   componentDidMount() {
@@ -23,7 +24,8 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/events" component={Events} />
+            <Route exact path="/events" component={Events} />
+            <Route path="/events/:id" component={SingleEventDetails} />
             <Route path="/createevent" component={CreateEvent} />
             <Route path="/tasks" component={Task} />
             <Route path="/users" component={Users} />

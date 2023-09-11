@@ -37,14 +37,28 @@ async function seed() {
     User.create({ username: "murphy", password: "123" }),
   ]);
 
-  const events = await Promise.all([
+  const [Thanksgiving, Christmas, Holloween] = await Promise.all([
     Event.create({
       name: "Thanksgiving Dinner",
       date: "2023-11-26, 12:00:00",
       location: "123 W 59th Street, NY 10001",
       description: "Thanksgiving dinner with family",
+      userId: alan.id,
+    }),
 
-      userId: 1,
+    Event.create({
+      name: "Christmas Dinner",
+      date: "2023-12-25, 12:00:00",
+      location: "123 W 59th Street, NY 10001",
+      description: "Christmas dinner with family",
+      userId: alfredo.id,
+    }),
+    Event.create({
+      name: "Holloween Party",
+      date: "2023-10-31, 12:00:00",
+      location: "123 W 59th Street, NY 10001",
+      description: "Holloween party with friends",
+      userId: arek.id,
     }),
   ]);
 
@@ -54,7 +68,7 @@ async function seed() {
       startDate: "2023-11-24, 12:00:00",
       dueDate: "2023-11-25, 12:00:00",
       description: "Buy a 15 pound turkey",
-      eventId: 1,
+      eventId: Thanksgiving.id,
       userId: alan.id,
     }),
     Task.create({
@@ -62,7 +76,7 @@ async function seed() {
       startDate: "2023-11-24, 12:00:00",
       dueDate: "2023-11-25, 12:00:00",
       description: "Bring Jellied and whole berry cranberry, 2 lbs",
-      eventId: 1,
+      eventId: Christmas.id,
       userId: alfredo.id,
     }),
 
@@ -71,7 +85,7 @@ async function seed() {
       startDate: "2023-11-24, 12:00:00",
       dueDate: "2023-11-25, 12:00:00",
       description: "Bring 2 pumpkin pies",
-      eventId: 1,
+      eventId: Holloween.id,
       userId: arek.id,
     }),
   ]);
@@ -79,7 +93,9 @@ async function seed() {
   console.log(`seeded successfully`);
   return {
     events: {
-      thanksgiving: events[0],
+      Thanksgiving,
+      Christmas,
+      Holloween,
     },
     tasks,
     users: {
