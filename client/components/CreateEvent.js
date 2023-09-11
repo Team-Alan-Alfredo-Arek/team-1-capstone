@@ -41,11 +41,6 @@ export default function CreateEvent() {
     setEventStatus("");
   };
 
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toISOString().split("T")[0];
-  };
-
   return (
     <Container>
       <h1>Create Event</h1>
