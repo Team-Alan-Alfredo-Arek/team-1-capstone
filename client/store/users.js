@@ -87,21 +87,24 @@ export const createUser = (user) => {
   };
 };
 
-export const deleteUser = (id) => {
-  return (dispatch) => {
-    axios
-      .delete(`/api/users/${id}`)
+export const deleteUser = (id)=> async (dispatch) => {
+ 
+   console.log("user.id thunk",id ) 
+  try{ 
+      await axios.delete(`/api/users/${id}`)
       .then((res) => {
         dispatch(_deleteUser(id));
       })
-      .catch((err) => {
+   }
+      catch(err) {
         console.log("Error deleting users", err);
-      });
+      };
   };
-};
+
 
 export const updateUser = (user) => {
   return (dispatch) => {
+
     axios
       .put(`/api/users/${user.id}`, user)
       .then((res) => {
@@ -117,8 +120,7 @@ export const updateUser = (user) => {
 //REDUCERs
  
  const initialState = {
-   users: [],
-   user: {},
+   users:[],
  };
  
  export default (state = initialState, action) => {
@@ -133,7 +135,7 @@ export const updateUser = (user) => {
      case GET_USER:
        return { ...state, user: action.user };
      case GET_USERS:
-       return { ...state, users: action.users };
+       return {users:action.users} 
      case UPDATE_USER:
        return {
          users: state.users.map((el) =>

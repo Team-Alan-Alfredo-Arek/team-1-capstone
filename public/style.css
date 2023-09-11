@@ -84,6 +84,12 @@ h1.gradient-custom {
   color: #333; 
 }
 
+
+.userImage{
+  max-width: 200px;
+  max-height: 200px;
+}
+
 /* Loading screen styles */
 .loading-screen {
   position: fixed;
@@ -112,3 +118,4 @@ h1.gradient-custom {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
