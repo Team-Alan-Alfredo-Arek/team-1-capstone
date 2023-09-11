@@ -25,7 +25,7 @@ async function seed() {
       username: "alfredo",
       password: "123",
       isAdmin: true,
-      imageUrl: "https://shorturl.at/kvJKR",
+      imageUrl: "https://ca.slack-edge.com/E05LYDFST6K-U04SM5GVDK2-fbe8ec81b13d-512",
     }),
     User.create({
       username: "arek",

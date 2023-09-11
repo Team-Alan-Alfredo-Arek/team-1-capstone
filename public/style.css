@@ -61,3 +61,7 @@ body {
   color: black;            /* Text color */
 }
 
+.userImage{
+  max-width: 200px;
+  max-height: 200px;
+}
