@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { Task, User },
+  models: { Task, User, Event },
 } = require("../db");
 
 router.post("/", async (req, res, next) => {
@@ -28,9 +28,16 @@ router.post("/", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = await User.findByToken(token);
+
     const tasks = await Task.findAll({
-      include: [User],
+      where: {
+        userId: user.id,
+      },
+      include: [User, Event],
     });
+
     res.json(tasks);
   } catch (error) {
     next(error);

@@ -5,6 +5,12 @@ const UPDATE_EVENT = "UPDATE_EVENT";
 const DELETE_EVENT = "DELETE_EVENT";
 const GET_EVENTS = "GET_EVENTS";
 
+//Single Event Functionalities
+
+const GET_SINGLE_EVENT = "GET_SINGLE_EVENT";
+const UPDATE_SINGLE_EVENT = "UPDATE_SINGLE_EVENT";
+const DELETE_SINGLE_EVENT = "DELETE_SINGLE_EVENT";
+
 const TOKEN = "token";
 
 const createEvent = (event) => ({
@@ -25,6 +31,13 @@ const deleteEvent = (event) => ({
 const getEvents = (events) => ({
   type: GET_EVENTS,
   events,
+});
+
+//Single event actions creators
+
+const getSingleEvent = (event) => ({
+  type: GET_SINGLE_EVENT,
+  payload: event,
 });
 
 export const createEventThunk = (newEvent) => {
@@ -69,9 +82,21 @@ export const deleteEventThunk = (event) => (dispatch) => {
 
 export const getEventsThunk = () => {
   return async (dispatch) => {
-    const res = await axios.get("/api/events");
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.get("/api/events", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const events = res.data;
     dispatch(getEvents(events));
+  };
+};
+export const getSingleEventThunk = (id) => {
+  return async (dispatch) => {
+    const res = await axios.get(`/api/events/${id}`);
+    const event = res.data;
+    dispatch(getSingleEvent(event));
   };
 };
 
@@ -89,8 +114,10 @@ export default function eventReducer(state = initialState, action) {
       return state.filter((event) => event.id !== action.payload);
     case GET_EVENTS:
       return action.events;
+    case GET_SINGLE_EVENT:
+      return [...state, action.payload];
+
     default:
       return state;
   }
 }
-
