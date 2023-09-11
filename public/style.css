@@ -1,43 +1,63 @@
+/* ==== GLOBAL STYLES ==== */
 body {
-  font-family: 'Helvetica Bold', sans-serif;
-  background-color: #f5dfbc;
+  font-family: 'Helvetica Neue', sans-serif; /* Slightly refined version of Helvetica */
+  background-color: #ffffff;
   margin: 0;
   padding: 0;
+  line-height: 1.6; /* Improved readability */
+  color: #333; /* Dark grey for better readability */
 }
 
+/* ==== NAVIGATION ==== */
 .navbar {
   background-color: #ffc71d;
-  padding: 1rem;
+  padding: 1rem 0; /* Balanced vertical padding */
 }
 
+/* ==== GRADIENT STYLES ==== */
+.gradient-custom {
+  background: linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
+}
+
+h1.gradient-custom {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ==== CARD STYLES ==== */
 .card {
   background: #ffffff;
-  color: #000000cc;
+  color: #444; /* Darker than body for contrast */
   margin: 2rem auto;
   border-radius: 12px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Slightly reduced intensity */
 }
 
 .card-header {
-  background-color: #ffc71d;
-  color: white;
+  background-color: #ffd000;
+  color: #ffffff; /* Explicitly white for clarity */
   font-weight: bold;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
 
+/* ==== BUTTON STYLES ==== */
 .btn {
-  background-color: #ffc71d;
-  color: black;  /* text color */
-  border: 5px solid #f5dfbc;
-  transition: all 0.4s ease;
+  background-color: #ffffff;
+  color: #333; 
+   /* Reduced border thickness for modern look */
+  transition: all 0.3s ease; /* Faster transition */
+  padding: 0.5rem 1rem; /* Consistent padding */
 }
 
 .btn:hover, .btn:focus {
-  background-color: #00ff4c !important;
-  border: 5px solid #00ff4c !important;
-  box-shadow: #222 1px 0 10px;
-  text-decoration: underline;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow for subtlety */
+  text-decoration: none; /* Removed underline to keep consistent style */
 }
 
 .btn-danger {
@@ -45,23 +65,57 @@ body {
   border-color: #ff1c1c;
 }
 
+.btn-secondary.custom-button-color {
+  background-color: #f6ff00;
+  color: #333; 
+}
 
+/* ==== TEXT STYLES ==== */
 .welcomeMessage {
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: center; /* Centered text */
 }
 
-.btn-secondary.custom-button-color {
-  background-color: #ffc71d;
-  color: black;
-}
+/* ==== MISC ==== */
 .custom-button-color {
-  background-color: #ffc71d;; /* Or whatever color you want */
-  border-color: #ffc71d;     /* Or whatever border color you want */
-  color: black;            /* Text color */
+  background-color: #ffffff;
+  border-color: #ffd000;
+  color: #333; 
 }
+
 
 .userImage{
   max-width: 200px;
   max-height: 200px;
 }
+
+/* Loading screen styles */
+.loading-screen {
+  position: fixed;
+  z-index: 1000; /* Keep it on top */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9); /* white background with a little transparency */
+  display: flex;
+  justify-content: center; /* Center the loader horizontally */
+  align-items: center; /* Center the loader vertically */
+}
+
+/* Simple spinner loader */
+.loader {
+  border: 0.3em solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 0.3em solid #000;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

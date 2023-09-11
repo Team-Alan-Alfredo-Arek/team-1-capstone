@@ -1,88 +1,129 @@
-import axios from 'axios'
+import axios from "axios";
 
-const CREATE_EVENT = 'CREATE_EVENT'
-const GET_EVENTS = 'GET_EVENTS'
-const GET_EVENT = 'GET_EVENT'
-const UPDATE_EVENT = 'UPDATE_EVENT'
-const DELETE_EVENT = 'DELETE_EVENT'
+const CREATE_EVENT = "CREATE_EVENT";
+const UPDATE_EVENT = "UPDATE_EVENT";
+const DELETE_EVENT = "DELETE_EVENT";
+const GET_EVENTS = "GET_EVENTS";
 
-//action creators
-const createEvent = event => ({type: CREATE_EVENT, event})
-const getEvents = events => ({type: GET_EVENTS, events})
-const getEvent = event => ({type: GET_EVENT, event})
-const updateEvent = event => ({type: UPDATE_EVENT, event})
-const deleteEvent = () => ({type: DELETE_EVENT})
+//Single Event Functionalities
 
+const GET_SINGLE_EVENT = "GET_SINGLE_EVENT";
+const UPDATE_SINGLE_EVENT = "UPDATE_SINGLE_EVENT";
+const DELETE_SINGLE_EVENT = "DELETE_SINGLE_EVENT";
 
-//thunks
-export const createEventThunk = event => async dispatch => {
-  try {
-    const {data} = await axios.post('/api/events', event)
-    dispatch(createEvent(data))
-  } catch (error) {
-    console.log(error)
+const TOKEN = "token";
+
+const createEvent = (event) => ({
+  type: CREATE_EVENT,
+  payload: event,
+});
+
+const updateEvent = (event) => ({
+  type: UPDATE_EVENT,
+  payload: event,
+});
+
+const deleteEvent = (event) => ({
+  type: DELETE_EVENT,
+  payload: event,
+});
+
+const getEvents = (events) => ({
+  type: GET_EVENTS,
+  events,
+});
+
+//Single event actions creators
+
+const getSingleEvent = (event) => ({
+  type: GET_SINGLE_EVENT,
+  payload: event,
+});
+
+export const createEventThunk = (newEvent) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      const response = await axios.post("/api/events", newEvent, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(createEvent(response.data));
+    } catch (error) {
+      console.log("Failed to add new event:", error);
+    }
+  };
+};
+
+export const updateEventThunk = (event) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.put(`/api/events/${event.id}`, event, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const updatedEvent = res.data;
+      dispatch(updateEvent(updatedEvent));
+    } catch (error) {
+      console.error("There was an error updating the event", error);
+    }
+  };
+};
+
+export const deleteEventThunk = (event) => (dispatch) => {
+  axios
+    .delete(`/api/events/${event?.id}`)
+    .then(() => dispatch(deleteEvent(event?.id)))
+    .catch((err) => console.log(err));
+};
+
+export const getEventsThunk = () => {
+  return async (dispatch) => {
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.get("/api/events", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const events = res.data;
+    dispatch(getEvents(events));
+  };
+};
+export const getSingleEventThunk = (id) => {
+  return async (dispatch) => {
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.get(`/api/events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const event = res.data;
+
+    dispatch(getSingleEvent(event));
+  };
+};
+
+const initialState = [];
+
+export default function eventReducer(state = initialState, action) {
+  switch (action.type) {
+    case CREATE_EVENT:
+      return [...state, action.payload];
+    case UPDATE_EVENT:
+      return state.map((event) =>
+        event.id === action.payload.id ? { ...event, ...action.payload } : event
+      );
+    case DELETE_EVENT:
+      return state.filter((event) => event.id !== action.payload);
+    case GET_EVENTS:
+      return action.events;
+    case GET_SINGLE_EVENT:
+      return [...state, action.payload];
+
+    default:
+      return state;
   }
 }
-
-export const getEventsThunk = () => async dispatch => {
-    try {
-        const {data} = await axios.get('/api/events')
-        dispatch(getEvents(data))
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const getEventThunk = (id) => async dispatch => {
-    try {
-        const {data} = await axios.get(`/api/events/${id}`)
-        dispatch(getEvent(data))
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const updateEventThunk = (id, event) => async dispatch => {
-    try {
-        const {data} = await axios.put(`/api/events/${id}`, event)
-        dispatch(updateEvent(data))
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export const deleteEventThunk = (id) => async dispatch => {
-    try {
-        await axios.delete(`/api/events/${id}`)
-        dispatch(deleteEvent())
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-const initialState = {
-    events: [],
-    event: {}
-}
-
-//reducers
-
-export default function(state = initialState, action) {
-    switch (action.type) {
-      case CREATE_EVENT: 
-          return { ...state, events: [...state.events, action.event] };
-      case GET_EVENTS: 
-          return { ...state, events: action.events };
-      case GET_EVENT: 
-          return { ...state, event: action.event };
-      case UPDATE_EVENT: 
-          return { ...state, events: state.events.map(event => event.id === action.event.id ? action.event : event) };
-      case DELETE_EVENT: 
-          return { ...state, event: {} }; 
-      default:
-          return state;
-    }
-  }
-
-
-
