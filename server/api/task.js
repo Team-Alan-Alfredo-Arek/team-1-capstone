@@ -7,6 +7,8 @@ router.post("/", async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1]; // Assuming 'Bearer {token}' format
     const user = await User.findByToken(token);
+    const event = await Event.findByPk(req.body.eventId);
+
     const task = await Task.create({
       name: req.body.name,
       description: req.body.description,
@@ -14,6 +16,7 @@ router.post("/", async (req, res, next) => {
       dueDate: req.body.dueDate,
       status: req.body.status,
       userId: user.id,
+      eventId: event.id,
     });
 
     const taskId = await Task.findByPk(task.id, {
