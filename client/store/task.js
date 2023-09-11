@@ -66,12 +66,16 @@ export const removeTask = (tasks) => (dispatch) => {
 };
 export const fetchTasks = () => {
   return async (dispatch) => {
-    const res = await fetch("/api/task");
-    const tasks = await res.json();
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.get("/api/task", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const tasks = res.data;
     dispatch(getTasks(tasks));
   };
 };
-
 const initialState = [];
 
 export default function taskReducer(state = initialState, action) {
