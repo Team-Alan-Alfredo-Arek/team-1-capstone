@@ -17,6 +17,7 @@
   "author": "Team 1: Alan Koh, Alfredo Montero, Arek Halpern",
   "license": "MIT",
   "dependencies": {
+    "animejs": "^3.2.1",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.3.1",
     "dotenv": "^16.3.1",

@@ -120,14 +120,6 @@ export default function TaskComponent() {
     return date.toISOString().split("T")[0];
   };
 
-  const eventCardStyle = {
-    border: "1px solid #ddd",
-    padding: "10px",
-    margin: "10px 0",
-    borderRadius: "5px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
-  };
-
   return (
     <Container>
       <motion.div

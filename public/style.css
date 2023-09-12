@@ -1,17 +1,21 @@
 /* ==== GLOBAL STYLES ==== */
 body {
-  font-family: 'Helvetica Neue', sans-serif; /* Slightly refined version of Helvetica */
+  font-family: 'Helvetica Neue', sans-serif;
+  /* Slightly refined version of Helvetica */
   background-color: #ffffff;
   margin: 0;
   padding: 0;
-  line-height: 1.6; /* Improved readability */
-  color: #333; /* Dark grey for better readability */
+  line-height: 1.6;
+  /* Improved readability */
+  color: #333;
+  /* Dark grey for better readability */
 }
 
 /* ==== NAVIGATION ==== */
 .navbar {
   background-color: #ffc71d;
-  padding: 1rem 0; /* Balanced vertical padding */
+  padding: 1rem 0;
+  /* Balanced vertical padding */
 }
 
 /* ==== GRADIENT STYLES ==== */
@@ -28,18 +32,67 @@ h1.gradient-custom {
   text-align: center;
 }
 
+/* ======== HERO SECTION ======== */
+.hero-section {
+  background: linear-gradient(45deg, #f3ec78, #af4261);
+  padding: 5rem 0;
+  border-radius: 8px;
+}
+
+
+.subheading {
+  font-size: 1.5rem;
+  color: white;
+  margin: 1rem 0;
+}
+
+.action-buttons {
+  margin-top: 2rem;
+}
+
 /* ==== CARD STYLES ==== */
 .card {
   background: #ffffff;
-  color: #444; /* Darker than body for contrast */
+  color: #444;
+  /* Darker than body for contrast */
   margin: 2rem auto;
   border-radius: 12px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Slightly reduced intensity */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  /* Slightly reduced intensity */
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Dark overlay for contrast */
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  margin: 2rem auto;
+  color: #ffffff;
+  /* Making text color white */
+}
+
+/* Adding text shadow for better visibility against busy backgrounds */
+.card h3,
+.card p {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+/* Increasing font weight and size */
+.card h3 {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.card p {
+  font-size: 1.2em;
 }
 
 .card-header {
   background-color: #ffd000;
-  color: #ffffff; /* Explicitly white for clarity */
+  color: #ffffff;
+  /* Explicitly white for clarity */
   font-weight: bold;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
@@ -47,55 +100,72 @@ h1.gradient-custom {
 
 /* ==== BUTTON STYLES ==== */
 .btn {
-  background-color: #ffffff;
-  color: #333; 
-   /* Reduced border thickness for modern look */
-  transition: all 0.3s ease; /* Faster transition */
-  padding: 0.5rem 1rem; /* Consistent padding */
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
 }
 
-.btn:hover, .btn:focus {
-
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow for subtlety */
-  text-decoration: none; /* Removed underline to keep consistent style */
+.btn-primary {
+  background-color: #2C3E50;
+  color: #ffffff;
 }
 
-.btn-danger {
-  background-color: #ff1c1c;
-  border-color: #ff1c1c;
+.btn-primary:hover {
+  background-color: #34495E;
 }
 
-.btn-secondary.custom-button-color {
-  background-color: #f6ff00;
-  color: #333; 
+.btn-secondary {
+  background-color: #E74C3C;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #E95757;
+}
+
+.btn-tertiary {
+  background-color: #2980B9;
+  color: #ffffff;
+}
+
+.btn-tertiary:hover {
+  background-color: #3498DB;
 }
 
 /* ==== TEXT STYLES ==== */
 .welcomeMessage {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  color: white;
   font-weight: bold;
-  text-align: center; /* Centered text */
 }
 
 /* ==== MISC ==== */
 .custom-button-color {
   background-color: #ffffff;
   border-color: #ffd000;
-  color: #333; 
+  color: #333;
 }
 
 /* Loading screen styles */
 .loading-screen {
   position: fixed;
-  z-index: 1000; /* Keep it on top */
+  z-index: 1000;
+  /* Keep it on top */
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.9); /* white background with a little transparency */
+  background: rgba(255, 255, 255, 0.9);
+  /* white background with a little transparency */
   display: flex;
-  justify-content: center; /* Center the loader horizontally */
-  align-items: center; /* Center the loader vertically */
+  justify-content: center;
+  /* Center the loader horizontally */
+  align-items: center;
+  /* Center the loader vertically */
 }
 
 /* Simple spinner loader */
@@ -109,6 +179,170 @@ h1.gradient-custom {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.tilt-background {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(45deg, #f3ec78, #af4261);
+
+}
+
+.tilt-background::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, #f3ec78, #af4261);
+  transform: rotate(-15deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes movingBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 0%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.event-card-background {
+  background-color: wheat;
+}
+
+/* Event Card */
+.event-card {
+  border: 1px solid #e6e6e6;
+  padding: 8px 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Event Date */
+.event-date {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+/* Event Name */
+.event-name {
+  font-size: 1rem;
+  color: #333;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+/* Event Description */
+.event-description {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Event Action Buttons */
+.event-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.details-btn {
+  background-color: #2980B9;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.details-btn:hover,
+.delete-btn:hover {
+  opacity: 0.9;
+}
+
+/* Universal Styles */
+.form-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.form-button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+
+.recipe-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.recipe-image {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.recipe-summary {
+  margin-bottom: 20px;
+}
+
+.recipe-button a {
+  color: white;
+  text-decoration: none;
+}
+
+.recipe-button a:hover {
+  text-decoration: underline;
 }

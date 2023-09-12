@@ -10,6 +10,7 @@ import { me } from "./store";
 import Task from "./components/Task";
 import Users from "./components/Users";
 import SingleEventDetails from "./components/SingleEventDetails";
+import FunRecipes from "./components/Recipes";
 
 class Routes extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class Routes extends Component {
             <Route path="/createevent" component={CreateEvent} />
             <Route path="/tasks" component={Task} />
             <Route path="/users" component={Users} />
+            <Route path="/recipes" component={FunRecipes} />
             <Redirect to="/home" />
           </Switch>
         ) : (

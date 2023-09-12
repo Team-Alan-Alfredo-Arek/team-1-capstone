@@ -61,6 +61,7 @@ const SingleEventDetails = () => {
             <h2>{event.name}</h2>
             <p>Date: {formatDate(event.date)}</p>
             <p>Guest Count: {event.guestCount}</p>
+            <p>Budget: {event.budget}</p>
             <p>Location: {event.location}</p>
             <p>{event.description}</p>
           </Col>
