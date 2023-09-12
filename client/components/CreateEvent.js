@@ -42,7 +42,7 @@ export default function CreateEvent() {
   };
 
   return (
-    <Container>
+    <Container className="form-container">
       <h1>Create Event</h1>
       <Form>
         <Form.Group>
@@ -113,7 +113,10 @@ export default function CreateEvent() {
           />
         </Form.Group>
 
-        <Button variant="primary" onClick={handleCreateEvent}>
+        <Button
+          variant="primary"
+          className="form-button"
+          onClick={handleCreateEvent}>
           Create Event
         </Button>
       </Form>

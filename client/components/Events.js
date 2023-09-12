@@ -28,6 +28,15 @@ const Events = () => {
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
   };
 
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is 0-based
+    const day = date.getDate().toString().padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${month}-${day}-${year}`;
+  };
+
   return (
     <Container>
       <motion.div
@@ -48,19 +57,22 @@ const Events = () => {
           },
         }}>
         {events?.map((event) => (
-          <Row className="mb-3" key={event?.id} style={eventCardStyle}>
+          <Row className="event-card" key={event?.id} style={eventCardStyle}>
             <Col>
-              <p>{event?.date}</p>
-              <h3>{event?.name}</h3>
-              <p>{event?.description}</p>
-              <Link to={`/events/${event?.id}`}>
-                <Button> Event Details</Button>
+              <p className="event-date">{formatDate(event?.date)}</p>
+              <h3 className="event-name">{event?.name}</h3>
+              <p className="event-description">{event?.description}</p>
+              <div className="event-actions">
+                <Link to={`/events/${event?.id}`}>
+                  <Button className="details-btn">Event Details</Button>
+                </Link>
                 <Button
+                  className="delete-btn"
                   variant="danger"
                   onClick={() => handleDelete(event?.id)}>
                   Delete
                 </Button>
-              </Link>
+              </div>
             </Col>
           </Row>
         ))}
