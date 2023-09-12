@@ -52,6 +52,7 @@ export const getUsers = () => {
       .get("/api/users")
       .then((res) => {
         dispatch(_getUsers(res.data));
+        console.log("getUsers Thunk", res.data)
       })
       .catch((err) => {
         console.log("Error getting users", err);
