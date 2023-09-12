@@ -6,7 +6,7 @@ import auth from "./auth";
 import users from "./users";
 import taskReducer from "./task";
 
-const reducer = combineReducers({ auth, events: eventsReducer, tasks: taskReducer });
+const reducer = combineReducers({ auth, events: eventsReducer, tasks: taskReducer, users });
 const middleware = applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true })

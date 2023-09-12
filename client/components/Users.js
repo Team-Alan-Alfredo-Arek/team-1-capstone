@@ -5,25 +5,25 @@ import { getUsers, deleteUser } from "../store/users";
 //import UserCard from "./UserCard";
 import CreateUser from "./CreateUser";
 
-//const Users = (props) => {
 
 export default function Users(){
+   
+   const dispatch = useDispatch();
+   useEffect(() => {
+      dispatch(getUsers());
+    }, [dispatch]);
 
-  const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+
+  console.log("users", users);
+
   const auth = useSelector((state) => state.auth);
 
-  useEffect(() => {
-   dispatch(getUsers());
- }, [dispatch]);
-
- const handleDeleteUser =  (id) => {
-
+  const handleDeleteUser =  (id) => {
    console.log("dispatch handledeleteUser, ID:", id);
    try {
      dispatch(deleteUser(id));
      window.alert("User deleted successfully, redirecting to main page.");
-
    } catch (error) {
      window.alert("Failed to delete User.", error);
    }
@@ -35,7 +35,7 @@ export default function Users(){
       <div id="users">
         <div className="userList">
           <ul>
-            {users.users.map((user) => (
+            {users?.users.map((user) => (
               <div key={user.id} user={user}>
                {user.username}
                <img className="userImage" src={user.imageUrl}/>
