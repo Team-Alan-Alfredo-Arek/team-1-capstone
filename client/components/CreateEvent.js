@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEventsThunk, createEventThunk } from "../store/events";
 import { Form, Button, Container, ListGroup, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function CreateEvent() {
   const dispatch = useDispatch();
@@ -113,12 +114,14 @@ export default function CreateEvent() {
           />
         </Form.Group>
 
-        <Button
-          variant="primary"
-          className="form-button"
-          onClick={handleCreateEvent}>
-          Create Event
-        </Button>
+        <Link to="/events">
+          <Button
+            variant="primary"
+            className="form-button"
+            onClick={handleCreateEvent}>
+            Create Event
+          </Button>
+        </Link>
       </Form>
 
       {/* List/Modal. */}

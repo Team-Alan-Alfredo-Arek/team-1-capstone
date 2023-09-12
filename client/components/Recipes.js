@@ -37,18 +37,21 @@ export default function FunRecipes() {
         <Col>
           <h2 className="recipe-title">{recipe.title}</h2>
           <img src={recipe.image} alt={recipe.title} className="recipe-image" />
-          <p className="recipe-summary">
+          <div className="recipe-summary">
             <strong>Ingredients: </strong>
-            {recipe.extendedIngredients?.map((ingredients, idx) => {
-              return (
-                <div key={idx}>
-                  <ul>
-                    <li>{ingredients.name}</li>
-                  </ul>
-                </div>
-              );
-            })}
-          </p>
+            <ul>
+              {recipe.extendedIngredients?.map((ingredient, idx) => (
+                <li key={idx}>{ingredient.name}</li>
+              ))}
+            </ul>
+            <strong>Instructions: </strong>
+            <ol>
+              {recipe.analyzedInstructions[0]?.steps?.map((step, idx) => (
+                <li key={idx}>{step.step}</li>
+              ))}
+            </ol>
+          </div>
+
           <Button variant="primary" className="recipe-button">
             <a
               href={recipe.sourceUrl}
