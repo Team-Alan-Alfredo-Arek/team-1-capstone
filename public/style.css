@@ -150,6 +150,12 @@ h1.gradient-custom {
   color: #333;
 }
 
+
+.userImage{
+  max-width: 200px;
+  max-height: 200px;
+}
+
 /* Loading screen styles */
 .loading-screen {
   position: fixed;
@@ -221,6 +227,7 @@ h1.gradient-custom {
     background-position: 0% 0%;
   }
 }
+
 
 .event-card-background {
   background-color: wheat;
@@ -346,3 +353,4 @@ h1.gradient-custom {
 .recipe-button a:hover {
   text-decoration: underline;
 }
+

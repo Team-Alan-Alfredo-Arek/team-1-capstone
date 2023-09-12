@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'username']
+      //attributes: ['id', 'username']
     })
     res.json(users)
   } catch (err) {
@@ -24,9 +24,8 @@ router.get("/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: [Student],
     });
-    res.json(user[0]);
+    res.json(user);
   } catch (err) {
     res.status(500).json({
       message: "Could not get user with that id",
@@ -50,6 +49,7 @@ router.post("/", async (req, res) => {
 
 // DEL /api/users/:id
 router.delete("/:id", async (req, res) => {
+  console.log("api delete", req.params.id)
   try {
     const user = await User.findAll({
       where: {
