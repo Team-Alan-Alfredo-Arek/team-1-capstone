@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { getUsers, deleteUser } from "../store/users";
-//components
-//import UserCard from "./UserCard";
 import CreateUser from "./CreateUser";
-
+import SingleUser from "./SingleUser";
 
 export default function Users(){
    
@@ -36,15 +34,7 @@ export default function Users(){
         <div className="userList">
           <ul>
             {users?.users.map((user) => (
-              <div key={user.id} user={user}>
-               {user.username}
-               <img className="userImage" src={user.imageUrl}/>
-               {auth.isAdmin && (
-                <button onClick={() => {
-                  console.log("userID", user.id);
-                  handleDeleteUser(user.id)}}>Delete User</button>
-              )}
-              </div>
+               <SingleUser key = {user.id} user = {user}/>
             ))}
           </ul>
         </div>

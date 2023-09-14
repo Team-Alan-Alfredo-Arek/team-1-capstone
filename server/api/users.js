@@ -79,7 +79,7 @@ router.put("/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: [Student],
+  
     });
 
     res.json(user[0]);
