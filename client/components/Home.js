@@ -1,32 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout, getEventsThunk, fetchTasks, deleteEventThunk } from "../store";
-import { Container, Row, Col, Button, Tab, Tabs } from "react-bootstrap";
+import { logout, getEventsThunk, fetchTasks } from "../store";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import Events from "./Events";
+
 const Home = (props) => {
   const { username, logout } = props;
-  const events = useSelector((state) => state.events);
-  const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getEventsThunk());
     dispatch(fetchTasks());
   }, [dispatch]);
-
-  const handleDelete = (eventId) => {
-    dispatch(deleteEventThunk(eventId));
-  };
-
-  const eventCardStyle = {
-    border: "1px solid #ddd",
-    padding: "10px",
-    margin: "10px 0",
-    borderRadius: "5px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
-  };
 
   const handleLogout = () => {
     logout();
@@ -44,45 +31,39 @@ const Home = (props) => {
       </Row>
       <Row className="justify-content-center">
         <Col md={8} className="text-center">
-          <Tabs defaultActiveKey="suggestions" className="mb-3">
-            <Tab eventKey="suggestions" title="Event Suggestions">
-              {/* Place content for Event Suggestions here */}
-              <p>Your suggested events will appear here.</p>
-            </Tab>
-            <Tab eventKey="upcoming" title="Upcoming Events">
-              {/* Events component content goes here */}
-              <motion.div
-                className="box"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.6,
-                  ease: "easeOut",
-                  opacity: {
-                    delay: 0.2,
-                  },
-                  scale: {
-                    type: "spring",
-                    damping: 8,
-                    stiffness: 70,
-                    restDelta: 0.01,
-                  },
-                }}>
-                <Events />
-              </motion.div>
-            </Tab>
-          </Tabs>
+          <motion.div
+            className="box"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+              opacity: {
+                delay: 0.2,
+              },
+              scale: {
+                type: "spring",
+                damping: 8,
+                stiffness: 70,
+                restDelta: 0.01,
+              },
+            }}
+          >
+            <Events />
+          </motion.div>
           <div className="d-flex justify-content-center">
             <div className="d-flex flex-column align-items-center">
               <div className="d-flex w-100">
                 <Link
                   to="/createevent"
-                  className="btn btn-success m-2 flex-grow-1">
+                  className="btn btn-success m-2 flex-grow-1"
+                >
                   Create Event
                 </Link>
                 <Button
                   className="btn custom-button-color btn-danger m-2 flex-grow-1"
-                  onClick={handleLogout}>
+                  onClick={handleLogout}
+                >
                   Logout
                 </Button>
               </div>
@@ -107,3 +88,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatchToProps)(Home);
+

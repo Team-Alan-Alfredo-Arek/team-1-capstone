@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getEventsThunk } from "../store/events";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { fetchTasks, deleteEventThunk } from "../store";
 import { motion } from "framer-motion";
+
 
 const Events = () => {
   const events = useSelector((state) => state.events);
@@ -76,8 +77,14 @@ const Events = () => {
             </Col>
           </Row>
         ))}
+      </motion.div>
+    </Container>
+  );
+};
+export default Events;
 
-        <div className="action-buttons">
+
+{/* <div className="action-buttons">
           <Link to="/eventsuggestions" className="btn btn-primary m-2">
             Events Suggestions
           </Link>
@@ -87,9 +94,4 @@ const Events = () => {
           <Link to="/chatbox" className="btn btn-tertiary m-2">
             Chat with Crew
           </Link>
-        </div>
-      </motion.div>
-    </Container>
-  );
-};
-export default Events;
+        </div> */}
