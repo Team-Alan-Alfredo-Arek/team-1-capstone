@@ -1,4 +1,3 @@
-
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
@@ -31,8 +30,16 @@ const setupRoutes = (io) => {
           "'self'",
           "'unsafe-inline'",
           "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css",
+          "https://images.unsplash.com",
+          "https://fonts.googleapis.com",
         ],
-        imgSrc: ["'self'", "data:", "https://www.google-analytics.com"],
+
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https://www.google-analytics.com",
+          "https://images.unsplash.com",
+        ],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
       },
     })
@@ -75,4 +82,3 @@ const setupRoutes = (io) => {
   });
 };
 module.exports.setupRoutes = setupRoutes;
-

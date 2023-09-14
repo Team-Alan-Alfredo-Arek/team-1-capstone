@@ -13,7 +13,7 @@ const reducer = combineReducers({
   events: eventsReducer,
   tasks: taskReducer,
   chats: chatReducer,
-  ai: aiReducer
+  ai: aiReducer,
   users,
 });
 
@@ -32,4 +32,3 @@ export * from "./task";
 export * from "./chat";
 
 export * from "./ai";
-
