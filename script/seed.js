@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Task, Event },
+  models: { User, Task, Event, EventUser, Chat },
 } = require("../server/db");
 
 /**
@@ -25,7 +25,8 @@ async function seed() {
       username: "alfredo",
       password: "123",
       isAdmin: true,
-      imageUrl: "https://ca.slack-edge.com/E05LYDFST6K-U04SM5GVDK2-fbe8ec81b13d-512",
+      imageUrl:
+        "https://ca.slack-edge.com/E05LYDFST6K-U04SM5GVDK2-fbe8ec81b13d-512",
     }),
     User.create({
       username: "arek",
@@ -90,6 +91,40 @@ async function seed() {
     }),
   ]);
 
+  const chats = await Promise.all([
+    Chat.create({
+      message: "I'll bring the turkey.",
+      userId: alan.id,
+      eventId: Thanksgiving.id,
+    }),
+    Chat.create({
+      message: "I've got the cranberry sauce.",
+      userId: alfredo.id,
+      eventId: Christmas.id,
+    }),
+    Chat.create({
+      message: "I'm excited for the pumpkin pie.",
+      userId: arek.id,
+      eventId: Holloween.id,
+    }),
+  ]);
+
+  const eventParticipants = await Promise.all([
+    EventUser.create({
+      rsvpStatus: "accepted",
+      role: "host",
+      userId: alan.id,
+      eventId: Thanksgiving.id,
+    }),
+    EventUser.create({
+      rsvpStatus: "accepted",
+      role: "host",
+      userId: alfredo.id,
+      eventId: Christmas.id,
+    }),
+    // ... other participants ...
+  ]);
+
   console.log(`seeded successfully`);
   return {
     events: {
@@ -98,6 +133,8 @@ async function seed() {
       Holloween,
     },
     tasks,
+    chats,
+    eventParticipants,
     users: {
       alan,
       alfredo,
