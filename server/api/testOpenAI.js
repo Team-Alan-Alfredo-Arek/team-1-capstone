@@ -1,18 +1,12 @@
 const { OpenAI } = require("langchain/llms/openai");
 const { PromptTemplate } = require('langchain/prompts');
 const { LLMChain } = require('langchain/chains');
-const express = require('express');
-const router = express.Router();
 require('dotenv').config();
 
-router.post('/openai', async (req, res) => {
-  console.log("Received POST request on /api/openai");
-  console.log("Request Body:", req.body);
+const runModel = async () => {
   try {
-    const { event } = req.body;
-
     const model = new OpenAI({
-      openAIApiKey: process.env.OPENAI_API_KEY,
+      openAIApiKey: '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',
       modelName: "gpt-3.5-turbo",
       temperature: 0,
     });
@@ -21,14 +15,11 @@ router.post('/openai', async (req, res) => {
     const prompt = new PromptTemplate({ template, inputVariables: ['event'] });
     const chain = new LLMChain({ llm: model, prompt });
 
-    const results = await Promise.all([chain.call({ event })]);
-    
-    res.json({ results });
+    const results = await Promise.all([chain.call({ event: 'Thanksgiving Dinner' })]);
+    console.log('Fetched AI results:', results);
   } catch (error) {
     console.error('An error occurred:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
   }
-  
-});
+};
 
-module.exports = router;
+runModel();

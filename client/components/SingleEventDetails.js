@@ -6,6 +6,7 @@ import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import TaskComponent from './Task';
 import Recipes from './Recipes';
+import EventIdeas from './EventIdeas';
 
 const SingleEventDetails = () => {
   const { id } = useParams();
@@ -72,8 +73,8 @@ const SingleEventDetails = () => {
         </Row>
 
         {/* Buttons */}
-        <Button variant="primary" onClick={() => toggleModal('suggestions')}>
-          Event Suggestions
+        <Button variant="primary" onClick={() => toggleModal('ideas')}>
+          Event Ideas!
         </Button>
         <Button variant="success" onClick={() => toggleModal('recipes')}>
           Fun Recipes
@@ -83,11 +84,13 @@ const SingleEventDetails = () => {
         </Button>
 
         {/* Modals */}
-        <Modal show={showModal.suggestions} onHide={() => toggleModal('suggestions')}>
+        <Modal show={showModal.ideas} onHide={() => toggleModal('ideas')}>
           <Modal.Header closeButton>
-            <Modal.Title>Event Suggestions</Modal.Title>
+            <Modal.Title>Event Ideas!</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Your suggested events will appear here.</Modal.Body>
+          <Modal.Body>
+            <EventIdeas />
+          </Modal.Body>
         </Modal>
 
         <Modal show={showModal.recipes} onHide={() => toggleModal('recipes')}>

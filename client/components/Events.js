@@ -47,28 +47,27 @@ const Events = () => {
         transition={{
           duration: 0.6,
           ease: "easeOut",
-          opacity: {
-            delay: 0.2,
-          },
+          opacity: { delay: 0.2 },
           scale: {
             type: "spring",
             damping: 8,
             stiffness: 70,
             restDelta: 0.01,
           },
-        }}>
+        }}
+      >
         {events?.map((event) => (
-          <Row className="event-card" key={event?.id} style={eventCardStyle}>
-            <Col>
+          <Row className="event-card d-flex justify-content-center" key={event?.id} style={eventCardStyle}>
+            <Col className="text-center">
               <p className="event-date">{formatDate(event?.date)}</p>
               <h3 className="event-name">{event?.name}</h3>
               <p className="event-description">{event?.description}</p>
-              <div className="event-actions">
+              <div className="event-actions d-flex justify-content-center">
                 <Link to={`/events/${event?.id}`}>
-                  <Button className="details-btn">Event Details</Button>
+                  <Button className="details-btn mx-2">Event Details</Button>
                 </Link>
                 <Button
-                  className="delete-btn"
+                  className="delete-btn mx-2"
                   variant="danger"
                   onClick={() => handleDelete(event?.id)}>
                   Delete
@@ -81,17 +80,6 @@ const Events = () => {
     </Container>
   );
 };
+
 export default Events;
 
-
-{/* <div className="action-buttons">
-          <Link to="/eventsuggestions" className="btn btn-primary m-2">
-            Events Suggestions
-          </Link>
-          <Link to="/recipes" className="btn btn-secondary m-2">
-            Fun Recipes
-          </Link>
-          <Link to="/chatbox" className="btn btn-tertiary m-2">
-            Chat with Crew
-          </Link>
-        </div> */}
