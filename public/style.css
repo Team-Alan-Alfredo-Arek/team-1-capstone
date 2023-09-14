@@ -151,7 +151,7 @@ h1.gradient-custom {
 }
 
 
-.userImage{
+.userImage {
   max-width: 200px;
   max-height: 200px;
 }
@@ -197,7 +197,7 @@ h1.gradient-custom {
 .tilt-background {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(45deg, #f3ec78, #af4261);
+  background: linear-gradient(45deg, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
 
 }
 
@@ -208,7 +208,7 @@ h1.gradient-custom {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, #f3ec78, #af4261);
+  background: linear-gradient(45deg, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
   transform: rotate(-15deg);
   z-index: -1;
   pointer-events: none;
@@ -353,4 +353,3 @@ h1.gradient-custom {
 .recipe-button a:hover {
   text-decoration: underline;
 }
-

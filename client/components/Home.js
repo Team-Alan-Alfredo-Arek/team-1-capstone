@@ -40,17 +40,6 @@ const Home = (props) => {
           <p className="subheading">
             Manage your events and connect with your team
           </p>
-          <div className="action-buttons">
-            <Link to="/eventsuggestions" className="btn btn-primary m-2">
-              Events Suggestions
-            </Link>
-            <Link to="/recipes" className="btn btn-secondary m-2">
-              Fun Recipes
-            </Link>
-            <Link to="/chatbox" className="btn btn-tertiary m-2">
-              Chat with Crew
-            </Link>
-          </div>
         </Col>
       </Row>
       <Row className="justify-content-center">

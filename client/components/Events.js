@@ -76,6 +76,18 @@ const Events = () => {
             </Col>
           </Row>
         ))}
+
+        <div className="action-buttons">
+          <Link to="/eventsuggestions" className="btn btn-primary m-2">
+            Events Suggestions
+          </Link>
+          <Link to="/recipes" className="btn btn-secondary m-2">
+            Fun Recipes
+          </Link>
+          <Link to="/chatbox" className="btn btn-tertiary m-2">
+            Chat with Crew
+          </Link>
+        </div>
       </motion.div>
     </Container>
   );
