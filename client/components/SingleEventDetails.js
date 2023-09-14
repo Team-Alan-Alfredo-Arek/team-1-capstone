@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getSingleEventThunk } from "../store/events";
-import { fetchTasks } from "../store/task";
-import { useParams } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
-import { motion } from "framer-motion";
-import TaskComponent from "./Task";
+
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSingleEventThunk, fetchTasks } from '../store';
+import { useParams } from 'react-router-dom';
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import { motion } from 'framer-motion';
+import TaskComponent from './Task';
+import Recipes from './Recipes';
+import EventIdeas from './EventIdeas';
 
 const SingleEventDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState({});
+
+  const toggleModal = (type) => {
+    setShowModal({ ...showModal, [type]: !showModal[type] });
+  };
 
   const event = useSelector((state) => state.events).find(
     (e) => e.id === Number(id)
@@ -22,19 +29,19 @@ const SingleEventDetails = () => {
     }
   }, [dispatch, id]);
 
-  if (!event) return null;
+  if (!event) return <p>Loading...</p>;
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
-    return date.toISOString().split("T")[0];
+    return date.toISOString().split('T')[0];
   };
 
   const eventCardStyle = {
-    border: "1px solid #ddd",
-    padding: "10px",
-    margin: "10px 0",
-    borderRadius: "5px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+    border: '1px solid #ddd',
+    padding: '10px',
+    margin: '10px 0',
+    borderRadius: '5px',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
   };
 
   return (
@@ -45,18 +52,17 @@ const SingleEventDetails = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{
           duration: 0.6,
-          ease: "easeOut",
-          opacity: {
-            delay: 0.2,
-          },
+          ease: 'easeOut',
+          opacity: { delay: 0.2 },
           scale: {
-            type: "spring",
+            type: 'spring',
             damping: 8,
             stiffness: 70,
             restDelta: 0.01,
           },
-        }}>
-        <Row className="mb-3" key={event.id} style={eventCardStyle}>
+        }}
+      >
+        <Row className="mb-3" style={eventCardStyle}>
           <Col>
             <h2>{event.name}</h2>
             <p>Date: {formatDate(event.date)}</p>
@@ -66,6 +72,44 @@ const SingleEventDetails = () => {
             <p>{event.description}</p>
           </Col>
         </Row>
+
+        {/* Buttons */}
+        <Button variant="primary" onClick={() => toggleModal('ideas')}>
+          Event Ideas!
+        </Button>
+        <Button variant="success" onClick={() => toggleModal('recipes')}>
+          Fun Recipes
+        </Button>
+        <Button variant="warning" onClick={() => toggleModal('chat')}>
+          Chat with Crew
+        </Button>
+
+        {/* Modals */}
+        <Modal show={showModal.ideas} onHide={() => toggleModal('ideas')}>
+          <Modal.Header closeButton>
+            <Modal.Title>Event Ideas!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <EventIdeas />
+          </Modal.Body>
+        </Modal>
+
+        <Modal show={showModal.recipes} onHide={() => toggleModal('recipes')}>
+          <Modal.Header closeButton>
+            <Modal.Title>Fun Recipes</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Recipes /> 
+          </Modal.Body>
+        </Modal>
+
+        <Modal show={showModal.chat} onHide={() => toggleModal('chat')}>
+          <Modal.Header closeButton>
+            <Modal.Title>Chat with Crew</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Your chat with the crew will appear here.</Modal.Body>
+        </Modal>
+
       </motion.div>
 
       <TaskComponent />

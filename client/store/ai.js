@@ -1,26 +1,56 @@
-const { OpenAI } = require("langchain/llms/openai");
-const { PromptTemplate } = require('langchain/prompts');
-const { LLMChain } = require('langchain/chains');
-require('dotenv').config();
+// Action Types
+const SET_AI_RESULTS = 'SET_AI_RESULTS';
 
-const runModel = async () => {
-  const model = new OpenAI({
-      openAIApiKey: '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',
-      modelName: "gpt-3.5-turbo",
-      temperature: 0,
-    });
-
-  const template1 = "Provide event ideas for activities to do on the day of the event. in your response, please be contemporary, fun, in-depth and list 3 events that a group can take part in. Include a couple emojis in your response and add unique adjectives.\n Event: {event}";
-  const prompt1 = new PromptTemplate({ template: template1, inputVariables: ['event'] });
-  const chain1 = new LLMChain({ llm: model, prompt: prompt1 });
-
-  const chains = [chain1];
-  const results = await Promise.all(chains.map(chain => chain.call({ event: 'Thanksgiving Dinner' })));
-  
-  console.log(results);
+// Action Creators
+export const setAIResults = (results) => {
+  return {
+    type: SET_AI_RESULTS,
+    results,
+  };
 };
 
-runModel().catch(error => {
-  console.error('An error occurred:', error);
-});
+// Thunk Function
+export const fetchAIResults = (event) => async (dispatch) => {
+  try {
+    console.log('About to fetch from /api/openai');
+    const response = await fetch('/api/openai', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ event }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setAIResults(data.results));
+      return data.results;
+    } else {
+      throw new Error('Failed to fetch');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    dispatch(setAIResults(null));  // Or handle this in another way in your state
+    throw error;
+  }
+};
 
+
+// Initial State
+const initialState = {
+  aiResults: null,
+};
+
+// Reducer
+const aiReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_AI_RESULTS:
+      return {
+        ...state,
+        aiResults: action.results,
+      };
+    default:
+      return state;
+  }
+};
+
+export default aiReducer;

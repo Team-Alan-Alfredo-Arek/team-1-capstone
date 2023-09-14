@@ -9,6 +9,7 @@ import Events from "./components/Events";
 import { me } from "./store";
 import Task from "./components/Task";
 import Users from "./components/Users";
+import EventIdeas from "./components/EventIdeas";
 import SingleEventDetails from "./components/SingleEventDetails";
 import FunRecipes from "./components/Recipes";
 import ChatComponent from "./components/Chat";
@@ -32,7 +33,11 @@ class Routes extends Component {
             <Route path="/tasks" component={Task} />
             <Route path="/users" component={Users} />
             <Route path="/recipes" component={FunRecipes} />
+
             <Route path="/chat" component={ChatComponent} />
+
+            <Route path="/eventideas" component={EventIdeas} />
+
             <Redirect to="/home" />
           </Switch>
         ) : (

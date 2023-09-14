@@ -6,14 +6,17 @@ import auth from "./auth";
 import users from "./users";
 import taskReducer from "./task";
 import chatReducer from "./chat";
+import aiReducer from "./ai";
 
 const reducer = combineReducers({
   auth,
   events: eventsReducer,
   tasks: taskReducer,
   chats: chatReducer,
+  ai: aiReducer
   users,
 });
+
 const middleware = applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true })
@@ -25,4 +28,8 @@ export * from "./auth";
 export * from "./users";
 export * from "./events";
 export * from "./task";
+
 export * from "./chat";
+
+export * from "./ai";
+
