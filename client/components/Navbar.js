@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { logout } from "../store";
 import { Navbar, Nav } from "react-bootstrap";
 
-const MyNavbar = ({ handleClick, isLoggedIn }) => (
+const MyNavbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <Navbar className="navbar gradient-custom" variant="light" expand="lg">
     {/* Added gradient-custom to className */}
     <Navbar.Brand href="#home">Capstone</Navbar.Brand>
@@ -16,6 +16,10 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
             <Nav.Link href="/createevent">Create Event</Nav.Link>
             <Nav.Link href="/events">Events</Nav.Link>
             <Nav.Link href="/userprofile/:id">Profile</Nav.Link>
+            {isAdmin? (
+                <Nav.Link href="/users">Users
+              </Nav.Link>) : (null)
+            }
             <Nav.Link href="#" onClick={handleClick}>
               Logout
             </Nav.Link>
@@ -38,6 +42,7 @@ const MyNavbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin //AK add
   };
 };
 

@@ -66,7 +66,7 @@ export const getUser = (id) => {
       .get(`/api/users/${id}`)
       .then((res) => {
         res.data === ""
-          ? dispatch(_getUser({}))
+          ? dispatch(_getUser({id}))
           : dispatch(_getUser(res.data));
       })
       .catch((err) => {
@@ -105,11 +105,12 @@ export const deleteUser = (id)=> async (dispatch) => {
 
 export const updateUser = (user) => {
   return (dispatch) => {
-
+   console.log("store user ID", user.id)
     axios
       .put(`/api/users/${user.id}`, user)
       .then((res) => {
         dispatch(_updateUser(res.data));
+        console.log("store res.data", res.data);
       })
       .catch((err) => {
         console.log("Error updating usere", err);

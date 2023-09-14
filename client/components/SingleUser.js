@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux";
-import { getUser, deleteUser} from "../store";
+import { getUser, createUser, updateUser, deleteUser} from "../store";
 
-const SingleUser = () => {
-   const {id} = useParams();
-   const [user, setUser] = useState(null);
-
+const SingleUser = (props) => {
+   const {user}= props;
+  // console.log("userisAdmin? in singleuser", user.isAdmin);
+   //const { auth } = useSelector((state) => state);// from techshop UserAccountPage.js, but we're not looking at only logged in user
+   const [form, setForm] = useState({
+      username: user.username ? user.username : '',
+      password: user.password ? user.password : '',
+      isAdmin: user.isAdmin ? user.isAdmin : false,
+      imageUrl: user.imageUrl ? user.imageUrl : ''
+   })
+   const dispatch = useDispatch();
+   
    //const user = useSelector((state) => state.auth);
 
 
-
-  
     const handleDeleteUser =  (id) => {
       console.log("dispatch handledeleteUser, ID:", id);
       try {
@@ -23,30 +29,54 @@ const SingleUser = () => {
     };
 
 
-    const handleChange = () => {
+    const handleChange = (event) => {
       const { name, value } = event.target;
-      this.setState({ [name]: value });
+      console.log('handlechange name', name)
+      setForm({
+         ...form,
+         [name]:value,   
+      })
     }
   
     const handleSubmit=(event)=> {
       event.preventDefault();
-      if (!this.props?.student?.id) {
-        this.props.createStudent(this.state);
-        this.setState({
-          firstName: "",
-          lastName: "",
-          email: "",
-          imageUrl: "",
-          gpa: 0.0,
-        });
-      } else {
-        this.props.updateStudent(this.state);
-      }
+      if (!user.id) {
+         const newUser = {
+            username: form.username,
+            password: form.password,
+            isAdmin: form.isAdmin,
+            imageUrl: form.imageUrl,
+          };
+          // Dispatch an action or call a function to create the user
+          // For example:
+          // dispatch(createUser(newUser)); // Assuming you have a createUser action
+          dispatch(createUser(newUser));
+          // Optionally, reset the form after submission
+          setForm({
+            username: "",
+            password: "",
+            isAdmin: false,
+            imageUrl: "",
+          });
+        } else {
+          // Updating an existing user
+
+          console.log(" user ID", user.id)
+          const updatedUser = {
+            id:user.id,
+            username: form.username,
+            password: form.password,
+            isAdmin: form.isAdmin,
+            imageUrl: form.imageUrl,
+          };
+          console.log("updated user ID", updatedUser.id)
+          dispatch(updateUser(updatedUser));
     }
+   }
     return (
       <div >
         
-        <div key={users.user.id} user={user}>
+        {/* <div key={users.user.id} user={user}>
                {user.username}
                <img className="userImage" src={user.imageUrl}/>
                {auth.isAdmin && (
@@ -54,54 +84,53 @@ const SingleUser = () => {
                   console.log("userID", user.id);
                   handleDeleteUser(user.id)}}>Delete User</button>
               )}
-              </div>
+              </div> */}
 
-              <div
-        className={
-          this.props?.location ? "campus edit form" : "campus add form"
-        }
-      >
-        <h3>
+      <div>
+        {/* <h3>
           {this.props?.location
             ? `Edit ${this.props.campus.name}`
             : "Add A Campus"}
-        </h3>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Name</label>
+        </h3> */}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">User Name</label>
           <input
-            name="name"
+            name="username"
             type="text"
-            value={name}
-            onChange={this.handleChange}
+            value={form.username}
+            onChange={handleChange}
           />
-          <label htmlFor="address">Address</label>
+          <label htmlFor="password">Password</label>
           <input
-            name="address"
+            name="password"
             type="text"
-            value={address}
-            onChange={this.handleChange}
+            value={form.password}
+            onChange={handleChange}
           />
-          <label htmlFor="description">Description</label>
+          <label htmlFor="isAdmin">Admin?</label>
           <input
-            name="description"
-            value={description}
-            type="text"
-            onChange={this.handleChange}
+            name="isAdmin"
+            checked={form.isAdmin}
+            type="checkbox"
+            onChange={handleChange}
           />
           <label htmlFor="imageUrl">Image Url</label>
           <input
             name="imageUrl"
-            value={imageUrl}
+            value={form.imageUrl}
             type="text"
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
           <button type="submit">Submit</button>
         </form>
+        {(
+                <button onClick={() => {
+                  console.log("userID", user.id);
+                  handleDeleteUser(user.id)}}>Delete User</button>
+              )} 
       </div>
       </div>
     );
   };
   
   export default SingleUser;
-  
-
