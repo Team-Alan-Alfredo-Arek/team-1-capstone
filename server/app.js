@@ -1,44 +1,76 @@
-const path = require('path')
-const express = require('express')
-const morgan = require('morgan')
-const app = express()
-module.exports = app
+const path = require("path");
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+const helmet = require("helmet");
+const app = express();
+const bodyParser = require("body-parser");
 
-// logging middleware
-app.use(morgan('dev'))
+module.exports = app;
 
-// body parsing middleware
-app.use(express.json())
+const setupRoutes = (io) => {
+  // logging middleware
+  app.use(morgan("dev"));
 
-// auth and api routes
-app.use('/auth', require('./auth'))
-app.use('/api', require('./api'))
+  // body parsing middleware
+  app.use(express.json());
 
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
+  app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css",
+        ],
+        imgSrc: ["'self'", "data:", "https://www.google-analytics.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      },
+    })
+  );
 
-// static file-serving middleware
-app.use(express.static(path.join(__dirname, '..', 'public')))
+  // auth and api routes
+  app.use("/auth", require("./auth")(io));
+  app.use("/api", require("./api"));
 
-// any remaining requests with an extension (.js, .css, etc.) send 404
-app.use((req, res, next) => {
-  if (path.extname(req.path).length) {
-    const err = new Error('Not found')
-    err.status = 404
-    next(err)
-  } else {
-    next()
-  }
-})
+  app.get("/", (req, res) =>
+    res.sendFile(path.join(__dirname, "..", "public/index.html"))
+  );
 
-// sends index.html
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
-})
+  app.use(bodyParser.json());
 
-// error handling endware
-app.use((err, req, res, next) => {
-  console.error(err)
-  console.error(err.stack)
-  res.status(err.status || 500).send(err.message || 'Internal server error.')
-})
+  // static file-serving middleware
+  app.use(express.static(path.join(__dirname, "..", "public")));
+
+  // any remaining requests with an extension (.js, .css, etc.) send 404
+  app.use((req, res, next) => {
+    if (path.extname(req.path).length) {
+      const err = new Error("Not found");
+      err.status = 404;
+      next(err);
+    } else {
+      next();
+    }
+  });
+
+  // sends index.html
+  app.use("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "public/index.html"));
+  });
+
+  // error handling endware
+  app.use((err, req, res, next) => {
+    console.error(err);
+    console.error(err.stack);
+    res.status(err.status || 500).send(err.message || "Internal server error.");
+  });
+};
+module.exports.setupRoutes = setupRoutes;
