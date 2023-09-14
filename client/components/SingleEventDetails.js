@@ -1,22 +1,51 @@
+import React, { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleEventThunk, fetchTasks } from "../store";
+import { useParams } from "react-router-dom";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import { motion } from "framer-motion";
+import TaskComponent from "./Task";
+import Recipes from "./Recipes";
+import EventIdeas from "./EventIdeas";
+import ChatComponent from "./Chat";
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSingleEventThunk, fetchTasks } from '../store';
-import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import TaskComponent from './Task';
-import Recipes from './Recipes';
-import EventIdeas from './EventIdeas';
+const styles = {
+  eventCard: {
+    border: "1px solid #ddd",
+    padding: "10px",
+    margin: "10px 0",
+    borderRadius: "5px",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+  },
+  chatContainer: {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    width: "300px",
+    height: "400px",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+    background: "#fff",
+    overflowY: "auto",
+  },
+  chatButton: {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 10,
+  },
+};
 
 const SingleEventDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState({});
+  const [chatOpen, setChatOpen] = useState(false);
 
-  const toggleModal = (type) => {
-    setShowModal({ ...showModal, [type]: !showModal[type] });
-  };
+  const toggleModal = useCallback((type) => {
+    setShowModal((prevModal) => ({ ...prevModal, [type]: !prevModal[type] }));
+  }, []);
 
   const event = useSelector((state) => state.events).find(
     (e) => e.id === Number(id)
@@ -33,15 +62,7 @@ const SingleEventDetails = () => {
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
-    return date.toISOString().split('T')[0];
-  };
-
-  const eventCardStyle = {
-    border: '1px solid #ddd',
-    padding: '10px',
-    margin: '10px 0',
-    borderRadius: '5px',
-    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+    return date.toISOString().split("T")[0];
   };
 
   return (
@@ -52,17 +73,16 @@ const SingleEventDetails = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{
           duration: 0.6,
-          ease: 'easeOut',
+          ease: "easeOut",
           opacity: { delay: 0.2 },
           scale: {
-            type: 'spring',
+            type: "spring",
             damping: 8,
             stiffness: 70,
             restDelta: 0.01,
           },
-        }}
-      >
-        <Row className="mb-3" style={eventCardStyle}>
+        }}>
+        <Row className="mb-3" style={styles.eventCard}>
           <Col>
             <h2>{event.name}</h2>
             <p>Date: {formatDate(event.date)}</p>
@@ -74,18 +94,21 @@ const SingleEventDetails = () => {
         </Row>
 
         {/* Buttons */}
-        <Button variant="primary" onClick={() => toggleModal('ideas')}>
+        <Button variant="primary" onClick={() => toggleModal("ideas")}>
           Event Ideas!
         </Button>
-        <Button variant="success" onClick={() => toggleModal('recipes')}>
+        <Button variant="success" onClick={() => toggleModal("recipes")}>
           Fun Recipes
         </Button>
-        <Button variant="warning" onClick={() => toggleModal('chat')}>
+        <Button
+          style={styles.chatButton}
+          variant="warning"
+          onClick={() => setChatOpen((prev) => !prev)}>
           Chat with Crew
         </Button>
 
         {/* Modals */}
-        <Modal show={showModal.ideas} onHide={() => toggleModal('ideas')}>
+        <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
           <Modal.Header closeButton>
             <Modal.Title>Event Ideas!</Modal.Title>
           </Modal.Header>
@@ -94,25 +117,23 @@ const SingleEventDetails = () => {
           </Modal.Body>
         </Modal>
 
-        <Modal show={showModal.recipes} onHide={() => toggleModal('recipes')}>
+        <Modal show={showModal.recipes} onHide={() => toggleModal("recipes")}>
           <Modal.Header closeButton>
             <Modal.Title>Fun Recipes</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Recipes /> 
+            <Recipes />
           </Modal.Body>
         </Modal>
-
-        <Modal show={showModal.chat} onHide={() => toggleModal('chat')}>
-          <Modal.Header closeButton>
-            <Modal.Title>Chat with Crew</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Your chat with the crew will appear here.</Modal.Body>
-        </Modal>
-
       </motion.div>
 
       <TaskComponent />
+
+      {chatOpen && (
+        <div style={styles.chatContainer}>
+          <ChatComponent />
+        </div>
+      )}
     </Container>
   );
 };
