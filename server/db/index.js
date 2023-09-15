@@ -14,6 +14,8 @@ Event.hasMany(Task);
 User.hasMany(Task);
 Task.belongsTo(Event);
 Task.belongsTo(User);
+Event.hasMany(Chat);
+User.hasMany(Chat);
 
 Chat.belongsTo(User);
 Chat.belongsTo(Event);

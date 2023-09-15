@@ -21,7 +21,7 @@ function ChatComponent() {
   const socket = io("http://localhost:3000"); // Replace with your server address
 
   useEffect(() => {
-    dispatch(fetchMessages());
+    dispatch(fetchMessages(id));
 
     dispatch(startListeningForMessages());
 
@@ -41,7 +41,7 @@ function ChatComponent() {
 
   const handleSendMessage = () => {
     if (inputMessage.trim() !== "") {
-      dispatch(addNewMessageThunk(inputMessage));
+      dispatch(addNewMessageThunk(inputMessage, id));
       setInputMessage("");
     }
   };

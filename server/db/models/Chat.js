@@ -10,13 +10,6 @@ const Chat = db.define("chat", {
       notEmpty: true,
     },
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  eventId: {
-    type: Sequelize.INTEGER,
-  },
 });
 
 module.exports = Chat;

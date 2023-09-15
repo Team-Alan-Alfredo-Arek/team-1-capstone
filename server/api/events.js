@@ -71,18 +71,17 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// Delete an event by ID
 router.delete("/:id", async (req, res, next) => {
   try {
     const event = await Event.findByPk(req.params.id);
-    if (event) {
-      await event.destroy();
-      res.status(204).end();
-    } else {
-      res.status(404).send("Event not found");
+    if (!event) {
+      return res.status(404).send("Event not found");
     }
+    await event.destroy();
+    res.status(204).end();
   } catch (error) {
-    next(error);
+    console.log("Error deleting event: ", error);
+    res.status(500).send("Internal server error");
   }
 });
 

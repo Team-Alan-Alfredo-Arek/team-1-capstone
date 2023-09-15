@@ -3,11 +3,12 @@ const {
   models: { Chat, User, Event },
 } = require("../db");
 
-router.get("/", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const user = await User.findByToken(token);
     const event = await Event.findByPk(req.params.id);
+    console.log(req.params.id);
     const chats = await Chat.findAll({
       where: {
         userId: user.id,
@@ -26,7 +27,8 @@ router.post("/", async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1]; // Assuming 'Bearer {token}' format
     const user = await User.findByToken(token);
-    const event = await Event.findByPk(req.params.id);
+    const event = await Event.findByPk(req.body.eventId);
+
     const chat = await Chat.create({
       message: req.body.message,
       userId: user.id,
