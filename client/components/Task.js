@@ -40,8 +40,6 @@ export default function TaskComponent() {
     (task) => task.eventId === Number(id)
   );
 
-  console.log("tasks", tasks);
-
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [startDate, setStartDate] = useState("");
