@@ -7,13 +7,10 @@ const EventIdeas = () => {
     const aiResults = useSelector((state) => state.ai.aiResults);
   
     useEffect(() => {
-      console.log('Fetching AI results for Thanksgiving Dinner');  
       dispatch(fetchAIResults('Thanksgiving Dinner'))
-        .then((result) => {
-          console.log('Fetched AI results:', result);  
+        .then((result) => { 
         })
-        .catch((error) => {
-          console.log('Error fetching AI results:', error); 
+        .catch((error) => { 
         });
     }, [dispatch]);
   
@@ -23,7 +20,7 @@ const EventIdeas = () => {
       <div>
         {aiResults ? (
           <div>
-            <p>{aiResults}</p>
+            <p>{JSON.stringify(aiResults)}</p>
           </div>
         ) : (
           <p>Loading...</p>

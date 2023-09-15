@@ -12,7 +12,7 @@ export const setAIResults = (results) => {
 // Thunk Function
 export const fetchAIResults = (event) => async (dispatch) => {
   try {
-    console.log('About to fetch from /api/openai');
+    console.log('About to fetch from /api/openai', JSON.stringify({ event }));
     const response = await fetch('/api/openai', {
       method: 'POST',
       headers: {
@@ -29,7 +29,7 @@ export const fetchAIResults = (event) => async (dispatch) => {
     }
   } catch (error) {
     console.error('An error occurred:', error);
-    dispatch(setAIResults(null));  // Or handle this in another way in your state
+    dispatch(setAIResults(null)); 
     throw error;
   }
 };

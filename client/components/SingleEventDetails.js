@@ -94,12 +94,12 @@ const SingleEventDetails = () => {
         </Row>
 
         {/* Buttons */}
-        <Button variant="primary" onClick={() => toggleModal("ideas")}>
+        <Button variant="success" onClick={() => toggleModal("ideas")}>
           Event Ideas!
         </Button>
-        <Button variant="success" onClick={() => toggleModal("recipes")}>
+        {/* <Button variant="success" onClick={() => toggleModal("recipes")}>
           Fun Recipes
-        </Button>
+        </Button> */}
         <Button
           style={styles.chatButton}
           variant="warning"
@@ -117,14 +117,14 @@ const SingleEventDetails = () => {
           </Modal.Body>
         </Modal>
 
-        <Modal show={showModal.recipes} onHide={() => toggleModal("recipes")}>
+        {/* <Modal show={showModal.recipes} onHide={() => toggleModal("recipes")}>
           <Modal.Header closeButton>
             <Modal.Title>Fun Recipes</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Recipes />
           </Modal.Body>
-        </Modal>
+        </Modal> */}
       </motion.div>
 
       <TaskComponent />
