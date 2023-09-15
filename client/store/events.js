@@ -8,8 +8,6 @@ const GET_EVENTS = "GET_EVENTS";
 //Single Event Functionalities
 
 const GET_SINGLE_EVENT = "GET_SINGLE_EVENT";
-const UPDATE_SINGLE_EVENT = "UPDATE_SINGLE_EVENT";
-const DELETE_SINGLE_EVENT = "DELETE_SINGLE_EVENT";
 
 const TOKEN = "token";
 
@@ -73,15 +71,13 @@ export const updateEventThunk = (event) => {
   };
 };
 
-export const deleteEventThunk = (event) => {
-  return async (dispatch) => {
-    try {
-      await axios.delete(`/api/events/${event.id}`);
-      dispatch(deleteEvent(event.id));
-    } catch (error) {
-      console.error("There was an error deleting the event", error);
-    }
-  };
+export const deleteEventThunk = (eventId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/events/${eventId}`);
+    dispatch(deleteEvent(eventId));
+  } catch (error) {
+    console.error("There was an error deleting the event:", error);
+  }
 };
 
 export const getEventsThunk = () => {

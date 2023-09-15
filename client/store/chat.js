@@ -18,35 +18,37 @@ const getMessages = (messages) => ({
   messages,
 });
 
-export const addNewMessageThunk = (content) => async (dispatch, getState) => {
-  try {
-    const { id: userId } = getState().auth;
+export const addNewMessageThunk =
+  (content, eventId) => async (dispatch, getState) => {
+    try {
+      const { id: userId } = getState().auth;
 
-    const newMessage = {
-      message: content,
-      userId,
-    };
+      const newMessage = {
+        message: content,
+        userId,
+        eventId,
+      };
 
-    const token = window.localStorage.getItem(TOKEN);
+      const token = window.localStorage.getItem(TOKEN);
 
-    if (!token) throw new Error("Token not available");
+      if (!token) throw new Error("Token not available");
 
-    const response = await axios.post("/api/chat", newMessage, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      const response = await axios.post("/api/chat", newMessage, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const savedMessage = response.data;
-    dispatch(addNewMessage(savedMessage));
+      const savedMessage = response.data;
+      dispatch(addNewMessage(savedMessage));
 
-    // Emit socket event only after the message is saved in the database.
-    socket.emit("new-message", savedMessage);
-  } catch (error) {
-    console.log("Failed to add new message:", error);
-  }
-};
+      // Emit socket event only after the message is saved in the database.
+      socket.emit("new-message", savedMessage);
+    } catch (error) {
+      console.log("Failed to add new message:", error);
+    }
+  };
 
 export const sendMessage =
   (message) =>
@@ -60,13 +62,14 @@ export const sendMessage =
     dispatch(addNewMessage(newMessage));
   };
 
-export const fetchMessages = () => {
+export const fetchMessages = (eventId) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
+
       if (!token) throw new Error("Token not available");
 
-      const res = await axios.get("/api/chat", {
+      const res = await axios.get(`/api/chat/${eventId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
