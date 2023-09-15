@@ -3,16 +3,15 @@ const { PromptTemplate } = require('langchain/prompts');
 const { LLMChain } = require('langchain/chains');
 const express = require('express');
 const router = express.Router();
-require('dotenv').config();
 
-router.post('/openai', async (req, res) => {
-  console.log("Received POST request on /api/openai");
-  console.log("Request Body:", req.body);
+
+router.post('/', async (req, res) => {
   try {
     const { event } = req.body;
 
     const model = new OpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
+      
       modelName: "gpt-3.5-turbo",
       temperature: 0,
     });
@@ -22,7 +21,7 @@ router.post('/openai', async (req, res) => {
     const chain = new LLMChain({ llm: model, prompt });
 
     const results = await Promise.all([chain.call({ event })]);
-    
+    console.log('results', results)
     res.json({ results });
   } catch (error) {
     console.error('An error occurred:', error);
