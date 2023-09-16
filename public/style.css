@@ -21,6 +21,21 @@ body {
 /* ==== GRADIENT STYLES ==== */
 .gradient-custom {
   background: linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.motion-container {
+  transition: all 0.5s ease-in-out;
+}
+
+.header-row {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px 0;
 }
 
 h1.gradient-custom {
@@ -107,6 +122,7 @@ h1.gradient-custom {
   display: inline-block;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .btn-primary {
@@ -409,4 +425,23 @@ h1.gradient-custom {
 
 .chat-input button:hover {
   background-color: #0056b3;
+}
+
+.create-user-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+  margin: 20px 0;
 }

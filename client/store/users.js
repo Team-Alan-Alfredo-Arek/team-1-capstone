@@ -52,7 +52,7 @@ export const getUsers = () => {
       .get("/api/users")
       .then((res) => {
         dispatch(_getUsers(res.data));
-        console.log("getUsers Thunk", res.data)
+        console.log("getUsers Thunk", res.data);
       })
       .catch((err) => {
         console.log("Error getting users", err);
@@ -66,7 +66,7 @@ export const getUser = (id) => {
       .get(`/api/users/${id}`)
       .then((res) => {
         res.data === ""
-          ? dispatch(_getUser({id}))
+          ? dispatch(_getUser({ id }))
           : dispatch(_getUser(res.data));
       })
       .catch((err) => {
@@ -88,24 +88,20 @@ export const createUser = (user) => {
   };
 };
 
-export const deleteUser = (id)=> async (dispatch) => {
- 
-   console.log("user.id thunk",id ) 
-  try{ 
-      await axios.delete(`/api/users/${id}`)
-      .then((res) => {
-        dispatch(_deleteUser(id));
-      })
-   }
-      catch(err) {
-        console.log("Error deleting users", err);
-      };
-  };
-
+export const deleteUser = (id) => async (dispatch) => {
+  console.log("user.id thunk", id);
+  try {
+    await axios.delete(`/api/users/${id}`).then((res) => {
+      dispatch(_deleteUser(id));
+    });
+  } catch (err) {
+    console.log("Error deleting users", err);
+  }
+};
 
 export const updateUser = (user) => {
   return (dispatch) => {
-   console.log("store user ID", user.id)
+    console.log("store user ID", user.id);
     axios
       .put(`/api/users/${user.id}`, user)
       .then((res) => {
@@ -118,35 +114,33 @@ export const updateUser = (user) => {
   };
 };
 
-
 //REDUCERs
- 
- const initialState = {
-   users:[],
- };
- 
- export default (state = initialState, action) => {
-   switch (action.type) {
-     case CREATE_USER:
-       return { ...state, users: [action.user, ...state.users] };
-     case DELETE_USER:
-       return {
-         ...state,
-         users: state.users.filter((user) => user.id !== action.id),
-       };
-     case GET_USER:
-       return { ...state, user: action.user };
-     case GET_USERS:
-       return {users:action.users} 
-     case UPDATE_USER:
-       return {
-         users: state.users.map((el) =>
-           el.id === action.user.id ? action.user : el
-         ),
-         user: action.user,
-       };
-     default:
-       return state;
-   }
- };
- 
+
+const initialState = {
+  users: [],
+  selectedUser: null,
+};
+export default function usersReducer(state = initialState, action) {
+  switch (action.type) {
+    case CREATE_USER:
+      return { ...state, users: [action.user, ...state.users] };
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.id),
+      };
+    case GET_USER:
+      return { ...state, selectedUser: action.user };
+    case GET_USERS:
+      return { users: action.users };
+    case UPDATE_USER:
+      return {
+        users: state.users.map((el) =>
+          el.id === action.user.id ? action.user : el
+        ),
+        user: action.user,
+      };
+    default:
+      return state;
+  }
+}

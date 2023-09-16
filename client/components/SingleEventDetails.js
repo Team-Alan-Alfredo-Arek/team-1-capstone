@@ -18,22 +18,27 @@ const styles = {
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
   },
   chatContainer: {
-    position: "fixed",
+    position: "fixed", // change from absolute to fixed
     bottom: "20px",
     right: "20px",
     width: "300px",
-    height: "400px",
+    maxHeight: "500px",
     border: "1px solid #ddd",
     borderRadius: "10px",
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
     background: "#fff",
-    overflowY: "auto",
+    overflow: "hidden",
   },
   chatButton: {
     position: "fixed",
     bottom: "20px",
     right: "20px",
     zIndex: 10,
+  },
+  chatContent: {
+    overflowY: "auto",
+    height: "400px",
+    padding: "10px",
   },
 };
 
@@ -128,7 +133,6 @@ const SingleEventDetails = () => {
       </motion.div>
 
       <TaskComponent />
-
       {chatOpen && (
         <div style={styles.chatContainer}>
           <ChatComponent />
