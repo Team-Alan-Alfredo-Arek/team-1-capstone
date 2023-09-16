@@ -18,6 +18,9 @@
   "author": "Team 1: Alan Koh, Alfredo Montero, Arek Halpern",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.1",

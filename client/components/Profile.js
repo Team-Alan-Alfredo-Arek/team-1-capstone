@@ -4,6 +4,8 @@ import { Container, Row, Col, Image, ListGroup } from "react-bootstrap";
 import { getEventsThunk } from "../store/events";
 import { motion } from "framer-motion";
 import Events from "./Events";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
   const authUser = useSelector((state) => state.auth);
@@ -21,8 +23,8 @@ const Profile = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="motion-container">
-      <Container style={{ textAlign: "center" }}>
-        <Row className="d-flex justify-content-start">
+      <Container style={{ padding: "40px 0" }}>
+        <Row className="justify-content-center">
           <Col md={4}>
             <div className="text-center">
               <Image
@@ -30,21 +32,22 @@ const Profile = () => {
                 alt="User Profile"
                 roundedCircle
                 style={{
-                  width: "75px",
-                  height: "75px",
+                  width: "100px",
+                  height: "100px",
                   objectFit: "cover",
+                  boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)",
                 }}
               />
-              <h4 className="mt-2">{authUser.username}</h4>
-              <p>
+              <h3 className="mt-3">{authUser.username}</h3>
+              <p className="text-muted">
                 <strong>Status:</strong>{" "}
                 {authUser.isAdmin ? "Admin" : "Regular User"}
               </p>
             </div>
-            <h5 className="mt-3" style={{ textAlign: "center" }}>
-              Your Events
-            </h5>
-            <div className="text-center mt-3">⬇️</div>
+            <h5 className="mt-4 text-primary text-center">Your Events</h5>
+            <div className="text-center mt-2">
+              <FontAwesomeIcon icon={faArrowDown} color="#007BFF" />
+            </div>
 
             <ListGroup>
               <Events />

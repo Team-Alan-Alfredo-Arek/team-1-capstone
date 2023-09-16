@@ -21,21 +21,6 @@ body {
 /* ==== GRADIENT STYLES ==== */
 .gradient-custom {
   background: linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.motion-container {
-  transition: all 0.5s ease-in-out;
-}
-
-.header-row {
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  padding: 10px 0;
 }
 
 h1.gradient-custom {
@@ -122,7 +107,6 @@ h1.gradient-custom {
   display: inline-block;
   border: none;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 .btn-primary {
@@ -249,31 +233,45 @@ h1.gradient-custom {
   background-color: wheat;
 }
 
-/* Event Card */
+
 .event-card {
+  width: 500px;
+  /* This will take one-third of the container's width minus margin */
   border: 1px solid #e6e6e6;
-  padding: 8px 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+  /* Smoother transition */
+  overflow: hidden;
+  /* In case child elements spill out, especially after transformations */
+  flex: auto;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  /* To prevent the card from shrinking */
 }
 
 .event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  /* More pronounced hover effect */
+  box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Event Date */
 .event-date {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  /* Slightly increased font size for better visibility */
   color: #888;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  /* Increase margin for better spacing */
 }
+
 
 /* Event Name */
 .event-name {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #333;
   margin: 5px 0;
   font-weight: bold;
@@ -281,9 +279,18 @@ h1.gradient-custom {
 
 /* Event Description */
 .event-description {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  /* Adjust to your preference */
   color: #555;
   margin-bottom: 10px;
+  overflow: hidden;
+  /* Ensures the content doesn't spill out */
+  text-overflow: ellipsis;
+  /* Adds ... if the content overflows */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
 }
 
 /* Event Action Buttons */
@@ -291,6 +298,27 @@ h1.gradient-custom {
   display: flex;
   gap: 10px;
 }
+
+/* For tablets and smaller devices */
+@media only screen and (max-width: 992px) {
+
+  /* For medium-sized devices */
+  .event-card {
+    width: calc(50% - 20px);
+    /* 2 cards in a row */
+  }
+}
+
+@media only screen and (max-width: 576px) {
+
+  /* For mobile devices */
+  .event-card {
+    width: 100%;
+    /* 1 card per row */
+    margin: 10px 0;
+  }
+}
+
 
 .details-btn {
   background-color: #2980B9;
@@ -425,23 +453,4 @@ h1.gradient-custom {
 
 .chat-input button:hover {
   background-color: #0056b3;
-}
-
-.create-user-container {
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-}
-
-.user-container {
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 20px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-}
-
-.main-container {
-  margin: 20px 0;
 }
