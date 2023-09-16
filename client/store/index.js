@@ -3,7 +3,7 @@ import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import eventsReducer from "./events";
 import auth from "./auth";
-import users from "./users";
+import usersReducers from "./users";
 import taskReducer from "./task";
 import chatReducer from "./chat";
 import aiReducer from "./ai";
@@ -14,7 +14,7 @@ const reducer = combineReducers({
   tasks: taskReducer,
   chats: chatReducer,
   ai: aiReducer,
-  users,
+  users: usersReducers,
 });
 
 const middleware = applyMiddleware(

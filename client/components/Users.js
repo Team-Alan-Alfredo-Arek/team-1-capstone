@@ -1,45 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { getUsers, deleteUser } from "../store/users";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../store/users";
 import CreateUser from "./CreateUser";
 import SingleUser from "./SingleUser";
+import { Container, Row, Col } from "react-bootstrap";
+import { motion } from "framer-motion";
 
-export default function Users(){
-   
-   const dispatch = useDispatch();
-   useEffect(() => {
-      dispatch(getUsers());
-    }, [dispatch]);
+export default function Users() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
   const users = useSelector((state) => state.users);
 
-  console.log("users", users);
-
-  const auth = useSelector((state) => state.auth);
-
-  const handleDeleteUser =  (id) => {
-   console.log("dispatch handledeleteUser, ID:", id);
-   try {
-     dispatch(deleteUser(id));
-     window.alert("User deleted successfully, redirecting to main page.");
-   } catch (error) {
-     window.alert("Failed to delete User.", error);
-   }
- };
- 
   return (
-    <div>
-      <h1>Users</h1>
-      <div id="users">
-        <div className="userList">
-          <ul>
-            {users?.users.map((user) => (
-               <SingleUser key = {user.id} user = {user}/>
-            ))}
-          </ul>
-        </div>
-        <CreateUser addUser={true} />
-      </div>
-    </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="motion-container">
+      <Container className="main-container">
+        <Row>
+          <Col>
+            <h1 className="gradient-custom">Users</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ul>
+              {users?.users.map((user) => (
+                <li key={user.id}>
+                  <SingleUser user={user} />
+                </li>
+              ))}
+            </ul>
+          </Col>
+          <Col>
+            <CreateUser />
+          </Col>
+        </Row>
+      </Container>
+    </motion.div>
   );
-};
+}

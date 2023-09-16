@@ -13,7 +13,8 @@ import EventIdeas from "./components/EventIdeas";
 import SingleEventDetails from "./components/SingleEventDetails";
 import FunRecipes from "./components/Recipes";
 import ChatComponent from "./components/Chat";
-
+import SingleUser from "./components/SingleUser";
+import Profile from "./components/Profile";
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -31,9 +32,10 @@ class Routes extends Component {
             <Route path="/events/:id" component={SingleEventDetails} />
             <Route path="/createevent" component={CreateEvent} />
             <Route path="/tasks" component={Task} />
-            <Route path="/users" component={Users} />
+            <Route exact path="/users" component={Users} />
+            <Route path="/users/:id" component={SingleUser} />
             <Route path="/recipes" component={FunRecipes} />
-
+            <Route path="/profile" component={Profile} />
             <Route path="/chat" component={ChatComponent} />
 
             <Route path="/eventideas" component={EventIdeas} />

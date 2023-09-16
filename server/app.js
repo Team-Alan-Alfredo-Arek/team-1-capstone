@@ -5,7 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
 const bodyParser = require("body-parser");
-require('dotenv').config({override: true});
+require("dotenv").config({ override: true });
 
 module.exports = app;
 
@@ -40,6 +40,7 @@ const setupRoutes = (io) => {
           "data:",
           "https://www.google-analytics.com",
           "https://images.unsplash.com",
+          "https://ca.slack-edge.com/",
         ],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
       },
