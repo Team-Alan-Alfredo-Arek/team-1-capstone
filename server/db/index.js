@@ -5,7 +5,7 @@ const User = require("./models/User");
 const Event = require("./models/Event");
 const Task = require("./models/Task");
 const EventUser = require("./models/eventUser");
-const Chat = require("./models/chat");
+const Chat = require("./models/Chat");
 
 //associations could go here!
 User.hasMany(Event);
