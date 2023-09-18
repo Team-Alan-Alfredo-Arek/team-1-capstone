@@ -29,7 +29,6 @@ router.post('/', async (req, res) => {
 
     const results = await Promise.all([chain.call({ event })]);
 
-    // Cache the results
     myCache.set(`ai_results_${event}`, results);
 
     console.log('results', results);
