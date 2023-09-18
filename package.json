@@ -5,7 +5,7 @@
   "main": "index.js",
   "proxy": "http://planperfect.onrender.com/",
   "scripts": {
-    "start": "node server/index.js --ignore dist/ --ignore src/ script/seed.js",
+    "start": "node server/index.js --ignore dist/ --ignore src/ ",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
