@@ -1,17 +1,24 @@
 const { OpenAI } = require("langchain/llms/openai");
 const { PromptTemplate } = require('langchain/prompts');
 const { LLMChain } = require('langchain/chains');
+const NodeCache = require('node-cache');
 const express = require('express');
 const router = express.Router();
 
+
+const myCache = new NodeCache({ stdTTL: 86400, checkperiod: 120 });
 
 router.post('/', async (req, res) => {
   try {
     const { event } = req.body;
 
+    const cachedData = myCache.get(`ai_results_${event}`);
+    if (cachedData) {
+      return res.json({ results: cachedData });
+    }
+
     const model = new OpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
-      
       modelName: "gpt-3.5-turbo",
       temperature: 0,
     });
@@ -21,13 +28,16 @@ router.post('/', async (req, res) => {
     const chain = new LLMChain({ llm: model, prompt });
 
     const results = await Promise.all([chain.call({ event })]);
-    console.log('results', results)
+
+    // Cache the results
+    myCache.set(`ai_results_${event}`, results);
+
+    console.log('results', results);
     res.json({ results });
   } catch (error) {
     console.error('An error occurred:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-  
 });
 
 module.exports = router;
