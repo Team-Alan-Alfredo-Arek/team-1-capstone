@@ -1,32 +1,47 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAIResults } from '../store/ai'; 
+import { useParams } from 'react-router-dom';  
+import { fetchAIResults, getSingleEventThunk } from '../store';
 
 const EventIdeas = () => {
-    const dispatch = useDispatch();
-    const aiResults = useSelector((state) => state.ai.aiResults);
-  
-    useEffect(() => {
-      dispatch(fetchAIResults('Thanksgiving Dinner'))
-        .then((result) => { 
-        })
-        .catch((error) => { 
-        });
-    }, [dispatch]);
-  
-    console.log('Rendering with aiResults:', aiResults);  
-  
-    return (
-      <div>
-        {aiResults ? (
-          <div>
-            <p>{JSON.stringify(aiResults)}</p>
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
-      </div>
-    );
-  };
+  const { id } = useParams();  
+  const dispatch = useDispatch();
+
+
+  const event = useSelector((state) => state.events).find(
+    (e) => e.id === Number(id)
+  );
+
+  const aiResults = useSelector((state) => state.ai.aiResults);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getSingleEventThunk(id)).then(() => { 
+        if (event) {
+          dispatch(fetchAIResults(event.name)) 
+            .then((result) => {
+            })
+            .catch((error) => {
+            });
+        }
+      });
+    }
+  }, [dispatch, id, event]); 
+
+  console.log('Rendering with aiResults:', aiResults);
+
+  return (
+    <div>
+      {aiResults ? (
+        <div>
+          <p>{JSON.stringify(aiResults)}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+};
 
 export default EventIdeas;
+

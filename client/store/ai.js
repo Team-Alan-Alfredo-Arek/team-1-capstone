@@ -12,7 +12,6 @@ export const setAIResults = (results) => {
 // Thunk Function
 export const fetchAIResults = (event) => async (dispatch) => {
   try {
-    console.log('About to fetch from /api/openai', JSON.stringify({ event }));
     const response = await fetch('/api/openai', {
       method: 'POST',
       headers: {
