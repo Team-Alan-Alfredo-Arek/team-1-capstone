@@ -113,14 +113,14 @@ const SingleEventDetails = () => {
         </Button>
 
         {/* Modals */}
-        <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
-          <Modal.Header closeButton>
-            <Modal.Title>Event Ideas!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <EventIdeas />
-          </Modal.Body>
-        </Modal>
+      <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
+        <Modal.Header closeButton>
+          <Modal.Title>Event Ideas!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EventIdeas />
+        </Modal.Body>
+      </Modal>
 
         {/* <Modal show={showModal.recipes} onHide={() => toggleModal("recipes")}>
           <Modal.Header closeButton>
