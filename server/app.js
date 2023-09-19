@@ -5,6 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
 const bodyParser = require("body-parser");
+const url = process.env.WEBSITE_URL || "http://localhost:3000";
 require("dotenv").config({ override: true });
 
 module.exports = app;
@@ -18,7 +19,7 @@ const setupRoutes = (io) => {
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: url,
       credentials: true,
     })
   );

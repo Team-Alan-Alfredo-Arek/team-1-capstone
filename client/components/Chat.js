@@ -23,7 +23,7 @@ function ChatComponent() {
   const dispatch = useDispatch();
 
   // Socket initialization
-  const socket = io("http://localhost:3000");
+  const socket = io(process.env.SOCKET || "http://localhost:3000");
 
   useEffect(() => {
     dispatch(fetchMessages(id));
