@@ -16,7 +16,7 @@ if (process.env.DEV_URL) {
     },
   };
 }
-const db = new Sequelize(`${process.env.DEV_URL}/${databaseName}`, config);
+const db = new Sequelize(process.env.DEV_URL, config);
 //process.env.DATABASE_URL || process.env.DEV_URL || process.env.DEV_URL_ALAN ||
 
 module.exports = db;
