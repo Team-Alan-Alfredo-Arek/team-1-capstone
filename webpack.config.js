@@ -3,6 +3,11 @@ const path = require("path");
 module.exports = {
   mode: "production",
   entry: ["./client/index.js"],
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.SOCKET": JSON.stringify(process.env.SOCKET),
+    }),
+  ],
   output: {
     path: path.join(__dirname, "public"),
     filename: "bundle.js",
