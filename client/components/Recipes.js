@@ -29,8 +29,6 @@ export default function FunRecipes() {
       </Container>
     );
 
-  console.log(recipe);
-
   return (
     <Container style={{ marginTop: "20px" }}>
       <Row className="recipe-card" style={eventCardStyle}>
