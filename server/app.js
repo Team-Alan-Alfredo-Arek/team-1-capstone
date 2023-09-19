@@ -45,6 +45,18 @@ const setupRoutes = (io) => {
         ],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
       },
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        "https://cdnjs.cloudflare.com",
+        "https://code.jquery.com",
+        "https://maxcdn.bootstrapcdn.com",
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com",
+        "https://www.google.com",
+        "https://www.gstatic.com",
+      ],
     })
   );
 
