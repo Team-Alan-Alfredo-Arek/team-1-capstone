@@ -39,6 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "langchain": "^0.0.146",
     "morgan": "^1.10.0",
+    "node-cache": "^5.1.2",
     "openai": "^4.6.0",
     "path-browserify": "^1.0.1",
     "pg": "^8.8.0",
