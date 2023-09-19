@@ -109,22 +109,6 @@ async function seed() {
     }),
   ]);
 
-  const eventParticipants = await Promise.all([
-    EventUser.create({
-      rsvpStatus: "accepted",
-      role: "host",
-      userId: alan.id,
-      eventId: Thanksgiving.id,
-    }),
-    EventUser.create({
-      rsvpStatus: "accepted",
-      role: "host",
-      userId: alfredo.id,
-      eventId: Christmas.id,
-    }),
-    // ... other participants ...
-  ]);
-
   console.log(`seeded successfully`);
   return {
     events: {

@@ -13,6 +13,24 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.post("/:id/addUser/:userId", async (req, res, next) => {
+  try {
+    const { eventId, userId } = req.params;
+    const event = await Event.findByPk(eventId);
+    const user = await User.findByPk(userId);
+
+    if (!event || !user) {
+      return res.status(404).send("Event or User not found");
+    }
+
+    await event.addUser(user);
+
+    res.status(201).json({ message: "User added to event successfully" });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Read all events
 router.get("/", async (req, res, next) => {
   try {
