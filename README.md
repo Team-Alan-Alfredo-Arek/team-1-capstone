@@ -37,7 +37,7 @@ npm install
 
 4. Start the development server
 ```bash
-npm start
+npm run start
 ```
 
 By default, the application will start on `http://localhost:3000/`.
