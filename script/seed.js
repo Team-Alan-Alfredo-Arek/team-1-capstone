@@ -109,6 +109,21 @@ async function seed() {
     }),
   ]);
 
+  const eventUsers = await Promise.all([
+    EventUser.create({
+      eventId: Thanksgiving.id,
+      userId: alan.id,
+    }),
+    EventUser.create({
+      eventId: Christmas.id,
+      userId: alfredo.id,
+    }),
+    EventUser.create({
+      eventId: Holloween.id,
+      userId: arek.id,
+    }),
+  ]);
+
   console.log(`seeded successfully`);
   return {
     events: {
@@ -118,7 +133,7 @@ async function seed() {
     },
     tasks,
     chats,
-
+    eventUsers,
     users: {
       alan,
       alfredo,

@@ -1,6 +1,3 @@
-
----
-
 # Event Management Application
 
 Event Management Application is a React-based web application that allows users to manage and view details of various events.
@@ -9,6 +6,7 @@ Event Management Application is a React-based web application that allows users 
 
 - **View Events**: Users can view a list of available events.
 - **Event Details**: Users can click on a specific event to view its details.
+- **Event Ideas**: User can use Ai to get event ideas.
 - **Add Users to Event**: Users can be added to specific events, allowing them to participate or show interest.
 
 ## Getting Started
