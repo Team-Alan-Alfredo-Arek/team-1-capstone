@@ -118,7 +118,7 @@ async function seed() {
     },
     tasks,
     chats,
-    eventParticipants,
+
     users: {
       alan,
       alfredo,

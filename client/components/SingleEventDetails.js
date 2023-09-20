@@ -5,10 +5,10 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { motion } from "framer-motion";
 import TaskComponent from "./Task";
-import Recipes from "./Recipes";
+import { getUsers } from "../store/users";
 import EventIdeas from "./EventIdeas";
 import ChatComponent from "./Chat";
-import { getUsers } from "../store";
+import { addUserToEventThunk } from "../store";
 
 const SingleEventDetails = () => {
   const { id } = useParams();
@@ -24,10 +24,15 @@ const SingleEventDetails = () => {
     (e) => e.id === Number(id)
   );
 
+  const [selectedUser, setSelectedUser] = useState(null);
+  const users = useSelector((state) => state.users.users);
+
   useEffect(() => {
     if (id) {
       dispatch(getSingleEventThunk(id));
       dispatch(fetchTasks());
+      dispatch(getUsers());
+      dispatch(addUserToEventThunk(selectedUser, id));
     }
   }, [dispatch, id]);
 
@@ -65,6 +70,25 @@ const SingleEventDetails = () => {
             <p>{event.description}</p>
           </Col>
         </Row>
+        <select onChange={(e) => setSelectedUser(e.target.value)}>
+          <option value={null}>Select a user</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.username}
+            </option>
+          ))}
+        </select>
+
+        <button
+          onClick={() => {
+            if (selectedUser) {
+              dispatch(addUserToEventThunk(selectedUser, id));
+            } else {
+              console.error("User ID is null or not selected.");
+            }
+          }}>
+          Add User to Event
+        </button>
 
         {/* Buttons */}
         <Button variant="success" onClick={() => toggleModal("ideas")}>
