@@ -8,39 +8,7 @@ import TaskComponent from "./Task";
 import Recipes from "./Recipes";
 import EventIdeas from "./EventIdeas";
 import ChatComponent from "./Chat";
-
-const styles = {
-  eventCard: {
-    border: "1px solid #ddd",
-    padding: "10px",
-    margin: "10px 0",
-    borderRadius: "5px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
-  },
-  chatContainer: {
-    position: "fixed", // change from absolute to fixed
-    bottom: "20px",
-    right: "20px",
-    width: "300px",
-    maxHeight: "500px",
-    border: "1px solid #ddd",
-    borderRadius: "10px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
-    background: "#fff",
-    overflow: "hidden",
-  },
-  chatButton: {
-    position: "fixed",
-    bottom: "20px",
-    right: "20px",
-    zIndex: 10,
-  },
-  chatContent: {
-    overflowY: "auto",
-    height: "400px",
-    padding: "10px",
-  },
-};
+import { getUsers } from "../store";
 
 const SingleEventDetails = () => {
   const { id } = useParams();
@@ -113,14 +81,14 @@ const SingleEventDetails = () => {
         </Button>
 
         {/* Modals */}
-      <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
-        <Modal.Header closeButton>
-          <Modal.Title>Event Ideas!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <EventIdeas />
-        </Modal.Body>
-      </Modal>
+        <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Event Ideas!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <EventIdeas />
+          </Modal.Body>
+        </Modal>
 
         {/* <Modal show={showModal.recipes} onHide={() => toggleModal("recipes")}>
           <Modal.Header closeButton>
@@ -140,6 +108,38 @@ const SingleEventDetails = () => {
       )}
     </Container>
   );
+};
+const styles = {
+  eventCard: {
+    border: "1px solid #ddd",
+    padding: "10px",
+    margin: "10px 0",
+    borderRadius: "5px",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+  },
+  chatContainer: {
+    position: "fixed", // change from absolute to fixed
+    bottom: "20px",
+    right: "20px",
+    width: "300px",
+    maxHeight: "500px",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+    background: "#fff",
+    overflow: "hidden",
+  },
+  chatButton: {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 10,
+  },
+  chatContent: {
+    overflowY: "auto",
+    height: "400px",
+    padding: "10px",
+  },
 };
 
 export default SingleEventDetails;

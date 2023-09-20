@@ -47,8 +47,7 @@ const Home = (props) => {
                 stiffness: 70,
                 restDelta: 0.01,
               },
-            }}
-          >
+            }}>
             <Events />
           </motion.div>
           <div className="d-flex justify-content-center">
@@ -56,14 +55,12 @@ const Home = (props) => {
               <div className="d-flex w-100">
                 <Link
                   to="/createevent"
-                  className="btn btn-success m-2 flex-grow-1"
-                >
+                  className="btn btn-success m-2 flex-grow-1">
                   Create Event
                 </Link>
                 <Button
                   className="btn custom-button-color btn-danger m-2 flex-grow-1"
-                  onClick={handleLogout}
-                >
+                  onClick={handleLogout}>
                   Logout
                 </Button>
               </div>
@@ -88,4 +85,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatchToProps)(Home);
-

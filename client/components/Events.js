@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getEventsThunk } from "../store/events";
+import { getEventsThunk, deleteEventThunk } from "../store/events";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { fetchTasks, deleteEventThunk } from "../store";
-import { motion, wrap } from "framer-motion";
+
+import { motion } from "framer-motion";
 
 const Events = () => {
   const events = useSelector((state) => state.events);
-  const tasks = useSelector((state) => state.tasks);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getEventsThunk());
-    dispatch(fetchTasks());
   }, [dispatch]);
 
   const handleDelete = (eventId) => {
@@ -59,9 +58,17 @@ const Events = () => {
             <Row md={10} key={event?.id}>
               <div className="event-card" style={eventCardStyle}>
                 <p className="event-date">{formatDate(event?.date)}</p>
-                <h4 className="event-name">{event?.name}</h4>
-                <p className="event-description">{event?.description}</p>
-                <div className="event-actions">
+                <div
+                  style={{
+                    alignContent: "center",
+                    justifyContent: "center",
+                  }}>
+                  <h4 className="event-name">{event?.name}</h4>
+                  <p className="event-description">{event?.description}</p>
+                </div>
+                <div
+                  style={{ alignContent: "center", justifyContent: "center" }}
+                  className="event-actions">
                   <Link to={`/events/${event?.id}`}>
                     <Button className="details-btn mx-2">Event Details</Button>
                   </Link>
