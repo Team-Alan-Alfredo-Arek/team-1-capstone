@@ -99,42 +99,24 @@ h1.gradient-custom {
 }
 
 /* ==== BUTTON STYLES ==== */
-.btn {
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
+
+.btn, .form-button {
+  padding: 0.5rem 1rem;  /* Adjust padding to make buttons smaller */
+  font-size: 0.9rem;  /* Optionally adjust font size */
   border-radius: 5px;
   transition: all 0.3s ease;
   display: inline-block;
   border: none;
   cursor: pointer;
+  background-color: rgba(9, 169, 33, 0.907);  /* Set background color to blue */
+  color: white;  /* Set text color to white */
 }
 
-.btn-primary {
-  background-color: #2C3E50;
-  color: #ffffff;
+/* Updated hover effect */
+.btn:hover, .form-button:hover {
+  background-color: darkblue;  /* Darker shade of blue on hover */
 }
 
-.btn-primary:hover {
-  background-color: #34495E;
-}
-
-.btn-secondary {
-  background-color: #E74C3C;
-  color: #ffffff;
-}
-
-.btn-secondary:hover {
-  background-color: #E95757;
-}
-
-.btn-tertiary {
-  background-color: #2980B9;
-  color: #ffffff;
-}
-
-.btn-tertiary:hover {
-  background-color: #3498DB;
-}
 
 /* ==== TEXT STYLES ==== */
 .welcomeMessage {

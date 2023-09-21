@@ -65,7 +65,7 @@ export default function CreateEvent() {
 
         <div className="form-group">
           <label>Budget</label>
-          <input type="text" className="form-control" placeholder="Enter budget" value={eventBudget} onChange={(e) => setEventBudget(e.target.value)} />
+          <input type="text" className="form-control" placeholder="$$$" value={eventBudget} onChange={(e) => setEventBudget(e.target.value)} />
         </div>
 
         <div className="form-group">
