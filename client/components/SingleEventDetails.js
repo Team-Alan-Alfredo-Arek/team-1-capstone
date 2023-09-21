@@ -8,6 +8,8 @@ import TaskComponent from "./Task";
 import EventIdeas from "./EventIdeas";
 import ChatComponent from "./Chat";
 import GenerateTask from "./generateTask";
+import { getUsers } from "../store/users";
+import { addUserToEventThunk } from "../store";
 
 const styles = {
   eventCard: {
@@ -41,10 +43,6 @@ const styles = {
     padding: "10px",
   },
 };
-import { getUsers } from "../store/users";
-import EventIdeas from "./EventIdeas";
-import ChatComponent from "./Chat";
-import { addUserToEventThunk } from "../store";
 
 const SingleEventDetails = () => {
   const { id } = useParams();
