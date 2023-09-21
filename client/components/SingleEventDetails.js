@@ -5,6 +5,42 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { motion } from "framer-motion";
 import TaskComponent from "./Task";
+import EventIdeas from "./EventIdeas";
+import ChatComponent from "./Chat";
+import GenerateTask from "./generateTask";
+
+const styles = {
+  eventCard: {
+    border: "1px solid #ddd",
+    padding: "10px",
+    margin: "10px 0",
+    borderRadius: "5px",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+  },
+  chatContainer: {
+    position: "fixed", 
+    bottom: "20px",
+    right: "20px",
+    width: "300px",
+    maxHeight: "500px",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+    background: "#fff",
+    overflow: "hidden",
+  },
+  chatButton: {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 10,
+  },
+  chatContent: {
+    overflowY: "auto",
+    height: "400px",
+    padding: "10px",
+  },
+};
 import { getUsers } from "../store/users";
 import EventIdeas from "./EventIdeas";
 import ChatComponent from "./Chat";
@@ -94,9 +130,9 @@ const SingleEventDetails = () => {
         <Button variant="success" onClick={() => toggleModal("ideas")}>
           Event Ideas!
         </Button>
-        {/* <Button variant="success" onClick={() => toggleModal("recipes")}>
-          Fun Recipes
-        </Button> */}
+        <Button variant="primary" onClick={() => toggleModal("tasks")}>
+          Generate Tasks
+        </Button>
         <Button
           style={styles.chatButton}
           variant="warning"
@@ -114,14 +150,15 @@ const SingleEventDetails = () => {
           </Modal.Body>
         </Modal>
 
-        {/* <Modal show={showModal.recipes} onHide={() => toggleModal("recipes")}>
-          <Modal.Header closeButton>
-            <Modal.Title>Fun Recipes</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Recipes />
-          </Modal.Body>
-        </Modal> */}
+      <Modal show={showModal.tasks} onHide={() => toggleModal("tasks")}>
+    <Modal.Header closeButton>
+      <Modal.Title>Generate Task</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <GenerateTask />
+    </Modal.Body>
+  </Modal>
+
       </motion.div>
 
       <TaskComponent />
@@ -132,38 +169,6 @@ const SingleEventDetails = () => {
       )}
     </Container>
   );
-};
-const styles = {
-  eventCard: {
-    border: "1px solid #ddd",
-    padding: "10px",
-    margin: "10px 0",
-    borderRadius: "5px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
-  },
-  chatContainer: {
-    position: "fixed", // change from absolute to fixed
-    bottom: "20px",
-    right: "20px",
-    width: "300px",
-    maxHeight: "500px",
-    border: "1px solid #ddd",
-    borderRadius: "10px",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
-    background: "#fff",
-    overflow: "hidden",
-  },
-  chatButton: {
-    position: "fixed",
-    bottom: "20px",
-    right: "20px",
-    zIndex: 10,
-  },
-  chatContent: {
-    overflowY: "auto",
-    height: "400px",
-    padding: "10px",
-  },
 };
 
 export default SingleEventDetails;
