@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEventsThunk, createEventThunk } from "../store/events";
 import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap"; 
+
 
 export default function CreateEvent() {
   const dispatch = useDispatch();

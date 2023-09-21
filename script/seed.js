@@ -109,20 +109,19 @@ async function seed() {
     }),
   ]);
 
-  const eventParticipants = await Promise.all([
+  const eventUsers = await Promise.all([
     EventUser.create({
-      rsvpStatus: "accepted",
-      role: "host",
-      userId: alan.id,
       eventId: Thanksgiving.id,
+      userId: alan.id,
     }),
     EventUser.create({
-      rsvpStatus: "accepted",
-      role: "host",
-      userId: alfredo.id,
       eventId: Christmas.id,
+      userId: alfredo.id,
     }),
-    // ... other participants ...
+    EventUser.create({
+      eventId: Holloween.id,
+      userId: arek.id,
+    }),
   ]);
 
   console.log(`seeded successfully`);
@@ -134,7 +133,7 @@ async function seed() {
     },
     tasks,
     chats,
-    eventParticipants,
+    eventUsers,
     users: {
       alan,
       alfredo,

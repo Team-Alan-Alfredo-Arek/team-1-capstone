@@ -5,6 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
 const bodyParser = require("body-parser");
+const url = process.env.WEBSITE_URL || "http://localhost:3000";
 require("dotenv").config({ override: true });
 
 module.exports = app;
@@ -18,7 +19,7 @@ const setupRoutes = (io) => {
 
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: url,
       credentials: true,
     })
   );
@@ -44,6 +45,18 @@ const setupRoutes = (io) => {
         ],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
       },
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        "https://cdnjs.cloudflare.com",
+        "https://code.jquery.com",
+        "https://maxcdn.bootstrapcdn.com",
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com",
+        "https://www.google.com",
+        "https://www.gstatic.com",
+      ],
     })
   );
 

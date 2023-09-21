@@ -4,11 +4,12 @@ const app = require("./app");
 const seed = require("../script/seed");
 const http = require("http");
 const socketio = require("socket.io");
+const url = process.env.WEBSITE_URL || "http://localhost:3000";
 
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: url,
     methods: ["GET", "POST"],
   },
 });

@@ -52,7 +52,6 @@ export const getUsers = () => {
       .get("/api/users")
       .then((res) => {
         dispatch(_getUsers(res.data));
-        console.log("getUsers Thunk", res.data);
       })
       .catch((err) => {
         console.log("Error getting users", err);
@@ -106,7 +105,6 @@ export const updateUser = (user) => {
       .put(`/api/users/${user.id}`, user)
       .then((res) => {
         dispatch(_updateUser(res.data));
-        console.log("store res.data", res.data);
       })
       .catch((err) => {
         console.log("Error updating usere", err);

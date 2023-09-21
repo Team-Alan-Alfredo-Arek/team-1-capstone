@@ -41,6 +41,10 @@ const styles = {
     padding: "10px",
   },
 };
+import { getUsers } from "../store/users";
+import EventIdeas from "./EventIdeas";
+import ChatComponent from "./Chat";
+import { addUserToEventThunk } from "../store";
 
 const SingleEventDetails = () => {
   const { id } = useParams();
@@ -56,10 +60,15 @@ const SingleEventDetails = () => {
     (e) => e.id === Number(id)
   );
 
+  const [selectedUser, setSelectedUser] = useState(null);
+  const users = useSelector((state) => state.users.users);
+
   useEffect(() => {
     if (id) {
       dispatch(getSingleEventThunk(id));
       dispatch(fetchTasks());
+      dispatch(getUsers());
+      dispatch(addUserToEventThunk(selectedUser, id));
     }
   }, [dispatch, id]);
 
@@ -97,6 +106,25 @@ const SingleEventDetails = () => {
             <p>{event.description}</p>
           </Col>
         </Row>
+        <select onChange={(e) => setSelectedUser(e.target.value)}>
+          <option value={null}>Select a user</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.username}
+            </option>
+          ))}
+        </select>
+
+        <button
+          onClick={() => {
+            if (selectedUser) {
+              dispatch(addUserToEventThunk(selectedUser, id));
+            } else {
+              console.error("User ID is null or not selected.");
+            }
+          }}>
+          Add User to Event
+        </button>
 
         {/* Buttons */}
         <Button variant="success" onClick={() => toggleModal("ideas")}>
@@ -113,14 +141,14 @@ const SingleEventDetails = () => {
         </Button>
 
         {/* Modals */}
-      <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
-        <Modal.Header closeButton>
-          <Modal.Title>Event Ideas!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <EventIdeas />
-        </Modal.Body>
-      </Modal>
+        <Modal show={showModal.ideas} onHide={() => toggleModal("ideas")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Event Ideas!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <EventIdeas />
+          </Modal.Body>
+        </Modal>
 
       <Modal show={showModal.tasks} onHide={() => toggleModal("tasks")}>
     <Modal.Header closeButton>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "proxy": "http://planperfect.onrender.com/",
   "scripts": {
-    "start": "node server/index.js --ignore dist/ --ignore src/ ",
+    "start": "npm run db:build && node server/index.js --ignore dist/ --ignore src/ ",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
@@ -19,8 +19,6 @@
   "author": "Team 1: Alan Koh, Alfredo Montero, Arek Halpern",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.18.13",
-    "@babel/preset-react": "^7.18.6",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -31,7 +29,7 @@
     "bootstrap": "^5.3.1",
     "buffer": "^6.0.3",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
+    "css-loader": "^6.8.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.1",
     "framer-motion": "^10.16.4",
@@ -46,36 +44,30 @@
     "react": "^18.2.0",
     "react-awesome-reveal": "^4.2.5",
     "react-bootstrap": "^2.8.0",
-    "react-fontawesome": "^1.7.1",
-    "sequelize": "^6.21.4",
-    "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2",
-    "ws": "^8.14.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.18.13",
-    "@babel/preset-react": "^7.18.6",
-    "axios": "^0.27.2",
-    "babel-loader": "^8.2.5",
-    "cross-env": "^7.0.3",
-    "nodemon": "^2.0.19",
-    "path-browserify": "^1.0.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^5.3.4",
     "redux": "^4.2.0",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.1",
     "sequelize": "^6.21.4",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "stream-browserify": "^3.0.0",
+    "style-loader": "^3.3.3",
+    "swiper": "^10.2.0",
     "util": "^0.12.5",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "ws": "^8.14.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "@babel/core": "^7.18.13",
+    "@babel/preset-react": "^7.18.6",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.19",
+    "redux-logger": "^3.0.6"
+  },
+  "engines": {
+    "node": "^18.16.0"
   }
 }

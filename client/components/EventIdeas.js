@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';  
-import { fetchAIResults, getSingleEventThunk } from '../store';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchAIResults, getSingleEventThunk } from "../store";
 
 const EventIdeas = () => {
-  const { id } = useParams();  
+  const { id } = useParams();
   const dispatch = useDispatch();
-
 
   const event = useSelector((state) => state.events).find(
     (e) => e.id === Number(id)
@@ -16,19 +15,15 @@ const EventIdeas = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(getSingleEventThunk(id)).then(() => { 
+      dispatch(getSingleEventThunk(id)).then(() => {
         if (event) {
-          dispatch(fetchAIResults(event.name)) 
-            .then((result) => {
-            })
-            .catch((error) => {
-            });
+          dispatch(fetchAIResults(event.name))
+            .then((result) => {})
+            .catch((error) => {});
         }
       });
     }
-  }, [dispatch, id, event]); 
-
-  console.log('Rendering with aiResults:', aiResults);
+  }, [dispatch, id, event]);
 
   return (
     <div>
@@ -44,4 +39,3 @@ const EventIdeas = () => {
 };
 
 export default EventIdeas;
-

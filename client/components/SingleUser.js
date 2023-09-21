@@ -17,8 +17,6 @@ const SingleUser = (props) => {
   );
   const user = props.user || userFromStore;
 
-  console.log("user", user);
-
   const initialFormState = user
     ? {
         username: user.username,
