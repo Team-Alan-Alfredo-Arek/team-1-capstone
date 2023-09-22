@@ -1,5 +1,6 @@
 const { OpenAI } = require("langchain/llms/openai");
 const { PromptTemplate } = require("langchain/prompts");
+const { StructuredOutputParser } = require("langchain/output_parsers");
 const { LLMChain } = require("langchain/chains");
 const NodeCache = require("node-cache");
 const express = require("express");
@@ -55,9 +56,20 @@ router.post('/generate-tasks', async (req, res) => {
       temperature: 0.7,
     });
 
-    const template = " Based on the event \n Event: {event}, please generate a list of tasks that need to be done before, during and after the event. Make sure to specify the due date for each task."
+    const parser = StructuredOutputParser.fromNamesAndDescriptions({
+      taskName: "Task Name",
+      dueDate: "Due Date",
+    });
 
-    const prompt = new PromptTemplate({ template, inputVariables: ['event'] });
+    const formatInstructions = parser.getFormatInstructions();
+
+
+    const prompt = new PromptTemplate({
+      template: " Based on the event \n Event: {event}, please generate a list of tasks that need to be done before, during and after the event. Make sure to specify the due date for each task.",
+      inputVariables: ['event'],
+      partialVariables: { format_instructions: formatInstructions }
+    });
+
     const chain = new LLMChain({ llm: model, prompt });
 
     const results = await Promise.all([chain.call({ event })]);
