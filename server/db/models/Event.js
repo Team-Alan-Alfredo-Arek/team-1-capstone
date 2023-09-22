@@ -13,17 +13,17 @@ const Event = db.define("event", {
   },
   location: {
     type: STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    allowNull: true,
+    // validate: {
+    //   notEmpty: true,
+    //   },
   },
   date: {
     type: DATE,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      },
+    allowNull: true,
+    // validate: {
+    //   notEmpty: true,
+    //   },
     },
   guestCount: {
     type: INTEGER,

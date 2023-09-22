@@ -16,7 +16,7 @@ import ContentComponent from "./ContentComponent";
 
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
-
+console.log("Authform propr",props)
   return (
     <Container className="mt-5">
       <Row>
@@ -50,6 +50,13 @@ const AuthForm = (props) => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control name="password" type="password" />
                   </Form.Group>
+                  {/* AK adding Email IFF signing up */}
+                  {displayName==="Sign Up"?(
+                  <Form.Group>
+                    <Form.Label>Email Address</Form.Label>
+                    <Form.Control name="email" type="email" />
+                  </Form.Group>):(null)}
+
                   <div className="text-center">
                     <Button type="submit" className="custom-button-color mr-2">
                       {displayName}
@@ -98,14 +105,16 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
-      const formName = evt.target.name;
+      const formName = evt.target.name; //AK 'Login' or Signup'
       const username = evt.target.username.value;
-      const password = evt.target.password.value;
-      if (!username || !password) {
-        alert("Both username and password are required.");
+      const password = evt.target.password.value
+      const email = evt.target.email? evt.target.email.value : null;
+
+      if (!username || !password ||(!email && formName===Signup)) {
+        alert("All fields are required.");
         return;
       }
-      dispatch(authenticate(username, password, formName));
+      dispatch(authenticate(username, password, email, formName));
     },
   };
 };

@@ -24,7 +24,7 @@ const _getUser = (user) => {
   };
 };
 
-const _createUser = (user) => {
+export const _createUser = (user) => {
   return {
     type: CREATE_USER,
     user,

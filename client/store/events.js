@@ -1,4 +1,6 @@
 import axios from "axios";
+import {_createUser} from "./users.js";
+//import nodemailer  from "nodemailer";
 
 const CREATE_EVENT = "CREATE_EVENT";
 const UPDATE_EVENT = "UPDATE_EVENT";
@@ -39,9 +41,12 @@ const getSingleEvent = (event) => ({
 });
 
 export const createEventThunk = (newEvent) => {
+  console.log("newEvent", newEvent)
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
+      const emailList = newEvent.emailList; //ak
+      delete newEvent.emailList;      
       const response = await axios.post("/api/events", newEvent, {
         headers: {
           "Content-Type": "application/json",
@@ -49,11 +54,81 @@ export const createEventThunk = (newEvent) => {
         },
       });
       dispatch(createEvent(response.data));
+
+      console.log("createEventThunk emailList", emailList);
+      dispatch(createEventUserList(emailList, response.data.id))  
+
     } catch (error) {
       console.log("Failed to add new event:", error);
     }
   };
 };
+
+//ak thunk, will this work?
+export const createEventUserList = (emailList, eventId) =>{
+  return async (dispatch) =>{
+    try{
+      // Use Promise.all to wait for all POST requests to complete
+        const createUserPromises = emailList?.map((email) => {
+          return axios.post("/api/users",  {email, eventId} );
+        });
+
+        const createdUsers = await Promise.all(createUserPromises);
+
+        // Dispatch an action for each created user
+        createdUsers.forEach((user) => {
+          dispatch(_createUser(user.data));
+        });
+  
+        //SEND OUT EMAIL
+        // emailInvitedUsers(createdUsers);
+        // console.log("createdUsers to pass", createdUsers)
+        // Return the created users or any other relevant data
+        return createdUsers;
+      } catch (error) {
+        console.error("Error creating users", error);
+        // Handle errors and dispatch an error action if needed
+      }
+    };
+  };
+
+  //AK this isn't a thunk but should I move it someplace else?
+// const emailInvitedUsers = () =>{
+//   // Create a transporter using your email service's SMTP settings
+//   const transporter = nodemailer.createTransport({
+//     service: 'gmail', // e.g., 'gmail', 'yahoo', etc.
+//     auth: {
+//       user: 'sahng.ho.koh@gmail.com', // Your email address
+//       pass: 'Hahns117!',    // Your email password
+//     },
+//   });
+
+//   // Array of recipient email addresses
+//   const recipients = ['recipient1@example.com', 'recipient2@example.com'];
+
+//   // Iterate through the recipients and send individual emails
+//   recipients.forEach((recipient) => {
+//     // Extract the first part of the email address (before the "@")
+//     const recipientName = recipient.split('@')[0];
+
+//     // Define your email message
+//     const mailOptions = {
+//       from: 'your_email@example.com', // Sender's email address
+//       to: recipient,                 // Individual recipient
+//       subject: `Hello ${recipientName}`, // Subject with recipient's name
+//       text: `Hi ${recipientName},\n\nThis is a personalized email sent from Nodemailer!\n`,
+//     };
+
+//     // Send the email
+//     transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//         console.error(`Error sending email to ${recipient}:`, error);
+//       } else {
+//         console.log(`Email sent to ${recipient}:`, info.response);
+//       }
+//     });
+//   });
+// }
 
 export const updateEventThunk = (event) => {
   return async (dispatch) => {
