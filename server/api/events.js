@@ -6,7 +6,15 @@ const {
 // Create a new event
 router.post("/", async (req, res, next) => {
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = await User.findByToken(token);
+
     const event = await Event.create(req.body);
+
+    await EventUser.create({
+      eventId: event.id,
+      userId: user.id,
+    });
     res.status(201).json(event);
   } catch (error) {
     next(error);
@@ -52,12 +60,13 @@ router.get("/", async (req, res, next) => {
     const user = await User.findByToken(token);
 
     const events = await Event.findAll({
-      where: {
-        userId: user.id,
-      },
       include: [
         Task,
-        { model: User, as: "users", through: { attributes: [] } },
+        {
+          model: User,
+          where: { id: user.id },
+          through: { attributes: [] },
+        },
       ],
     });
 
@@ -66,7 +75,7 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-// Read a single event by ID
+
 // Read a single event by ID
 router.get("/:id", async (req, res, next) => {
   try {
@@ -74,10 +83,7 @@ router.get("/:id", async (req, res, next) => {
     const user = await User.findByToken(token);
 
     const event = await Event.findByPk(req.params.id, {
-      include: [
-        Task,
-        { model: User, as: "users", through: { attributes: [] } },
-      ],
+      include: [Task],
     });
 
     if (!event) {
