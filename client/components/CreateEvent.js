@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEventsThunk, createEventThunk } from "../store/events";
-import { Link } from "react-router-dom";
+
+import { getEventsThunk, createEventThunk, createEventUserList } from "../store/events";
+import { Form, Button, Container, ListGroup, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function CreateEvent() {
@@ -15,24 +17,39 @@ export default function CreateEvent() {
   const [eventDescription, setEventDescription] = useState("");
   const [eventBudget, setEventBudget] = useState("");
   const [eventStatus, setEventStatus] = useState("");
+  //ak new data for guestlist
+  const [eventEmailListText, setEventEmailListText] = useState("");
+
 
   useEffect(() => {
     dispatch(getEventsThunk());
   }, [dispatch]);
 
   const handleCreateEvent = () => {
+    
+    const emails = eventEmailListText.split(/[,;]/).map((email) => email.trim());
+    console.log("emails from handlecreateeevent", emails)
+    const eventThunkData = {
+      name: eventName,
+      location: eventLocation,
+      date: eventDate,
+      guestCount: eventGuestCount,
+      description: eventDescription,
+      budget: eventBudget,
+      status: eventStatus,
+      userId: auth.id,
+      emailList: emails}
     dispatch(
-      createEventThunk({
-        name: eventName,
-        location: eventLocation,
-        date: eventDate,
-        guestCount: eventGuestCount,
-        description: eventDescription,
-        budget: eventBudget,
-        status: eventStatus,
-        userId: auth.id,
-      })
+      createEventThunk(eventThunkData)
     );
+    setEventName("");
+    setEventLocation("");
+    setEventDate("");
+    setEventGuestCount(1);
+    setEventDescription("");
+    setEventBudget("");
+    setEventStatus("");
+    setEventEmailListText("");
   };
 
   return (
@@ -73,6 +90,18 @@ export default function CreateEvent() {
           <label>Status</label>
           <input type="text" className="form-control" placeholder="Enter status" value={eventStatus} onChange={(e) => setEventStatus(e.target.value)} />
         </div>
+
+        {/* AK new email text box, dropdown to add current users */}
+        <Form.Group>
+          <Form.Label>Add Invitee's Emails</Form.Label>
+          <Form.Control
+            type="text"
+            rows="3"
+            placeholder="Enter emails to add users to this event"
+            value={eventEmailListText}
+            onChange={(e) => setEventEmailListText(e.target.value)}
+          />
+        </Form.Group>
 
         <Link to="/events">
           <button type="button" className="btn btn-primary btn-block" onClick={handleCreateEvent}>Create Event</button>

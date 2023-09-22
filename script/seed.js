@@ -16,12 +16,14 @@ async function seed() {
   // Creating Users
   const [alan, alfredo, arek, cody, murphy] = await Promise.all([
     User.create({
+      email:'alan@abc.com',
       username: "alan",
       password: "123",
       isAdmin: true,
       imageUrl: "https://shorturl.at/jSUVZ",
     }),
     User.create({
+      email:'alf@abc.com',
       username: "alfredo",
       password: "123",
       isAdmin: true,
@@ -29,13 +31,14 @@ async function seed() {
         "https://ca.slack-edge.com/E05LYDFST6K-U04SM5GVDK2-fbe8ec81b13d-512",
     }),
     User.create({
+      email:'arek@abc.com',
       username: "arek",
       password: "123",
       isAdmin: true,
       imageUrl: "https://shorturl.at/kvJKR",
     }),
-    User.create({ username: "cody", password: "123" }),
-    User.create({ username: "murphy", password: "123" }),
+    User.create({ email:'cody@aol.com', username: "cody", password: "123" }),
+    User.create({ email:'murphy@aol.com',username: "murphy", password: "123" }),
   ]);
 
   const [Thanksgiving, Christmas, Holloween] = await Promise.all([

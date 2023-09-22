@@ -38,7 +38,11 @@ router.get("/:id", async (req, res) => {
 // POST /api/users
 router.post("/", async (req, res) => {
   try {
+    console.log("api req.body", req.body)
+    
     const user = await User.create(req.body);
+    console.log("api user", user)
+    
     res.status(201).json(user);
   } catch (err) {
     res.status(500).json({

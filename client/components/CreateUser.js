@@ -10,6 +10,7 @@ const CreateUser = () => {
   const [newUser, setNewUser] = useState({
     username: "",
     password: "",
+    email: "",
     isAdmin: false,
     imageUrl: "",
   });
@@ -23,9 +24,18 @@ const CreateUser = () => {
     try {
       dispatch(createUser(newUser));
       window.alert("New User added");
+      setNewUser({
+         username: "",
+         password: "",
+         email: "",
+         isAdmin: false,
+         imageUrl: ""
+      });
     } catch (error) {
       window.alert("Error adding new product");
     }
+
+
   };
 
   //   render() {
@@ -62,6 +72,16 @@ const CreateUser = () => {
             </Col>
           </Row>
           <Row className="mb-3">
+            <Col>
+              <label htmlFor="email">email</label>
+              <input
+                name="email"
+                type="text"
+                value={newUser.email}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </Col>
             <Col>
               <label htmlFor="isAdmin">Admin?</label>
               <input

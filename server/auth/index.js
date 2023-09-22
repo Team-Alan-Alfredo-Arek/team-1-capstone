@@ -14,11 +14,12 @@ module.exports = () => {
 
   router.post("/signup", async (req, res, next) => {
     try {
-      const { username, password } = req.body;
-      if (!username || !password) {
-        res.status(400).send("Username and password are required");
+      const { username, password, email } = req.body;
+      if (!username || !password ||!email) {
+        res.status(400).send("Username/password/email are required");
         return;
       }
+      console.log("auth router.post signup", req.body)
       const user = await User.create(req.body);
       res.send({ token: await user.generateToken() });
     } catch (err) {

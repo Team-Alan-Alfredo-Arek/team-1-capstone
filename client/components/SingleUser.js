@@ -21,12 +21,14 @@ const SingleUser = (props) => {
     ? {
         username: user.username,
         password: user.password,
+        email: user.email,
         isAdmin: user.isAdmin,
         imageUrl: user.imageUrl,
       }
     : {
         username: "",
         password: "",
+        email:"",
         isAdmin: false,
         imageUrl: "",
       };
@@ -107,6 +109,16 @@ const SingleUser = (props) => {
             </Col>
           </Row>
           <Row className="mb-3">
+            <Col>
+              <label htmlFor="email">email</label>
+              <input
+                name="email"
+                type="text"
+                value={form.email}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </Col>
             <Col>
               <label htmlFor="isAdmin">Admin?</label>
               <input
