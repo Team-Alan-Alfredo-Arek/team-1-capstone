@@ -1,12 +1,20 @@
 const router = require("express").Router();
 const {
-  models: { Event, Task, User },
+  models: { Event, Task, User, EventUser },
 } = require("../db");
 
 // Create a new event
 router.post("/", async (req, res, next) => {
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = await User.findByToken(token);
+
     const event = await Event.create(req.body);
+
+    await EventUser.create({
+      eventId: event.id,
+      userId: user.id,
+    });
     res.status(201).json(event);
   } catch (error) {
     next(error);
@@ -15,17 +23,31 @@ router.post("/", async (req, res, next) => {
 
 router.post("/:id/addUser/:userId", async (req, res, next) => {
   try {
-    const { eventId, userId } = req.params;
-    const event = await Event.findByPk(eventId);
+    const { id, userId } = req.params;
+    const event = await Event.findByPk(id);
     const user = await User.findByPk(userId);
 
     if (!event || !user) {
-      return res.status(404).send("Event or User not found");
+      return res
+        .status(404)
+        .json({ success: false, message: "Event or User not found" });
+    }
+
+    const eventUser = await EventUser.findOne({
+      where: {
+        eventId: event.id,
+        userId: user.id,
+      },
+    });
+
+    if (eventUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User already added to event" });
     }
 
     await event.addUser(user);
-
-    res.status(201).json({ message: "User added to event successfully" });
+    res.status(201).json({ success: true, event: event });
   } catch (error) {
     next(error);
   }
@@ -38,10 +60,14 @@ router.get("/", async (req, res, next) => {
     const user = await User.findByToken(token);
 
     const events = await Event.findAll({
-      where: {
-        userId: user.id,
-      },
-      include: [Task],
+      include: [
+        Task,
+        {
+          model: User,
+          where: { id: user.id },
+          through: { attributes: [] },
+        },
+      ],
     });
 
     res.json(events);
@@ -51,13 +77,14 @@ router.get("/", async (req, res, next) => {
 });
 
 // Read a single event by ID
-// Read a single event by ID
 router.get("/:id", async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const user = await User.findByToken(token);
 
-    const event = await Event.findByPk(req.params.id);
+    const event = await Event.findByPk(req.params.id, {
+      include: [Task],
+    });
 
     if (!event) {
       return res.status(404).send("Event not found");

@@ -6,6 +6,7 @@ const CREATE_EVENT = "CREATE_EVENT";
 const UPDATE_EVENT = "UPDATE_EVENT";
 const DELETE_EVENT = "DELETE_EVENT";
 const GET_EVENTS = "GET_EVENTS";
+const ADD_USER_TO_EVENT = "ADD_USER_TO_EVENT";
 
 //Single Event Functionalities
 
@@ -31,6 +32,11 @@ const deleteEvent = (event) => ({
 const getEvents = (events) => ({
   type: GET_EVENTS,
   events,
+});
+
+const addUserToEvent = (eventId) => ({
+  type: ADD_USER_TO_EVENT,
+  payload: eventId,
 });
 
 //Single event actions creators
@@ -133,9 +139,11 @@ export const createEventUserList = (emailList, eventId) =>{
 export const updateEventThunk = (event) => {
   return async (dispatch) => {
     try {
+      const token = window.localStorage.getItem(TOKEN);
       const res = await axios.put(`/api/events/${event.id}`, event, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
       const updatedEvent = res.data;
@@ -181,6 +189,30 @@ export const getSingleEventThunk = (id) => {
   };
 };
 
+export const addUserToEventThunk = (userId, eventId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/events/${eventId}/addUser/${userId}`, {
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error("Server responded with a non-200 status code");
+    }
+
+    console.log("Sending request with User ID:", userId, "Event ID:", eventId);
+
+    const data = await response.json();
+
+    if (data.success) {
+      dispatch(addUserToEvent({ userId, eventId }));
+    } else {
+      console.error("Error from server:", data.message);
+    }
+  } catch (error) {
+    console.error("Error adding user to event:", error);
+  }
+};
+
 const initialState = [];
 
 export default function eventReducer(state = initialState, action) {
@@ -197,6 +229,15 @@ export default function eventReducer(state = initialState, action) {
       return action.events;
     case GET_SINGLE_EVENT:
       return [...state, action.payload];
+    case ADD_USER_TO_EVENT:
+      return state.map((event) =>
+        event.id === action.payload.eventId
+          ? {
+              ...event,
+              users: [...event.users, action.payload.userId],
+            }
+          : event
+      );
 
     default:
       return state;
