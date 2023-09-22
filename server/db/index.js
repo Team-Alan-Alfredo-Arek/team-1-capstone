@@ -8,8 +8,8 @@ const EventUser = require("./models/eventUser");
 const Chat = require("./models/Chat");
 
 //associations could go here!
-User.hasMany(Event);
-Event.belongsTo(User);
+// User.hasMany(Event);
+// Event.belongsTo(User);
 Event.hasMany(Task);
 User.hasMany(Task);
 Task.belongsTo(Event);
