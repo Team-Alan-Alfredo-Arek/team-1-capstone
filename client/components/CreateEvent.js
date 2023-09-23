@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getEventsThunk, createEventThunk, createEventUserList } from "../store/events";
 import { Form, Button, Container, ListGroup, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
 
 export default function CreateEvent() {
   const dispatch = useDispatch();
@@ -53,43 +51,76 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Create Event</h1>
-      <form>
-        <div className="form-group">
-          <label>Event Name</label>
-          <input type="text" className="form-control" placeholder="Enter event name" value={eventName} onChange={(e) => setEventName(e.target.value)} />
-        </div>
+    <Container className="form-container">
+      <h1>Create Event</h1>
+      <Form>
+        <Form.Group>
+          <Form.Label>Event Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter event name"
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
+          />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Location</label>
-          <input type="text" className="form-control" placeholder="Enter location" value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
-        </div>
+        <Form.Group>
+          <Form.Label>Location</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter location"
+            value={eventLocation}
+            onChange={(e) => setEventLocation(e.target.value)}
+          />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Date</label>
-          <input type="datetime-local" className="form-control" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
-        </div>
+        <Form.Group>
+          <Form.Label>Date</Form.Label>
+          <Form.Control
+            type="datetime-local"
+            value={eventDate}
+            onChange={(e) => setEventDate(e.target.value)}
+          />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Guest Count</label>
-          <input type="number" className="form-control" value={eventGuestCount} onChange={(e) => setEventGuestCount(e.target.value)} />
-        </div>
+        <Form.Group>
+          <Form.Label>Guest Count</Form.Label>
+          <Form.Control
+            type="number"
+            value={eventGuestCount}
+            onChange={(e) => setEventGuestCount(e.target.value)}
+          />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Description</label>
-          <textarea className="form-control" rows="3" placeholder="Enter description" value={eventDescription} onChange={(e) => setEventDescription(e.target.value)}></textarea>
-        </div>
+        <Form.Group>
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter description"
+            value={eventDescription}
+            onChange={(e) => setEventDescription(e.target.value)}
+          />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Budget</label>
-          <input type="text" className="form-control" placeholder="$$$" value={eventBudget} onChange={(e) => setEventBudget(e.target.value)} />
-        </div>
+        <Form.Group>
+          <Form.Label>Budget</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter budget"
+            value={eventBudget}
+            onChange={(e) => setEventBudget(e.target.value)}
+          />
+        </Form.Group>
 
-        <div className="form-group">
-          <label>Status</label>
-          <input type="text" className="form-control" placeholder="Enter status" value={eventStatus} onChange={(e) => setEventStatus(e.target.value)} />
-        </div>
+        <Form.Group>
+          <Form.Label>Status</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter status"
+            value={eventStatus}
+            onChange={(e) => setEventStatus(e.target.value)}
+          />
+        </Form.Group>
 
         {/* AK new email text box, dropdown to add current users */}
         <Form.Group>
@@ -104,9 +135,16 @@ export default function CreateEvent() {
         </Form.Group>
 
         <Link to="/events">
-          <button type="button" className="btn btn-primary btn-block" onClick={handleCreateEvent}>Create Event</button>
+          <Button
+            variant="primary"
+            className="form-button"
+            onClick={handleCreateEvent}>
+            Create Event
+          </Button>
         </Link>
-      </form>
-    </div>
+      </Form>
+
+      {/* List/Modal. */}
+    </Container>
   );
 }

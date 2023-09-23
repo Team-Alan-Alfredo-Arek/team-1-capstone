@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer')
+
 const router = require("express").Router();
 const {
   models: { Event, Task, User, EventUser },
@@ -8,9 +10,45 @@ router.post("/", async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const user = await User.findByToken(token);
+    
+    //moved from events store
+  if (req.body.emailList.length>0){
+    const recipients = req.body.emailList; //array
+    delete req.body.emailList;      
+    //cycle through emailList and send emails IF emaillist.length>0
+      // Create a transporter using your email service's SMTP settings
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', // e.g., 'gmail', 'yahoo', etc.
+      auth: {
+        user: 'sahng.ho.koh@gmail.com', // Your email address
+        pass: 'lynj ldwo vbdv wvts',    // Your email password
+      },
+    });
 
-    const event = await Event.create(req.body);
+  // Iterate through the recipients and send individual emails
+    recipients.forEach((recipient) => {
+      // Extract the first part of the email address (before the "@")
+      const recipientName = recipient.split('@')[0];
 
+      // Define your email message
+      const mailOptions = {
+        from: 'sahng.ho.koh@gmail.com', // Sender's email address
+        to: recipient,                 // Individual recipient
+        subject: `Hello ${recipientName}`, // Subject with recipient's name
+        text: `Hi ${recipientName},\n\nThis is a personalized email sent from PlanPerfect!\n, please register here: `
+      };
+
+      // Send the email
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error(`Error sending email to ${recipient}:`, error);
+        } else {
+          console.log(`Email sent to ${recipient}:`, info.response);
+        }
+      });
+    }); 
+  }
+      const event = await Event.create(req.body);
     await EventUser.create({
       eventId: event.id,
       userId: user.id,
@@ -18,8 +56,8 @@ router.post("/", async (req, res, next) => {
     res.status(201).json(event);
   } catch (error) {
     next(error);
-  }
-});
+  
+}});
 
 router.post("/:id/addUser/:userId", async (req, res, next) => {
   try {
