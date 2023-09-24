@@ -43,7 +43,7 @@ const setupRoutes = (io) => {
           "https://images.unsplash.com",
           "https://ca.slack-edge.com/",
         ],
-        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
       },
       scriptSrc: [
         "'self'",

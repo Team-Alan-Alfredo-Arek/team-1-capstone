@@ -15,6 +15,8 @@ router.post("/", async (req, res, next) => {
       eventId: event.id,
       userId: user.id,
     });
+
+    
     res.status(201).json(event);
   } catch (error) {
     next(error);
