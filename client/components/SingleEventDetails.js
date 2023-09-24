@@ -18,9 +18,11 @@ const styles = {
     margin: "10px 0",
     borderRadius: "5px",
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
+    background: "#fafafa", // a light grey background
+    color: "#333",
   },
   chatContainer: {
-    position: "fixed", 
+    position: "fixed",
     bottom: "20px",
     right: "20px",
     width: "300px",
@@ -41,6 +43,19 @@ const styles = {
     overflowY: "auto",
     height: "400px",
     padding: "10px",
+  },
+  dropdown: {
+    padding: "10px",
+    width: "200px",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    margin: "10px 0",
+    cursor: "pointer",
+  },
+  button: {
+    margin: "10px",
+    padding: "8px 16px",
+    fontSize: "16px",
   },
 };
 
@@ -104,7 +119,9 @@ const SingleEventDetails = () => {
             <p>{event.description}</p>
           </Col>
         </Row>
-        <select onChange={(e) => setSelectedUser(e.target.value)}>
+        <select
+          style={styles.dropdown}
+          onChange={(e) => setSelectedUser(e.target.value)}>
           <option value={null}>Select a user</option>
           {users.map((user) => (
             <option key={user.id} value={user.id}>
@@ -114,6 +131,7 @@ const SingleEventDetails = () => {
         </select>
 
         <button
+          style={styles.button}
           onClick={() => {
             if (selectedUser) {
               dispatch(addUserToEventThunk(selectedUser, id));
@@ -148,15 +166,14 @@ const SingleEventDetails = () => {
           </Modal.Body>
         </Modal>
 
-      <Modal show={showModal.tasks} onHide={() => toggleModal("tasks")}>
-    <Modal.Header closeButton>
-      <Modal.Title>Generate Task</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <GenerateTask />
-    </Modal.Body>
-  </Modal>
-
+        <Modal show={showModal.tasks} onHide={() => toggleModal("tasks")}>
+          <Modal.Header closeButton>
+            <Modal.Title>Generate Task</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <GenerateTask />
+          </Modal.Body>
+        </Modal>
       </motion.div>
 
       <TaskComponent />
