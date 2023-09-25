@@ -9,7 +9,7 @@ const router = express.Router();
 const myCache = new NodeCache({ stdTTL: 86400, checkperiod: 120 });
 
 // Endpoint for generating event ideas
-router.post('/event-ideas', async (req, res) => {
+router.post("/event-ideas", async (req, res) => {
   try {
     const { event } = req.body;
 
@@ -35,13 +35,13 @@ router.post('/event-ideas', async (req, res) => {
 
     res.json({ results });
   } catch (error) {
-    console.error('An error occurred:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("An error occurred:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // Endpoint for generating tasks
-router.post('/generate-tasks', async (req, res) => {
+router.post("/generate-tasks", async (req, res) => {
   try {
     const { event } = req.body;
 
@@ -63,11 +63,11 @@ router.post('/generate-tasks', async (req, res) => {
 
     const formatInstructions = parser.getFormatInstructions();
 
-
     const prompt = new PromptTemplate({
-      template: " Based on the event \n Event: {event}, please generate a list of tasks that need to be done before, during and after the event. Make sure to specify the due date for each task. Make sure to respond neatly with proper spacing inbetween each task that you provide. Only list 3 tasks: Please see below for examples: \n 1. Task Name: Buy decorations for the event. Due Date: 11/20/2021",
-      inputVariables: ['event'],
-      partialVariables: { format_instructions: formatInstructions }
+      template:
+        " Based on the event \n Event: {event}, please generate a list of tasks that need to be done before, during and after the event. Make sure to specify the due date for each task. Make sure to respond neatly with proper spacing inbetween each task that you provide. Only list 3 tasks: Please see below for examples: \n 1. Task Name: Buy decorations for the event. Due Date: 11/20/2021",
+      inputVariables: ["event"],
+      partialVariables: { format_instructions: formatInstructions },
     });
 
     const chain = new LLMChain({ llm: model, prompt });

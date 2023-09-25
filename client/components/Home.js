@@ -58,11 +58,6 @@ const Home = (props) => {
                   className="btn btn-success m-2 flex-grow-1">
                   Create Event
                 </Link>
-                <Button
-                  className="btn custom-button-color btn-danger m-2 flex-grow-1"
-                  onClick={handleLogout}>
-                  Logout
-                </Button>
               </div>
             </div>
           </div>

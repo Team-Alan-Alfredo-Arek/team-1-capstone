@@ -54,8 +54,8 @@ const Events = () => {
               restDelta: 0.01,
             },
           }}>
-          {events?.map((event) => (
-            <Row md={10} key={event?.id}>
+          {events?.map((event, index) => (
+            <Row md={10} key={index}>
               <div className="event-card" style={eventCardStyle}>
                 <p className="event-date">{formatDate(event?.date)}</p>
                 <div
