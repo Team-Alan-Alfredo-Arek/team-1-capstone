@@ -16,7 +16,6 @@ router.post("/", async (req, res, next) => {
       userId: user.id,
     });
 
-    
     res.status(201).json(event);
   } catch (error) {
     next(error);
@@ -93,9 +92,6 @@ router.get("/:id", async (req, res, next) => {
     }
 
     // Check if the event belongs to the logged-in user
-    if (event.userId !== user.id) {
-      return res.status(403).send("Unauthorized access");
-    }
 
     res.json(event);
   } catch (error) {

@@ -1,7 +1,7 @@
 // Action Types
-const SET_AI_RESULTS = 'SET_AI_RESULTS';
-const SET_AI_TASKS = 'SET_AI_TASKS';  
-
+const SET_AI_RESULTS = "SET_AI_RESULTS";
+const SET_AI_TASKS = "SET_AI_TASKS";
+const TOKEN = "token";
 // Action Creators
 export const setAIResults = (results) => {
   return {
@@ -10,7 +10,7 @@ export const setAIResults = (results) => {
   };
 };
 
-export const setAITasks = (tasks) => {  
+export const setAITasks = (tasks) => {
   return {
     type: SET_AI_TASKS,
     tasks,
@@ -20,33 +20,37 @@ export const setAITasks = (tasks) => {
 // Thunk Functions
 export const fetchAIResults = (event) => async (dispatch) => {
   try {
-    const response = await fetch('/api/openai/event-ideas', {
-      method: 'POST',
+    const token = window.localStorage.getItem(TOKEN);
+    const response = await fetch("/api/openai/event-ideas", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ event }),
     });
     if (response.ok) {
       const data = await response.json();
       dispatch(setAIResults(data.results));
+
+      console.log(data.response);
       return data.results;
     } else {
-      throw new Error('Failed to fetch');
+      throw new Error("Failed to fetch");
     }
   } catch (error) {
-    console.error('An error occurred:', error);
-    dispatch(setAIResults(null)); 
+    console.error("An error occurred:", error);
+    dispatch(setAIResults(null));
     throw error;
   }
 };
 
 export const fetchAITasks = (event) => async (dispatch) => {
   try {
-    const response = await fetch('/api/openai/generate-tasks', {
-      method: 'POST',
+    const response = await fetch("/api/openai/generate-tasks", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ event }),
     });
@@ -55,11 +59,11 @@ export const fetchAITasks = (event) => async (dispatch) => {
       dispatch(setAITasks(data.results));
       return data.results;
     } else {
-      throw new Error('Failed to fetch');
+      throw new Error("Failed to fetch");
     }
   } catch (error) {
-    console.error('An error occurred:', error);
-    dispatch(setAITasks(null)); 
+    console.error("An error occurred:", error);
+    dispatch(setAITasks(null));
     throw error;
   }
 };
@@ -67,7 +71,7 @@ export const fetchAITasks = (event) => async (dispatch) => {
 // Initial State
 const initialState = {
   aiResults: null,
-  aiTasks: null,  
+  aiTasks: null,
 };
 
 // Reducer
@@ -78,7 +82,7 @@ const aiReducer = (state = initialState, action) => {
         ...state,
         aiResults: action.results,
       };
-    case SET_AI_TASKS:  
+    case SET_AI_TASKS:
       return {
         ...state,
         aiTasks: action.tasks,
