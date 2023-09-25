@@ -33,15 +33,15 @@ const GenerateTask = () => {
 
   return (
     <div>
-      {aiTasks ? (
-        <div>
-          <p>{JSON.stringify(aiTasks)}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+        {aiTasks ? (
+            <div>
+                <p>{aiTasks.text}</p>
+            </div>
+        ) : (
+            <p>Loading...</p>
+        )}
     </div>
-  );
+);
 };
 
 export default GenerateTask;
