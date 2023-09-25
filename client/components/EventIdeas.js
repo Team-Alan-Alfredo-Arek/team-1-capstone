@@ -27,15 +27,15 @@ const EventIdeas = () => {
 
   return (
     <div>
-      {aiResults ? (
-        <div>
-          <p>{JSON.stringify(aiResults)}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+        {aiResults ? (
+            <div>
+                <p>{aiResults.text}</p>
+            </div>
+        ) : (
+            <p>Loading...</p>
+        )}
     </div>
-  );
+);
 };
 
 export default EventIdeas;
