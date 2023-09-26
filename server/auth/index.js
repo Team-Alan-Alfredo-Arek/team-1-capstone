@@ -12,6 +12,8 @@ module.exports = () => {
     }
   });
 
+
+//AK need to adapt this to EMAIL
   router.post("/signup", async (req, res, next) => {
     try {
       const { username, password, email } = req.body;
@@ -20,7 +22,25 @@ module.exports = () => {
         return;
       }
       console.log("auth router.post signup", req.body)
-      const user = await User.create(req.body);
+      
+      // AK update to search for user based on email
+      //const user = await User.create(req.body);
+      const [user, created] = await User.findOrCreate({
+        where: { email: req.body.email },
+        defaults:{
+          email: req.body.email,
+        username: req.body.username,
+        password: req.body.password}  
+      });
+
+      if(!created) {
+        user.username = req.body.username,
+        user.password = req.body.password,
+        await user.save()
+
+        
+      }
+
       res.send({ token: await user.generateToken() });
     } catch (err) {
       if (err.name === "SequelizeUniqueConstraintError") {
@@ -30,6 +50,8 @@ module.exports = () => {
       }
     }
   });
+
+  
 
   router.get("/me", async (req, res, next) => {
     try {

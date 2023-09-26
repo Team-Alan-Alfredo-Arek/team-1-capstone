@@ -35,6 +35,21 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+
+//AK 
+// GET /api/users/:email
+router.get("/email/:email?", async (req, res) => {
+  try {
+    const user = await User.findAll({where: {
+      email: req.params.email,
+    }
+  })
+  console.log("user", user);
+  } catch (err) {
+
+  }
+});
+
 // POST /api/users
 router.post("/", async (req, res) => {
   try {
