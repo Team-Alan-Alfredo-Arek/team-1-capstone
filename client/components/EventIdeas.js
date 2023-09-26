@@ -25,17 +25,28 @@ const EventIdeas = () => {
     }
   }, [dispatch, id, event]);
 
+  // Function to fetch another AI result
+  const fetchAnotherResult = () => {
+    if (event) {
+      dispatch(fetchAIResults(event.name));
+    }
+  };
+
   return (
     <div>
+      <div className="aiContainer">
         {aiResults ? (
-            <div>
-                <p>{aiResults.text}</p>
-            </div>
+          <div>
+            <p>{aiResults.text}</p>
+          </div>
         ) : (
-            <p>Loading...</p>
+          <p>Loading...</p>
         )}
+      </div>
+      <button onClick={fetchAnotherResult}>Show Another</button>
     </div>
-);
+  );
 };
 
 export default EventIdeas;
+
