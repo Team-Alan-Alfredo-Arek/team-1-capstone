@@ -13,10 +13,10 @@ router.post("/event-ideas", async (req, res) => {
   try {
     const { event } = req.body;
 
-    const cachedData = myCache.get(`ai_results_${event}`);
-    if (cachedData) {
-      return res.json({ results: cachedData });
-    }
+    // const cachedData = myCache.get(`ai_results_${event}`);
+    // if (cachedData) {
+    //   return res.json({ results: cachedData });
+    // }
 
     const model = new OpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
@@ -25,7 +25,7 @@ router.post("/event-ideas", async (req, res) => {
     });
 
     const template =
-      "Provide event ideas for activities to do on the day of the event. in your response, please be contemporary, fun, in-depth but limit each description to 2 sentences. List 3 events that a group can take part in. Include a couple emojis in your response and add unique adjectives.\n Event: {event}";
+      "Provide event idea for activity to do on the day of the event. in your response, please be contemporary, fun, in-depth but limit each description to 2 sentences. List 1 event that a group can take part in. Include a couple emojis in your response and add unique adjectives.\n Event: {event}";
     const prompt = new PromptTemplate({ template, inputVariables: ["event"] });
     const chain = new LLMChain({ llm: model, prompt });
 
@@ -65,7 +65,7 @@ router.post("/generate-tasks", async (req, res) => {
 
     const prompt = new PromptTemplate({
       template:
-        " Based on the event \n Event: {event}, please generate a list of tasks that need to be done before, during and after the event. Make sure to specify the due date for each task. Make sure to respond neatly with proper spacing inbetween each task that you provide. Only list 3 tasks: Please see below for examples: \n 1. Task Name: Buy decorations for the event. Due Date: 11/20/2021",
+        " Based on the event \n Event: {event}, please generate a task that need to be done for the event. Make sure to specify the due date for the task. Make sure to keep the task concise and understandable. Only list 1 tasks",
       inputVariables: ["event"],
       partialVariables: { format_instructions: formatInstructions },
     });

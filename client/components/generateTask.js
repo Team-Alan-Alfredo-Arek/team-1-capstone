@@ -25,19 +25,20 @@ const GenerateTask = () => {
     }
   }, [dispatch, id, event]);
 
-  console.log("Rendering with aiTasks:", aiTasks);
-
   return (
     <div>
+      <div className="aiContainer">
         {aiTasks ? (
-            <div>
-                <p>{aiTasks.text}</p>
-            </div>
+          <div>
+            <p>{aiTasks.text}</p>
+          </div>
         ) : (
-            <p>Loading...</p>
+          <p>Loading...</p>
         )}
+      </div>
     </div>
-);
+  );
 };
 
 export default GenerateTask;
+
