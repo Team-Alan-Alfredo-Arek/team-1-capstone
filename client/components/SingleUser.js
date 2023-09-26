@@ -46,7 +46,7 @@ const SingleUser = (props) => {
     try {
       await dispatch(deleteUser(id));
       window.alert("User deleted successfully, redirecting to main page.");
-      history.push("/users"); // redirect to user list after deletion
+      history.push("/#/users"); // redirect to user list after deletion
     } catch (error) {
       window.alert("Failed to delete User.", error);
     }

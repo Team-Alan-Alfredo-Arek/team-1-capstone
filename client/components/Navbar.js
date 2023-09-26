@@ -12,20 +12,20 @@ const MyNavbar = ({ handleClick, isLoggedIn, isAdmin }) => (
       <Nav className="ml-auto">
         {isLoggedIn ? (
           <>
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/createevent">Create Event</Nav.Link>
-            <Nav.Link href="/events">Events</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            {isAdmin ? <Nav.Link href="/users">Users</Nav.Link> : null}
-            <Nav.Link href="#" onClick={handleClick}>
+            <Nav.Link href="/#/home">Home</Nav.Link>
+            <Nav.Link href="/#/createevent">Create Event</Nav.Link>
+            <Nav.Link href="/#/events">Events</Nav.Link>
+            <Nav.Link href="/#/profile">Profile</Nav.Link>
+            {isAdmin ? <Nav.Link href="/#/users">Users</Nav.Link> : null}
+            <Nav.Link href="/#" onClick={handleClick}>
               Logout
             </Nav.Link>
           </>
         ) : (
           <>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
+            <Nav.Link href="/#">Home</Nav.Link>
+            <Nav.Link href="/#/login">Login</Nav.Link>
+            <Nav.Link href="/#/signup">Sign Up</Nav.Link>
           </>
         )}
       </Nav>

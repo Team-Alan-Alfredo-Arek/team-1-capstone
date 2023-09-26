@@ -30,12 +30,13 @@ router.post("/", async (req, res, next) => {
       // Extract the first part of the email address (before the "@")
       const recipientName = recipient.split('@')[0];
 
+
       // Define your email message
       const mailOptions = {
         from: 'sahng.ho.koh@gmail.com', // Sender's email address
         to: recipient,                 // Individual recipient
         subject: `Hello ${recipientName}`, // Subject with recipient's name
-        text: `Hi ${recipientName},\n\nThis is a personalized email sent from PlanPerfect!\n, please register here: `
+        text: `Hi ${recipientName},\n\nThis is a personalized email sent from PlanPerfect!\n, please visit: "http://localhost:3000/#/signup/${recipient}"`
       };
 
       // Send the email

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 import { authenticate } from "../store";
 import {
   Container,
@@ -14,9 +14,13 @@ import {
 import { motion } from "framer-motion";
 import ContentComponent from "./ContentComponent";
 
+
+
+
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
-console.log("Authform propr",props)
+  let { emailParam } = useParams();
+  console.log("Authform email",emailParam)   
   return (
     <Container className="mt-5">
       <Row>
@@ -54,7 +58,7 @@ console.log("Authform propr",props)
                   {displayName==="Sign Up"?(
                   <Form.Group>
                     <Form.Label>Email Address</Form.Label>
-                    <Form.Control name="email" type="email" />
+                    <Form.Control name="email" type="email" value={emailParam}/>
                   </Form.Group>):(null)}
 
                   <div className="text-center">
@@ -114,6 +118,7 @@ const mapDispatch = (dispatch) => {
         alert("All fields are required.");
         return;
       }
+     
       dispatch(authenticate(username, password, email, formName));
     },
   };
