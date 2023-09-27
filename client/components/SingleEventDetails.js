@@ -153,7 +153,7 @@ const SingleEventDetails = () => {
           style={styles.chatButton}
           variant="warning"
           onClick={() => setChatOpen((prev) => !prev)}>
-          Message board
+          Chat board
         </Button>
 
         {/* Modals */}
