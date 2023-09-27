@@ -11,7 +11,6 @@ router.get("/:id", async (req, res, next) => {
 
     const chats = await Chat.findAll({
       where: {
-        userId: user.id,
         eventId: event.id,
       },
       include: [User, Event],

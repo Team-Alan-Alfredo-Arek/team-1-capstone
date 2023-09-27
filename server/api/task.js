@@ -29,14 +29,14 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const user = await User.findByToken(token);
-
+    const event = await Event.findByPk(req.params.id);
     const tasks = await Task.findAll({
       where: {
-        userId: user.id,
+        eventId: event.id,
       },
       include: [User, Event],
     });

@@ -59,9 +59,8 @@ export default function TaskComponent() {
   useEffect(() => {
     if (id) {
       dispatch(getSingleEventThunk(id));
+      dispatch(fetchTasks(id));
     }
-
-    dispatch(fetchTasks());
   }, [dispatch, id]);
 
   if (!event) return null;
@@ -126,29 +125,27 @@ export default function TaskComponent() {
         initial="hidden"
         animate="visible">
         <ListGroup>
-          {tasks
-            ?.filter((task) => task.user?.id === auth?.id)
-            .map((task) => (
-              <motion.div key={task.id} variants={item}>
-                <ListGroup.Item>
-                  {task?.name} ({task.description}) ({task.status}) (Start Date:{" "}
-                  {formatDate(task.startDate)}, Due Date:{" "}
-                  {formatDate(task.dueDate)})
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDeleteTask(task.id)}
-                    style={{ marginLeft: "10px" }}>
-                    Delete
-                  </Button>
-                  <Button
-                    variant="info"
-                    onClick={() => handleEditTaskClick(task)}
-                    style={{ marginLeft: "10px" }}>
-                    Edit
-                  </Button>
-                </ListGroup.Item>
-              </motion.div>
-            ))}
+          {tasks?.map((task) => (
+            <motion.div key={task.id} variants={item}>
+              <ListGroup.Item>
+                {task?.name} ({task.description}) ({task.status}) (Start Date:{" "}
+                {formatDate(task.startDate)}, Due Date:{" "}
+                {formatDate(task.dueDate)})
+                <Button
+                  variant="danger"
+                  onClick={() => handleDeleteTask(task.id)}
+                  style={{ marginLeft: "10px" }}>
+                  Delete
+                </Button>
+                <Button
+                  variant="info"
+                  onClick={() => handleEditTaskClick(task)}
+                  style={{ marginLeft: "10px" }}>
+                  Edit
+                </Button>
+              </ListGroup.Item>
+            </motion.div>
+          ))}
         </ListGroup>
       </motion.div>
 

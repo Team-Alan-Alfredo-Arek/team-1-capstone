@@ -64,10 +64,10 @@ export const removeTask = (tasks) => (dispatch) => {
     .then(() => dispatch(deleteTask(tasks?.id)))
     .catch((err) => console.log(err));
 };
-export const fetchTasks = () => {
+export const fetchTasks = (id) => {
   return async (dispatch) => {
     const token = window.localStorage.getItem(TOKEN);
-    const res = await axios.get("/api/task", {
+    const res = await axios.get(`/api/task/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

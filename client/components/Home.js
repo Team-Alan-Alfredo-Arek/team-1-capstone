@@ -15,10 +15,6 @@ const Home = (props) => {
     dispatch(fetchTasks());
   }, [dispatch]);
 
-  const handleLogout = () => {
-    logout();
-  };
-
   return (
     <Container className="mt-5 tilt-background">
       <Row className="justify-content-center hero-section">
