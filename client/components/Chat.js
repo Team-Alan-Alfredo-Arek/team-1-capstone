@@ -117,7 +117,7 @@ function ChatComponent() {
           {chatOpen && (
             <div style={styles.chatContainer}>
               <div style={styles.chatHeader}>
-                Chat with Crew
+                Message board
                 <span
                   style={{ float: "right", cursor: "pointer" }}
                   onClick={() => setChatOpen(false)}>
