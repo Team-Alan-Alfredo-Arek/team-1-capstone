@@ -14,6 +14,25 @@ body {
   padding: 1rem 0;
 }
 
+.navbar.gradient-custom .navbar-brand {
+  color: white;
+  /* Make the text color white for visibility against gradient */
+  font-weight: bold;
+  /* Make it bold */
+  font-size: 28px;
+  /* Adjust size */
+  letter-spacing: 1.5px;
+  /* Add some letter spacing for style */
+  transition: color 0.3s;
+  /* Smooth transition for hover effects */
+}
+
+.navbar.gradient-custom .navbar-brand:hover {
+  color: #EEE;
+  /* Change color slightly on hover for interactive feel */
+}
+
+
 /* ==== GRADIENT STYLES ==== */
 .gradient-custom {
   background: linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
@@ -158,7 +177,7 @@ h1.gradient-custom {
 .loader {
   border: 0.3em solid linear-gradient(to right, rgba(250, 112, 154, 0.7), rgba(254, 225, 64, 0.7));
   border-radius: 50%;
-  border-top: 0.3em solid #000;
+  border-top: 0.3em solid rgba(250, 112, 154, 0.7);
   width: 2rem;
   height: 2rem;
   animation: spin 1s linear infinite;
