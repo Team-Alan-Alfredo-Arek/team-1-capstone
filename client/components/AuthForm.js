@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { authenticate } from "../store";
 import {
   Container,
@@ -14,13 +14,10 @@ import {
 import { motion } from "framer-motion";
 import ContentComponent from "./ContentComponent";
 
-
-
-
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
   let { emailParam } = useParams();
-  console.log("Authform email",emailParam)   
+  console.log("Authform email", emailParam);
   return (
     <Container className="mt-5">
       <Row>
@@ -42,8 +39,7 @@ const AuthForm = (props) => {
                 restDelta: 0.01,
               },
             }}>
-            <Card>
-              <Card.Header className="text-center">{displayName}</Card.Header>
+            <Card style={{ alignContent: "center" }}>
               <Card.Body>
                 <Form onSubmit={handleSubmit} name={name}>
                   <Form.Group>
@@ -55,11 +51,16 @@ const AuthForm = (props) => {
                     <Form.Control name="password" type="password" />
                   </Form.Group>
                   {/* AK adding Email IFF signing up */}
-                  {displayName==="Sign Up"?(
-                  <Form.Group>
-                    <Form.Label>Email Address</Form.Label>
-                    <Form.Control name="email" type="email" value={emailParam}/>
-                  </Form.Group>):(null)}
+                  {displayName === "Sign Up" ? (
+                    <Form.Group>
+                      <Form.Label>Email Address</Form.Label>
+                      <Form.Control
+                        name="email"
+                        type="email"
+                        value={emailParam}
+                      />
+                    </Form.Group>
+                  ) : null}
 
                   <div className="text-center">
                     <Button type="submit" className="custom-button-color mr-2">
@@ -80,9 +81,6 @@ const AuthForm = (props) => {
               </Card.Body>
             </Card>
           </motion.div>
-        </Col>
-        <Col md={6}>
-          <ContentComponent />
         </Col>
       </Row>
     </Container>
@@ -111,14 +109,14 @@ const mapDispatch = (dispatch) => {
       evt.preventDefault();
       const formName = evt.target.name; //AK 'Login' or Signup'
       const username = evt.target.username.value;
-      const password = evt.target.password.value
-      const email = evt.target.email? evt.target.email.value : null;
+      const password = evt.target.password.value;
+      const email = evt.target.email ? evt.target.email.value : null;
 
-      if (!username || !password ||(!email && formName===Signup)) {
+      if (!username || !password || (!email && formName === Signup)) {
         alert("All fields are required.");
         return;
       }
-     
+
       dispatch(authenticate(username, password, email, formName));
     },
   };
